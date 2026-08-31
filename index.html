@@ -503,469 +503,6 @@
             <i data-lucide="skip-forward" class="w-5 h-5"></i>
           </button>
         </div>
-        <div class="w-full flex items-center gap-2 text-[10px] font-mono text-slate-<!DOCTYPE html>
-<html lang="uz" dir="ltr" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Islamic Official — Ma'rifat va Hidoiyat Portali</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#ecfdf5',
-              100: '#d1fae5',
-              600: '#059669',
-              700: '#047857',
-              800: '#046a38',
-              900: '#064e3b',
-            },
-            gold: {
-              400: '#fbbf24',
-              500: '#f59e0b',
-              600: '#d97706',
-            }
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            arabic: ['Amiri', 'serif']
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Custom CSS link -->
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
-
-  <!-- ================= TOPBAR ================= -->
-  <div class="bg-[#046a38] dark:bg-slate-950 text-white text-xs sm:text-sm py-2.5 px-4 shadow-sm border-b border-emerald-800/50">
-    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
-      
-      <!-- Sana va Joylashuv -->
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-1.5 bg-emerald-900/60 dark:bg-slate-800 px-3 py-1 rounded-full border border-emerald-700/40">
-          <i data-lucide="calendar" class="w-3.5 h-3.5 text-gold-400"></i>
-          <span id="hijriDateText" class="font-medium">18-Rabi'ul-avval, 1448</span>
-        </div>
-        <div class="flex items-center gap-1.5 text-emerald-100">
-          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-300"></i>
-          <span id="userLocationText" class="font-normal">Aniqlanmoqda...</span>
-          <button onclick="detectUserLocation()" class="hover:text-white transition ml-1" title="Joylashuvni yangilash">
-            <i data-lucide="refresh-cw" class="w-3 h-3"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- O'ng tomon: Rejim va Tillarni almashtirish -->
-      <div class="flex items-center gap-4">
-        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-1.5 rounded-lg bg-emerald-900/50 hover:bg-emerald-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-emerald-100 transition flex items-center gap-1.5" title="Rejimni o'zgartirish">
-          <i id="themeIconSun" data-lucide="sun" class="w-4 h-4 hidden"></i>
-          <i id="themeIconMoon" data-lucide="moon" class="w-4 h-4"></i>
-        </button>
-
-        <div class="relative flex items-center">
-          <i data-lucide="globe" class="w-4 h-4 absolute left-2 text-emerald-300 pointer-events-none"></i>
-          <select id="languageSelect" onchange="changeLanguage(this.value)" class="bg-emerald-900/80 dark:bg-slate-800 border border-emerald-700/60 dark:border-slate-700 text-white rounded-lg pl-7 pr-8 py-1 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-gold-400 cursor-pointer appearance-none">
-            <option value="uz">O'zbekcha</option>
-            <option value="ky">Кыргызча</option>
-            <option value="ru">Русский</option>
-            <option value="en">English</option>
-            <option value="ar">العربية</option>
-          </select>
-          <i data-lucide="chevron-down" class="w-3.5 h-3.5 absolute right-2 text-emerald-300 pointer-events-none"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= HEADER VA NAVIGATSIYA ================= -->
-  <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 shadow-sm transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-      
-      <!-- LOGOTIP -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 bg-brand-800 dark:bg-emerald-700 rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-105 transition duration-300">
-          <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" rx="24" fill="#047857"/>
-            <path d="M50 20C33.4315 20 20 33.4315 20 50C20 66.5685 33.4315 80 50 80C56.2 80 61.9 78.1 66.6 74.9C60 74.2 54.8 68.6 54.8 61.8C54.8 54.4 60.8 48.4 68.2 48.4C71.3 48.4 74.1 49.5 76.4 51.3C78.7 45.4 79.5 38.8 77.8 32.2C74.5 25.1 66.8 20 50 20Z" fill="white"/>
-            <circle cx="68" cy="36" r="6" fill="#FACC15"/>
-          </svg>
-        </div>
-        <div class="flex flex-col">
-          <span class="text-xl font-extrabold tracking-tight text-brand-800 dark:text-emerald-400">ISLAMIC<span class="text-gold-500">.OFFICIAL</span></span>
-          <span class="text-[10px] tracking-widest text-slate-400 uppercase font-semibold" data-i18n="tagline">Ma'rifat Maskani</span>
-        </div>
-      </a>
-
-      <!-- DESKTOP NAVIGATSIYA -->
-      <nav class="hidden lg:flex items-center gap-7 font-semibold text-slate-700 dark:text-slate-200 text-sm">
-        <a href="#home" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_home">Bosh sahifa</a>
-        <a href="#quran" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_quran">Qur'oni Karim</a>
-        <a href="#dhikr" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_dhikr">Zikr va Duolar</a>
-        <a href="#articles" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_articles">Maqolalar</a>
-        <a href="#books" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_books">Kitoblar</a>
-        <a href="#apps" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_apps">Ilovalarimiz</a>
-      </nav>
-
-      <!-- ACTION TUGMALAR -->
-      <div class="hidden sm:flex items-center gap-3">
-        <button onclick="openPrayerModal()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-brand-800 dark:text-emerald-400 transition border border-slate-200 dark:border-slate-700 flex items-center gap-2 text-xs font-semibold" title="Namoz vaqtlarini ko'rish">
-          <i data-lucide="clock" class="w-4 h-4"></i>
-          <span data-i18n="prayer_times_btn">Namoz Vaqtlari</span>
-        </button>
-
-        <button onclick="openAdminModal()" class="p-2.5 rounded-xl bg-brand-800 hover:bg-brand-700 text-white transition font-semibold text-xs flex items-center gap-2 shadow-sm">
-          <i data-lucide="user-check" class="w-4 h-4"></i>
-          <span data-i18n="admin_btn">Kabinet</span>
-        </button>
-      </div>
-
-      <!-- MOBILE HAMBURGER -->
-      <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
-        <i data-lucide="menu" class="w-6 h-6"></i>
-      </button>
-
-    </div>
-  </header>
-
-  <!-- ================= MOBILE MENU ================= -->
-  <div id="mobileMenu" class="hidden lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-3 pb-6 space-y-3 transition-all duration-300">
-    <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_home">Bosh sahifa</a>
-    <a href="#quran" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_quran">Qur'oni Karim</a>
-    <a href="#dhikr" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_dhikr">Zikr va Duolar</a>
-    <a href="#articles" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_articles">Maqolalar</a>
-    <a href="#books" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_books">Kitoblar</a>
-    <a href="#apps" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_apps">Ilovalarimiz</a>
-    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex gap-2">
-      <button onclick="openPrayerModal(); toggleMobileMenu()" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-brand-800 dark:text-emerald-400 text-xs font-semibold flex items-center justify-center gap-2">
-        <i data-lucide="clock" class="w-4 h-4"></i>
-        <span data-i18n="prayer_times_btn">Namoz Vaqtlari</span>
-      </button>
-      <button onclick="openAdminModal(); toggleMobileMenu()" class="flex-1 py-2.5 px-4 rounded-xl bg-brand-800 text-white text-xs font-semibold flex items-center justify-center gap-2">
-        <i data-lucide="user-check" class="w-4 h-4"></i>
-        <span data-i18n="admin_btn">Kabinet</span>
-      </button>
-    </div>
-  </div>
-
-  <main class="flex-grow">
-    
-    <!-- ================= HERO BANNER SECTION ================= -->
-    <section id="home" class="relative bg-gradient-to-b from-brand-50 via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 py-16 lg:py-24 overflow-hidden">
-      <div class="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none flex items-center justify-center">
-        <svg width="800" height="800" viewBox="0 0 100 100" fill="currentColor" class="text-brand-900 dark:text-emerald-300">
-          <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="0.5" fill="none"/>
-          <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="0.5" fill="none"/>
-          <path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" stroke="currentColor" stroke-width="0.3"/>
-        </svg>
-      </div>
-
-      <div class="max-w-7xl mx-auto px-4 relative z-10">
-        <div class="text-center max-w-3xl mx-auto space-y-6">
-          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-brand-800 dark:text-emerald-300 text-xs font-semibold border border-emerald-200 dark:border-emerald-800/60 shadow-sm">
-            <i data-lucide="sparkles" class="w-4 h-4 text-gold-500"></i>
-            <span data-i18n="hero_badge">Bismillahir Rohmanir Rohiym</span>
-          </div>
-
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-            <span data-i18n="hero_title_1">Ilm va Ma'rifat</span> <br>
-            <span class="text-brand-800 dark:text-emerald-400" data-i18n="hero_title_2">Yagona Portalda</span>
-          </h1>
-
-          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 font-normal leading-relaxed" data-i18n="hero_description">
-            Sahih manbalarga asoslangan islomiy ma'lumotlar, Qur'oni Karim suralari, zikrlar hamda foydali mobil dasturlar jamlangan rasmiy platforma.
-          </p>
-
-          <div class="flex flex-wrap justify-center gap-4 pt-2">
-            <a href="#quran" class="px-7 py-3.5 rounded-xl bg-brand-800 hover:bg-brand-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-900/20 flex items-center gap-2">
-              <i data-lucide="book-open" class="w-4 h-4"></i>
-              <span data-i18n="btn_read_quran">Qur'on O'qish</span>
-            </a>
-            <a href="#dhikr" class="px-7 py-3.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-200 dark:border-slate-700 transition shadow-sm flex items-center gap-2">
-              <i data-lucide="disc" class="w-4 h-4 text-gold-500"></i>
-              <span data-i18n="btn_open_tasbeeh">Onlayn Tasbeh</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= NAMOZ VAQTLARI MAIN BLOCK ================= -->
-    <section class="max-w-7xl mx-auto px-4 -mt-6 relative z-20 mb-16">
-      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-700/80 p-6 sm:p-8 transition-colors duration-300">
-        
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-700/60">
-          <div>
-            <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <i data-lucide="clock" class="w-5 h-5 text-brand-800 dark:text-emerald-400"></i>
-              <span data-i18n="prayer_section_title">Bugungi Namoz Vaqtlari</span>
-            </h2>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              <span data-i18n="location_label">Hudud:</span> <strong id="prayerLocationName" class="text-slate-700 dark:text-slate-200">Aniqlanmoqda...</strong>
-            </p>
-          </div>
-          <div class="text-right">
-            <span id="nextPrayerCountdown" class="inline-block bg-emerald-50 dark:bg-emerald-950/60 text-brand-800 dark:text-emerald-300 font-mono text-xs px-3 py-1.5 rounded-lg font-bold border border-emerald-200 dark:border-emerald-800">
-              Keyingi namozga: --:--:--
-            </span>
-          </div>
-        </div>
-
-        <!-- Kartochkalar -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" id="prayerTimesGrid">
-          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="fajr">Bamdod</span>
-            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeFajr">--:--</span>
-          </div>
-          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="sunrise">Quyosh</span>
-            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeSunrise">--:--</span>
-          </div>
-          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="dhuhr">Peshin</span>
-            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeDhuhr">--:--</span>
-          </div>
-          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="asr">Asr</span>
-            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeAsr">--:--</span>
-          </div>
-          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="maghrib">Shom</span>
-            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeMaghrib">--:--</span>
-          </div>
-          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="isha">Xufton</span>
-            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeIsha">--:--</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= QUR'ONI KARIM SECTION ================= -->
-    <section id="quran" class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
-          <div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" data-i18n="quran_title">
-              Qur'oni Karim Suralari
-            </h2>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mt-2" data-i18n="quran_subtitle">
-              Suralarni matn va audio holida tinglash hamda mutolaa qilish bo'limi
-            </p>
-          </div>
-          <div class="relative w-full md:w-72">
-            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
-            <input type="text" id="surahSearchInput" onkeyup="filterSurahs()" placeholder="Sura nomi yoki raqami..." data-i18n-placeholder="search_surah_ph" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-800">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="surahListContainer">
-          <div class="col-span-full text-center py-12 text-slate-400">
-            <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-2 text-brand-800 dark:text-emerald-400"></i>
-            <span data-i18n="loading_surahs">Suralar ro'yxati yuklanmoqda...</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= ONLAYN TASBEH ================= -->
-    <section id="dhikr" class="py-16 bg-slate-50 dark:bg-slate-950/50 border-t border-slate-200/60 dark:border-slate-800">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" data-i18n="dhikr_title">
-            Onlayn Tasbeh va Zikrlar
-          </h2>
-          <p class="text-slate-500 dark:text-slate-400 text-sm mt-2" data-i18n="dhikr_subtitle">
-            Kunning ixtiyoriy vaqtida zikr va salovotlarni o'ng va qulay raqamli tasbehda sanab boring
-          </p>
-        </div>
-
-        <div class="max-w-md mx-auto bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200/80 dark:border-slate-800 text-center relative overflow-hidden">
-          <div class="mb-6">
-            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2" data-i18n="select_dhikr_label">Zikr turini tanlang</label>
-            <select id="dhikrSelect" onchange="changeDhikrText()" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-semibold text-brand-800 dark:text-emerald-400 focus:outline-none focus:ring-2 focus:ring-brand-800">
-              <option value="SubhanAllah">SubhanAllah (سُبْحَانَ اللَّهِ)</option>
-              <option value="Alhamdulillah">Alhamdulillah (الْحَمْدُ لِلَّهِ)</option>
-              <option value="Allahu Akbar">Allahu Akbar (اللَّهُ أَكْبَرُ)</option>
-              <option value="La ilaha illallah">La ilaha illallah (لَا إِلٰهَ إِلَّا اللَّهُ)</option>
-              <option value="Astaghfirullah">Astaghfirullah (أَسْتَغْفِرُ اللَّهَ)</option>
-              <option value="Salavat">Allahumma Salli Ala Muhammad (اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ)</option>
-            </select>
-          </div>
-
-          <div class="min-h-[70px] flex flex-col justify-center mb-6">
-            <h3 id="currentDhikrArabic" class="text-2xl font-arabic font-bold text-slate-800 dark:text-slate-100">سُبْحَانَ اللَّهِ</h3>
-            <p id="currentDhikrTranslation" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Allah aybu nuqsondan pokdir</p>
-          </div>
-
-          <div class="relative w-44 h-44 mx-auto mb-6">
-            <button onclick="incrementDhikrCount()" class="w-full h-full rounded-full bg-gradient-to-b from-emerald-600 to-brand-800 dark:from-emerald-500 dark:to-emerald-700 text-white shadow-2xl shadow-emerald-900/40 active:scale-95 transition-transform duration-150 flex flex-col items-center justify-center border-4 border-emerald-400/30">
-              <span id="dhikrCounterDisplay" class="text-5xl font-extrabold font-mono tracking-wider">0</span>
-              <span class="text-[10px] uppercase tracking-widest text-emerald-200 font-medium mt-1" data-i18n="tap_to_count">Bosing</span>
-            </button>
-          </div>
-
-          <div class="flex items-center justify-between text-xs font-medium text-slate-500 border-t border-slate-100 dark:border-slate-800 pt-4">
-            <div class="flex items-center gap-2">
-              <span data-i18n="target_label">Maqsad:</span>
-              <span id="dhikrTargetDisplay" class="font-bold text-slate-800 dark:text-slate-200">33</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <button onclick="toggleDhikrSound()" id="dhikrSoundBtn" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-brand-800" title="Ovoz / Vibratsiya">
-                <i data-lucide="volume-2" class="w-4 h-4"></i>
-              </button>
-              <button onclick="resetDhikrCount()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/50" title="Qayta boshlash">
-                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= MAQOLALAR SECTION ================= -->
-    <section id="articles" class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
-          <div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" data-i18n="articles_title">
-              Ma'rifiy Maqolalar va Hikmatlar
-            </h2>
-            <p class="text-slate-500 dark:text-slate-400 text-sm mt-2" data-i18n="articles_subtitle">
-              Dolzarb islomiy mavzular, odob-axloq va hayotiy o'gitlar
-            </p>
-          </div>
-
-          <button id="addArticleAdminBtn" onclick="openCreateArticleModal()" class="hidden px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-2 shadow-sm">
-            <i data-lucide="plus-circle" class="w-4 h-4"></i>
-            <span data-i18n="btn_add_article">Yangi Maqola Yozish</span>
-          </button>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articlesGridContainer">
-          <div class="col-span-full text-center py-12 text-slate-400">
-            <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-2 text-brand-800 dark:text-emerald-400"></i>
-            <span data-i18n="loading_articles">Maqolalar yuklanmoqda...</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= KITOBLAR SECTION ================= -->
-    <section id="books" class="py-16 bg-slate-50 dark:bg-slate-950/50 border-t border-slate-200/60 dark:border-slate-800">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" data-i18n="books_title">
-            Mano'viy va Diniy Kitoblar
-          </h2>
-          <p class="text-slate-500 dark:text-slate-400 text-sm mt-2" data-i18n="books_subtitle">
-            Muteber va ishonchli islomiy adabiyotlar to'plami
-          </p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="booksGridContainer"></div>
-      </div>
-    </section>
-
-    <!-- ================= ILOVALARIMIZ SECTION ================= -->
-    <section id="apps" class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" data-i18n="apps_title">
-            Mobil Ilovalarimiz Ekotizimi
-          </h2>
-          <p class="text-slate-500 dark:text-slate-400 text-sm mt-2" data-i18n="apps_subtitle">
-            Kundalik islomiy amallaringizni qulay va zamonaviy mobil ilovalar orqali bajaring
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div class="bg-gradient-to-br from-emerald-900 to-brand-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between relative overflow-hidden group">
-            <div class="relative z-10">
-              <div class="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 border border-white/20">
-                <i data-lucide="disc" class="w-7 h-7 text-gold-400"></i>
-              </div>
-              <h3 class="text-2xl font-bold mb-2">Zikr App</h3>
-              <p class="text-emerald-100 text-sm leading-relaxed mb-6">
-                Kundalik zikrlar, saqlanadigan tasbeh ko'rsatkichlari, namoz vaqtlari va bildirishnomalarga ega mukammal mobil yordamchingiz.
-              </p>
-            </div>
-            <div class="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between">
-              <span class="text-xs bg-emerald-500/30 text-emerald-200 px-3 py-1 rounded-full font-medium" data-i18n="status_active">Mavjud</span>
-              <a href="https://play.google.com/store/apps/details?id=com.zikr.zkr&pcampaaignid=web_share" class="px-5 py-2.5 rounded-xl bg-white text-brand-900 font-bold text-xs hover:bg-gold-400 transition flex items-center gap-2">
-                <i data-lucide="download" class="w-4 h-4"></i>
-                <span>Google Play</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-slate-800 to-slate-900 dark:from-slate-800 dark:to-slate-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between relative overflow-hidden border border-slate-700">
-            <div class="relative z-10">
-              <div class="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mb-6 border border-white/10">
-                <i data-lucide="smartphone" class="w-7 h-7 text-emerald-400"></i>
-              </div>
-              <h3 class="text-2xl font-bold mb-2">Islamic Official Rasmiy App</h3>
-              <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                Portalning to'liq mobil versiyasi. Suralar offline audio tinglash, maqolalar va aqlli sun'iy intellekt yordamchisi bilan birga.
-              </p>
-            </div>
-            <div class="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between">
-              <span class="text-xs bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full font-medium" data-i18n="status_coming_soon">Tez Kunda</span>
-              <button disabled class="px-5 py-2.5 rounded-xl bg-slate-700 text-slate-400 font-bold text-xs cursor-not-allowed flex items-center gap-2">
-                <i data-lucide="clock" class="w-4 h-4"></i>
-                <span data-i18n="btn_in_development">Jarayonda</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ================= STICKY AUDIO PLAYER ================= -->
-  <div id="stickyAudioPlayer" class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 shadow-2xl z-40 transform translate-y-full transition-transform duration-300 px-4 py-3">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-      
-      <div class="flex items-center gap-3 w-1/3">
-        <div class="w-10 h-10 rounded-xl bg-brand-800 text-white flex items-center justify-center font-bold text-xs shrink-0" id="playerSurahNumber">
-          01
-        </div>
-        <div class="truncate">
-          <h4 id="playerSurahName" class="text-sm font-bold text-slate-900 dark:text-white truncate">Al-Fotiha</h4>
-          <p id="playerReciterName" class="text-xs text-slate-500 dark:text-slate-400 truncate">Mishary Rashid Alafasy</p>
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <div class="flex flex-col items-center gap-1 w-1/3">
-        <div class="flex items-center gap-4">
-          <button onclick="playPreviousSurah()" class="text-slate-500 hover:text-slate-800 dark:hover:text-white transition">
-            <i data-lucide="skip-back" class="w-5 h-5"></i>
-          </button>
-          <button onclick="togglePlayAudio()" id="mainPlayBtn" class="w-10 h-10 rounded-full bg-brand-800 dark:bg-emerald-600 text-white flex items-center justify-center hover:scale-105 transition">
-            <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5" id="mainPlayIcon"></i>
-          </button>
-          <button onclick="playNextSurah()" class="text-slate-500 hover:text-slate-800 dark:hover:text-white transition">
-            <i data-lucide="skip-forward" class="w-5 h-5"></i>
-          </button>
-        </div>
         <div class="w-full flex items-center gap-2 text-[10px] font-mono text-slate-400">
           <span id="audioCurrentTime">00:00</span>
           <input type="range" id="audioProgressBar" value="0" min="0" max="100" class="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-800">
@@ -987,12 +524,15 @@
 
   <!-- ================= FLOATING AI CHAT WIDGET ================= -->
   <div class="fixed bottom-6 right-6 z-50">
+    <!-- Chat Icon Button -->
     <button onclick="toggleAiChatModal()" class="w-14 h-14 rounded-full bg-brand-800 hover:bg-brand-700 text-white shadow-2xl flex items-center justify-center transition-transform hover:scale-110 active:scale-95 border-2 border-gold-400/40" title="AI Islomiy Yordamchi">
       <i data-lucide="bot" class="w-7 h-7"></i>
     </button>
 
+    <!-- AI Chat Window -->
     <div id="aiChatWindow" class="hidden absolute bottom-16 right-0 w-[90vw] sm:w-[380px] h-[500px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden transition-all duration-300">
       
+      <!-- Header -->
       <div class="bg-brand-800 p-4 text-white flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
@@ -1008,12 +548,14 @@
         </button>
       </div>
 
+      <!-- Chat Messages Box -->
       <div id="aiChatMessages" class="flex-grow p-4 space-y-3 overflow-y-auto text-xs">
         <div class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed">
           Assalomu alaykum! Men islamicofficial.com ning aqlli AI yordamchisiman. Qur'on suralari, duolar yoki manbalar bo'yicha savollaringiz bo'lsa, marhamat so'rang!
         </div>
       </div>
 
+      <!-- Chat Input Box -->
       <form onsubmit="handleAiChatSubmit(event)" class="p-3 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex gap-2">
         <input type="text" id="aiChatInput" placeholder="Savolingizni yozing..." class="flex-grow bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-800">
         <button type="submit" class="px-3.5 py-2 bg-brand-800 text-white rounded-xl hover:bg-brand-700 transition">
@@ -1026,7 +568,7 @@
 
   <!-- ================= MODALLAR ================= -->
 
-  <!-- Modal 1: Namoz vaqtlari jadvali -->
+  <!-- Modal 1: Namoz vaqtlari to'liq jadvali (Popup) -->
   <div id="prayerModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative">
       <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -1039,11 +581,13 @@
         </button>
       </div>
       <p class="text-xs text-slate-500 mb-4">Ushbu jadval avtomatik aniqlangan manzilingiz bo'yicha hisoblangan.</p>
-      <div class="max-h-80 overflow-y-auto text-xs" id="monthlyPrayerTableContainer"></div>
+      <div class="max-h-80 overflow-y-auto text-xs" id="monthlyPrayerTableContainer">
+        <!-- JS orqali to'ldiriladi -->
+      </div>
     </div>
   </div>
 
-  <!-- Modal 2: Admin Kirish Oynasi -->
+  <!-- Modal 2: Admin Kirish Oynasi (Firebase Auth) -->
   <div id="adminAuthModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative">
       <div class="flex justify-between items-center mb-6">
@@ -1068,28 +612,77 @@
     </div>
   </div>
 
-  <!-- Modal 3: Yangi Maqola Yozish Oynasi -->
-  <div id="createArticleModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative max-h-[90vh] overflow-y-auto">
+ <!-- Modal 3: Yangi Maqola Yozish Oynasi -->
+<div id="createArticleModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative max-h-[90vh] overflow-y-auto">
+    
+    <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+      <h3 class="text-lg font-bold text-slate-900 dark:text-white">Yangi Maqola Chop Etish</h3>
+      <button onclick="closeCreateArticleModal()" class="text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <form onsubmit="handleArticleSubmit(event)" class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Sarlavhasi</label>
+        <input type="text" id="articleTitleInput" required placeholder="Masalan: Sabrning islomdagi fazilati" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+      </div>
       
-      <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
-        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Yangi Maqola Chop Etish</h3>
-        <button onclick="closeCreateArticleModal()" class="text-slate-400 hover:text-slate-600">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+      <div>
+        <label class="block text-xs font-semibold text-slate-500 mb-1">Muallif</label>
+        <input type="text" id="articleAuthorInput" required placeholder="Abdulloh" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
       </div>
 
+      <div>
+        <label class="block text-xs font-semibold text-slate-500 mb-1">Kategoriya</label>
+        <select id="articleCategoryInput" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+          <option value="Odob-axloq">Odob-axloq</option>
+          <option value="Aqida">Aqida</option>
+          <option value="Fiqh">Fiqh</option>
+          <option value="Tafsir">Tafsir</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-500 mb-1">Rasm (URL manbasi yoki fayl)</label>
+        <div class="flex gap-2">
+          <input type="text" id="articleImageInput" placeholder="https://example.com/image.jpg" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+          <input type="file" id="articleImageFile" accept="image/*" onchange="encodeImageFileAsURL(this)" class="hidden">
+          <button type="button" onclick="document.getElementById('articleImageFile').click()" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-300 transition whitespace-nowrap">Fayl tanlash</button>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Matni (HTML/Text)</label>
+        <textarea id="articleContentInput" rows="6" required placeholder="Maqolangiz matnini beraverasiz..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800"></textarea>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button type="button" onclick="closeCreateArticleModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold">Bekor qilish</button>
+        <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-700 transition">Chop etish</button>
+      </div>
+    </form>
+  </div>
+</div>
+      <!-- Kategoriya tagiga shuni qo'shasiz -->
+<div>
+  <label class="block text-xs font-semibold text-slate-500 mb-1">Rasm (URL manbasi yoki fayl)</label>
+  <div class="flex gap-2">
+    <input type="text" id="articleImageInput" placeholder="https://example.com/image.jpg" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+    <input type="file" id="articleImageFile" accept="image/*" onchange="encodeImageFileAsURL(this)" class="hidden">
+    <button type="button" onclick="document.getElementById('articleImageFile').click()" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-300 transition whitespace-nowrap">Fayl tanlash</button>
+  </div>
+</div>
       <form onsubmit="handleArticleSubmit(event)" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Sarlavhasi</label>
           <input type="text" id="articleTitleInput" required placeholder="Masalan: Sabrning islomdagi fazilati" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
         </div>
-        
         <div>
           <label class="block text-xs font-semibold text-slate-500 mb-1">Muallif</label>
           <input type="text" id="articleAuthorInput" required placeholder="Abdulloh" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
         </div>
-
         <div>
           <label class="block text-xs font-semibold text-slate-500 mb-1">Kategoriya</label>
           <select id="articleCategoryInput" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
@@ -1099,21 +692,10 @@
             <option value="Tafsir">Tafsir</option>
           </select>
         </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Rasm (URL manbasi yoki fayl)</label>
-          <div class="flex gap-2">
-            <input type="text" id="articleImageInput" placeholder="https://example.com/image.jpg" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-            <input type="file" id="articleImageFile" accept="image/*" onchange="encodeImageFileAsURL(this)" class="hidden">
-            <button type="button" onclick="document.getElementById('articleImageFile').click()" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-300 transition whitespace-nowrap">Fayl tanlash</button>
-          </div>
-        </div>
-
         <div>
           <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Matni (HTML/Text)</label>
           <textarea id="articleContentInput" rows="6" required placeholder="Maqolangiz matnini beraverasiz..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800"></textarea>
         </div>
-
         <div class="flex justify-end gap-3 pt-2">
           <button type="button" onclick="closeCreateArticleModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold">Bekor qilish</button>
           <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-700 transition">Chop etish</button>
@@ -1162,12 +744,14 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Lucide Icons Render Init Script -->
   <script>
     lucide.createIcons();
   </script>
+
+  <!-- Keyingi JS fayllar ulanishi -->
   <script src="languages.js"></script>
-  <script src="firebase-config.js"></script>
   <script src="app.js"></script>
+  <script src="firebase-config.js"></script>
 </body>
 </html>
