@@ -378,10 +378,15 @@ function encodeImageFileAsURL(element) {
     }
 }
 
-// Maqolalarni chiroyli dizaynda chiqarish namunasi
+// Maqolalarni chiroyli dizaynda ekranga chiqarish
 function renderArticles(articlesArray) {
     const container = document.getElementById('articlesGridContainer');
     container.innerHTML = "";
+
+    if (!articlesArray || articlesArray.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">Hozircha maqolalar mavjud emas.</div>`;
+        return;
+    }
 
     articlesArray.forEach((article, index) => {
         container.innerHTML += `
@@ -399,11 +404,16 @@ function renderArticles(articlesArray) {
                             <span class="flex items-center gap-1"><i data-lucide="eye" class="w-3 h-3"></i>${article.views || 0}</span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 line-clamp-2">${article.title}</h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">${article.content}</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mb-3">${article.content}</p>
+                        
+                        <!-- Batafsil o'qish tugmasi (Uzun maqolalar uchun) -->
+                        <button onclick="openFullArticle(${index})" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1">
+                            Batafsil o'qish <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Pastki qism: Like/Dislike va Tahrirlash -->
+                <!-- Pastki qism: Like, Dislike, Tahrirlash va O'chirish -->
                 <div class="p-5 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-700/60 mt-4">
                     <div class="flex items-center gap-2">
                         <button onclick="likeArticle(${index})" class="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 transition">
@@ -414,98 +424,61 @@ function renderArticles(articlesArray) {
                         </button>
                     </div>
                     
-                    <!-- Tahrirlash tugmasi (Faqat admin uchun ko'rinadi) -->
-                    <button onclick="editArticle(${index})" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-brand-800 hover:text-white transition" title="Tahrirlash">
-                        <i data-lucide="edit-3" class="w-4 h-4"></i>
-                    </button>
+                    <div class="flex items-center gap-1">
+                        <!-- Tahrirlash -->
+                        <button onclick="editArticle(${index})" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-brand-800 hover:text-white transition" title="Tahrirlash">
+                            <i data-lucide="edit-3" class="w-4 h-4"></i>
+                        </button>
+                        <!-- O'chirish tugmasi -->
+                        <button onclick="deleteArticle(${index})" class="p-2 rounded-lg bg-rose-50 dark:bg-rose-950/50 text-rose-600 hover:bg-rose-100 transition" title="O'chirish">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
     });
-    lucide.createIcons(); // Iconlarni yangilash
+    lucide.createIcons();
 }
 
-let articlesData = []; // Maqolalar massivi
-
-function likeArticle(index) {
-    articlesData[index].likes = (articlesData[index].likes || 0) + 1;
-    renderArticles(articlesData);
-}
-
-function dislikeArticle(index) {
-    articlesData[index].dislikes = (articlesData[index].dislikes || 0) + 1;
-    renderArticles(articlesData);
-}
-
-function editArticle(index) {
-    const art = articlesData[index];
-    // Modalni ochib, eski ma'lumotlarni inputlarga to'ldirish
-    openCreateArticleModal();
-    document.getElementById('articleTitleInput').value = art.title;
-    document.getElementById('articleAuthorInput').value = art.author;
-    document.getElementById('articleCategoryInput').value = art.category;
-    document.getElementById('articleContentInput').value = art.content;
-    document.getElementById('articleImageInput').value = art.image || '';
-    
-    // O'zgartirish paytida eski maqolani yangilash logikasini qo'shishingiz mumkin
-}
-
-// 1. Forma yuborilganda (Chop etish bosilganda) ishlaydigan funksiya
-function handleArticleSubmit(event) {
-    event.preventDefault(); // Sahifa o'z-o'zidan yangilanib ketishini oldini oladi
-
-    // Inputlardan qiymatlarni olish
-    const title = document.getElementById('articleTitleInput').value;
-    const author = document.getElementById('articleAuthorInput').value;
-    const category = document.getElementById('articleCategoryInput').value;
-    const content = document.getElementById('articleContentInput').value;
-    
-    // Agar rasm URL yozilgan bo'lsa o'shani, yo'qsa yuklangan faylni yoki standart rasmni olish
-    const imageInputVal = document.getElementById('articleImageInput').value;
-    const image = imageInputVal || uploadedArticleImage || 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600';
-
-    // Yangi maqola obyektini yaratish
-    const newArticle = {
-        title: title,
-        author: author,
-        category: category,
-        content: content,
-        image: image,
-        views: 1,
-        likes: 0,
-        dislikes: 0
-    };
-
-    // Maqolalar ro'yxatining boshiga qo'shish
-    articlesData.unshift(newArticle);
-    
-    // Ekranni yangilash
-    renderArticles(articlesData);
-    
-    // Modal oynani yopish
-    closeCreateArticleModal();
-
-    // Formani tozalash
-    event.target.reset();
-    uploadedArticleImage = "";
-}
-
-// 2. Sahifa ochilganda dastlabki ma'lumotlarni ko'rsatish va tekshirish
-document.addEventListener('DOMContentLoaded', () => {
-    // Agar maqolalar bo'sh bo'lsa, bitta namuna maqola qo'shib turamiz (bo'sh ko'rinib turmasligi uchun)
-    if (articlesData.length === 0) {
-        articlesData.push({
-            title: "Sabrning islomdagi fazilati va uning ahamiyati",
-            author: "Abdulloh",
-            category: "Odob-axloq",
-            content: "Sabr — bandaning boshiga tushgan sinovlarga Alloh roziligi uchun chidashi va shukr qilishidir...",
-            image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600",
-            views: 24,
-            likes: 5,
-            dislikes: 0
-        });
+// Maqolani o'chirish funksiyasi
+function deleteArticle(index) {
+    if (confirm("Haqiqatan ham bu maqolani o'chirmoqchimisiz?")) {
+        articlesData.splice(index, 1);
+        renderArticles(articlesData);
     }
-    
-    // Ekranga chiqarish
+}
+
+// Maqolani to'liq o'qish oynasini ochish (Batafsil bosganda)
+function openFullArticle(index) {
+    const art = articlesData[index];
+    art.views = (art.views || 0) + 1; // Ko'rishlar sonini bittaga oshiramiz
     renderArticles(articlesData);
-});
+
+    const modalHtml = `
+        <div id="fullArticleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-3xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                    <span class="bg-brand-800 text-white text-xs font-bold px-3 py-1 rounded-full">${art.category}</span>
+                    <button onclick="document.getElementById('fullArticleModal').remove()" class="text-slate-400 hover:text-slate-600">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3">${art.title}</h2>
+                <div class="flex items-center gap-4 text-xs text-slate-400 mb-4">
+                    <span><i data-lucide="user" class="w-3.5 h-3.5 inline mr-1"></i>${art.author}</span>
+                    <span><i data-lucide="eye" class="w-3.5 h-3.5 inline mr-1"></i>${art.views} ta ko'rish</span>
+                </div>
+                ${art.image ? `<div class="h-64 rounded-2xl overflow-hidden mb-4"><img src="${art.image}" class="w-full h-full object-cover"></div>` : ''}
+                <div class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed whitespace-pre-line">
+                    ${art.content}
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                    <button onclick="document.getElementById('fullArticleModal').remove()" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-700 transition">Yopish</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    lucide.createIcons();
+}
