@@ -450,3 +450,63 @@ function editArticle(index) {
     
     // O'zgartirish paytida eski maqolani yangilash logikasini qo'shishingiz mumkin
 }
+
+// 1. Forma yuborilganda (Chop etish bosilganda) ishlaydigan funksiya
+function handleArticleSubmit(event) {
+    event.preventDefault(); // Sahifa o'z-o'zidan yangilanib ketishini oldini oladi
+
+    // Inputlardan qiymatlarni olish
+    const title = document.getElementById('articleTitleInput').value;
+    const author = document.getElementById('articleAuthorInput').value;
+    const category = document.getElementById('articleCategoryInput').value;
+    const content = document.getElementById('articleContentInput').value;
+    
+    // Agar rasm URL yozilgan bo'lsa o'shani, yo'qsa yuklangan faylni yoki standart rasmni olish
+    const imageInputVal = document.getElementById('articleImageInput').value;
+    const image = imageInputVal || uploadedArticleImage || 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600';
+
+    // Yangi maqola obyektini yaratish
+    const newArticle = {
+        title: title,
+        author: author,
+        category: category,
+        content: content,
+        image: image,
+        views: 1,
+        likes: 0,
+        dislikes: 0
+    };
+
+    // Maqolalar ro'yxatining boshiga qo'shish
+    articlesData.unshift(newArticle);
+    
+    // Ekranni yangilash
+    renderArticles(articlesData);
+    
+    // Modal oynani yopish
+    closeCreateArticleModal();
+
+    // Formani tozalash
+    event.target.reset();
+    uploadedArticleImage = "";
+}
+
+// 2. Sahifa ochilganda dastlabki ma'lumotlarni ko'rsatish va tekshirish
+document.addEventListener('DOMContentLoaded', () => {
+    // Agar maqolalar bo'sh bo'lsa, bitta namuna maqola qo'shib turamiz (bo'sh ko'rinib turmasligi uchun)
+    if (articlesData.length === 0) {
+        articlesData.push({
+            title: "Sabrning islomdagi fazilati va uning ahamiyati",
+            author: "Abdulloh",
+            category: "Odob-axloq",
+            content: "Sabr — bandaning boshiga tushgan sinovlarga Alloh roziligi uchun chidashi va shukr qilishidir...",
+            image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600",
+            views: 24,
+            likes: 5,
+            dislikes: 0
+        });
+    }
+    
+    // Ekranga chiqarish
+    renderArticles(articlesData);
+});
