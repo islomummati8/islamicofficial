@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uz" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Islamic Official — Ma'rifat va Hidoiyat Portali</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              600: '#059669',
+              700: '#047857',
+              800: '#046a38',
+              900: '#064e3b',
+            },
+            gold: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            arabic: ['Amiri', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts (Inter va Arabic uchun Amiri) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS link -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col font-sans">
+
+  <!-- ================= TOPBAR (NAMOZ VAQTI BOʻLIMI VA TIL ALMASHTIRISH) ================= -->
+  <div class="bg-[#046a38] dark:bg-slate-950 text-white text-xs sm:text-sm py-2.5 px-4 shadow-sm border-b border-emerald-800/50">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
+      
+      <!-- Sana va Joylashuv -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-1.5 bg-emerald-900/60 dark:bg-slate-800 px-3 py-1 rounded-full border border-emerald-700/40">
+          <i data-lucide="calendar" class="w-3.5 h-3.5 text-gold-400"></i>
+          <span id="hijriDateText" class="font-medium">18-Rabi'ul-avval, 1448</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-emerald-100">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-300"></i>
+          <span id="userLocationText" class="font-normal">Aniqlanmoqda...</span>
+          <button onclick="detectUserLocation()" class="hover:text-white transition ml-1" title="Joylashuvni yangilash">
+            <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- O'ng tomon: Rejim va Tillarni almashtirish -->
+      <div class="flex items-center gap-4">
+        
+        <!-- Dark / Light Mode Toggle -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="p-1.5 rounded-lg bg-emerald-900/50 hover:bg-emerald-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-emerald-100 transition flex items-center gap-1.5" title="Rejimni o'zgartirish">
+          <i id="themeIconSun" data-lucide="sun" class="w-4 h-4 hidden"></i>
+          <i id="themeIconMoon" data-lucide="moon" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Ko'p tillilik selektori (5 TA TIL) -->
+        <div class="relative flex items-center">
+          <i data-lucide="globe" class="w-4 h-4 absolute left-2 text-emerald-300 pointer-events-none"></i>
+          <select id="languageSelect" onchange="changeLanguage(this.value)" class="bg-emerald-900/80 dark:bg-slate-800 border border-emerald-700/60 dark:border-slate-700 text-white rounded-lg pl-7 pr-8 py-1 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-gold-400 cursor-pointer appearance-none">
+            <option value="uz">O'zbekcha</option>
+            <option value="ky">Кыргызча</option>
+            <option value="ru">Русский</option>
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+          </select>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 absolute right-2 text-emerald-300 pointer-events-none"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ASOSIY HEADER VA NAVIGATSIYA ================= -->
+  <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-40 shadow-sm transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+      
+      <!-- LOGOTIP -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 bg-brand-800 dark:bg-emerald-700 rounded-xl flex items-center justify-center text-white shadow-md group-hover:scale-105 transition duration-300">
+          <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="24" fill="#047857"/>
+            <path d="M50 20C33.4315 20 20 33.4315 20 50C20 66.5685 33.4315 80 50 80C56.2 80 61.9 78.1 66.6 74.9C60 74.2 54.8 68.6 54.8 61.8C54.8 54.4 60.8 48.4 68.2 48.4C71.3 48.4 74.1 49.5 76.4 51.3C78.7 45.4 79.5 38.8 77.8 32.2C74.5 25.1 66.8 20 50 20Z" fill="white"/>
+            <circle cx="68" cy="36" r="6" fill="#FACC15"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-brand-800 dark:text-emerald-400">ISLAMIC<span class="text-gold-500">.OFFICIAL</span></span>
+          <span class="text-[10px] tracking-widest text-slate-400 uppercase font-semibold" data-i18n="tagline">Ma'rifat Maskani</span>
+        </div>
+      </a>
+
+      <!-- DESKTOP NAVIGATSIYA (Namoz vaqtlari bu yerda matn holida chiqmaydi) -->
+      <nav class="hidden lg:flex items-center gap-7 font-semibold text-slate-700 dark:text-slate-200 text-sm">
+        <a href="#home" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="#quran" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_quran">Qur'oni Karim</a>
+        <a href="#dhikr" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_dhikr">Zikr va Duolar</a>
+        <a href="#articles" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_articles">Maqolalar</a>
+        <a href="#books" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_books">Kitoblar</a>
+        <a href="#apps" class="hover:text-brand-800 dark:hover:text-emerald-400 transition" data-i18n="nav_apps">Ilovalarimiz</a>
+      </nav>
+
+      <!-- O'NG TOMONDAGI ACTION TUGMALAR -->
+      <div class="hidden sm:flex items-center gap-3">
+        <!-- Namoz vaqtlari popup modalini ochish tugmasi (Kichik Icon uslubida) -->
+        <button onclick="openPrayerModal()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-brand-800 dark:text-emerald-400 transition border border-slate-200 dark:border-slate-700 flex items-center gap-2 text-xs font-semibold" title="Namoz vaqtlarini ko'rish">
+          <i data-lucide="clock" class="w-4 h-4"></i>
+          <span data-i18n="prayer_times_btn">Namoz Vaqtlari</span>
+        </button>
+
+        <!-- Admin Kirish (Firebase Auth bilan ulanadi) -->
+        <button onclick="openAdminModal()" class="p-2.5 rounded-xl bg-brand-800 hover:bg-brand-700 text-white transition font-semibold text-xs flex items-center gap-2 shadow-sm">
+          <i data-lucide="user-check" class="w-4 h-4"></i>
+          <span data-i18n="admin_btn">Kabinet</span>
+        </button>
+      </div>
+
+      <!-- MOBILE HAMBURGER MENU BUTTON -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+    </div>
+  </header>
