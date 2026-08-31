@@ -160,6 +160,37 @@ function initTasbeeh() {
     });
   }
 }
+let dhikrCount = 0;
+const dhikrData = {
+    "SubhanAllah": { arabic: "سُبْحَانَ اللَّهِ", translation: "Allah aybu nuqsondan pokdir" },
+    "Alhamdulillah": { arabic: "الْحَمْدُ لِلَّهِ", translation: "Hamd Allahgadir" },
+    "Allahu Akbar": { arabic: "اللَّهُ أَكْبَرُ", translation: "Allah buyukdir" },
+    "La ilaha illallah": { arabic: "لَا إِلٰهَ إِلَّا اللَّهُ", translation: "Allahdan o'zga iloh yo'q" },
+    "Astaghfirullah": { arabic: "أَسْتَغْفِرُ اللَّهَ", translation: "Allohdan mag'firat so'rayman" },
+    "Salavat": { arabic: "اللَّهُمَّ صَلِّ عَلَىٰ مُحَمَّدٍ", translation: "Allohim, Muhammadga salavot yo'lla" }
+};
+
+function incrementDhikrCount() {
+    dhikrCount++;
+    document.getElementById('dhikrCounterDisplay').innerText = dhikrCount;
+    // Vibratsiya effekti (agar telefon qo'llab-quvvatlasa)
+    if (navigator.vibrate) navigator.vibrate(40);
+}
+
+function resetDhikrCount() {
+    dhikrCount = 0;
+    document.getElementById('dhikrCounterDisplay').innerText = dhikrCount;
+}
+
+function changeDhikrText() {
+    const selected = document.getElementById('dhikrSelect').value;
+    const data = dhikrData[selected];
+    if (data) {
+        document.getElementById('currentDhikrArabic').innerText = data.arabic;
+        document.getElementById('currentDhikrTranslation').innerText = data.translation;
+    }
+    resetDhikrCount();
+}
 
 function showTasbeehNotification() {
   const toast = document.getElementById('tasbeehToast');
