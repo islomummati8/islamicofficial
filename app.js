@@ -352,3 +352,16 @@ function toggleTheme() {
         localStorage.setItem('theme', 'light');
     }
 }
+function filterSurahs() {
+    const input = document.getElementById('surahSearchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('#surahListContainer > div');
+
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(input)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
