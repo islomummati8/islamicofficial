@@ -39,7 +39,35 @@ async function initPrayerTimes() {
     fetchPrayerTimesByCity(currentCity, currentCountry);
   }
 }
+// Namoz vaqtlari modali
+function openPrayerModal() {
+    document.getElementById('prayerModal').classList.remove('hidden');
+}
+function closePrayerModal() {
+    document.getElementById('prayerModal').classList.add('hidden');
+}
 
+// Admin Kabinet modali
+function openAdminModal() {
+    document.getElementById('adminAuthModal').classList.remove('hidden');
+}
+function closeAdminModal() {
+    document.getElementById('adminAuthModal').classList.add('hidden');
+}
+
+// Yangi Maqola modali
+function openCreateArticleModal() {
+    document.getElementById('createArticleModal').classList.remove('hidden');
+}
+function closeCreateArticleModal() {
+    document.getElementById('createArticleModal').classList.add('hidden');
+}
+
+// AI Chat vidjeti
+function toggleAiChatModal() {
+    const chatWindow = document.getElementById('aiChatWindow');
+    chatWindow.classList.toggle('hidden');
+}
 async function fetchPrayerTimesByCity(city, country) {
   try {
     const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=3`);
