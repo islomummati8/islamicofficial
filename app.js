@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let currentCity = "Tashkent";
 let currentCountry = "Uzbekistan";
-
 async function initPrayerTimes() {
   const citySelect = document.getElementById('citySelect');
   if (citySelect) {
