@@ -503,255 +503,532 @@
             <i data-lucide="skip-forward" class="w-5 h-5"></i>
           </button>
         </div>
-        <div class="w-full flex items-center gap-2 text-[10px] font-mono text-slate-400">
-          <span id="audioCurrentTime">00:00</span>
-          <input type="range" id="audioProgressBar" value="0" min="0" max="100" class="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-800">
-          <span id="audioDuration">00:00</span>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-end gap-3 w-1/3">
-        <button onclick="closeAudioPlayer()" class="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Audio Element (Yashirin) -->
-  <audio id="globalAudioElement" preload="none"></audio>
-
-  <!-- ================= FLOATING AI CHAT WIDGET ================= -->
-  <div class="fixed bottom-6 right-6 z-50">
-    <!-- Chat Icon Button -->
-    <button onclick="toggleAiChatModal()" class="w-14 h-14 rounded-full bg-brand-800 hover:bg-brand-700 text-white shadow-2xl flex items-center justify-center transition-transform hover:scale-110 active:scale-95 border-2 border-gold-400/40" title="AI Islomiy Yordamchi">
-      <i data-lucide="bot" class="w-7 h-7"></i>
-    </button>
-
-    <!-- AI Chat Window -->
-    <div id="aiChatWindow" class="hidden absolute bottom-16 right-0 w-[90vw] sm:w-[380px] h-[500px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden transition-all duration-300">
-      
-      <!-- Header -->
-      <div class="bg-brand-800 p-4 text-white flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-            <i data-lucide="sparkles" class="w-4 h-4 text-gold-400"></i>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold">Islamic AI Yordamchi</h4>
-            <span class="text-[10px] text-emerald-200">Manbalarni topish vositasi</span>
-          </div>
-        </div>
-        <button onclick="toggleAiChatModal()" class="text-white/80 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <!-- Chat Messages Box -->
-      <div id="aiChatMessages" class="flex-grow p-4 space-y-3 overflow-y-auto text-xs">
-        <div class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-3 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed">
-          Assalomu alaykum! Men islamicofficial.com ning aqlli AI yordamchisiman. Qur'on suralari, duolar yoki manbalar bo'yicha savollaringiz bo'lsa, marhamat so'rang!
-        </div>
-      </div>
-
-      <!-- Chat Input Box -->
-      <form onsubmit="handleAiChatSubmit(event)" class="p-3 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex gap-2">
-        <input type="text" id="aiChatInput" placeholder="Savolingizni yozing..." class="flex-grow bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-800">
-        <button type="submit" class="px-3.5 py-2 bg-brand-800 text-white rounded-xl hover:bg-brand-700 transition">
-          <i data-lucide="send" class="w-4 h-4"></i>
-        </button>
-      </form>
-
-    </div>
-  </div>
-
-  <!-- ================= MODALLAR ================= -->
-
-  <!-- Modal 1: Namoz vaqtlari to'liq jadvali (Popup) -->
-  <div id="prayerModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative">
-      <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
-        <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <i data-lucide="calendar" class="w-5 h-5 text-brand-800 dark:text-emerald-400"></i>
-          <span>Oylik Namoz Vaqtlari Jadvali</span>
-        </h3>
-        <button onclick="closePrayerModal()" class="text-slate-400 hover:text-slate-600">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <p class="text-xs text-slate-500 mb-4">Ushbu jadval avtomatik aniqlangan manzilingiz bo'yicha hisoblangan.</p>
-      <div class="max-h-80 overflow-y-auto text-xs" id="monthlyPrayerTableContainer">
-        <!-- JS orqali to'ldiriladi -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal 2: Admin Kirish Oynasi (Firebase Auth) -->
-  <div id="adminAuthModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Admin Kabinetiga Kirish</h3>
-        <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Email</label>
-          <input type="email" id="adminEmailInput" required placeholder="admin@islamicofficial.com" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Parol</label>
-          <input type="password" id="adminPasswordInput" required placeholder="••••••••" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-        </div>
-        <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-800 text-white font-bold text-sm hover:bg-brand-700 transition">
-          Kirish
-        </button>
-      </form>
-    </div>
-  </div>
-
- <!-- Modal 3: Yangi Maqola Yozish Oynasi -->
-<div id="createArticleModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-  <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative max-h-[90vh] overflow-y-auto">
+        <div class="w-full flex items-center gap-2 text-[10px] font-mono text-slate-<!DOCTYPE html>
+<html lang="uz" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Official — Rasmiy Islomiy Ma'rifiy Portal va Axborot Markazi</title>
+    <meta name="description" content="Ishonchli manbalar asosidagi diniy-ma'rifiy maqolalar, fatvolar, Qur'oni Karim oyatlari, hadislar va namoz vaqtlari.">
     
-    <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
-      <h3 class="text-lg font-bold text-slate-900 dark:text-white">Yangi Maqola Chop Etish</h3>
-      <button onclick="closeCreateArticleModal()" class="text-slate-400 hover:text-slate-600">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
+    <!-- Google Fonts: Inter va Amiri (Arabiy xattotlik va zamonaviy shriftlar uyg'unligi) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Pro/Free Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Professional Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- TOP UTILITY BAR (Namoz vaqtlari va tezkor ma'lumot) -->
+    <!-- ========================================== -->
+    <div class="top-utility-bar">
+        <div class="container utility-flex">
+            <div class="utility-left">
+                <span class="location-badge"><i class="fa-solid fa-location-dot"></i> O'sh shahar, Qirg'iziston</span>
+                <span class="separator">|</span>
+                <span class="hijri-date" id="hijri-date-text">19 Safar, 1448 hijriy</span>
+                <span class="separator">|</span>
+                <span class="gregorian-date" id="gregorian-date-text">31-Avgust, 2026-yil</span>
+            </div>
+            <div class="utility-right">
+                <div class="quick-prayer-times">
+                    <span class="p-item">Bomdod: <strong>04:30</strong></span>
+                    <span class="p-item">Peshin: <strong>12:45</strong></span>
+                    <span class="p-item">Asr: <strong>17:15</strong></span>
+                    <span class="p-item">Shom: <strong>19:30</strong></span>
+                    <span class="p-item">Hufton: <strong>21:00</strong></span>
+                </div>
+                <div class="language-selector">
+                    <select id="lang-select">
+                        <option value="uz" selected>O'zbekcha</option>
+                        <option value="ru">Русский</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <form onsubmit="handleArticleSubmit(event)" class="space-y-4">
-      <div>
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Sarlavhasi</label>
-        <input type="text" id="articleTitleInput" required placeholder="Masalan: Sabrning islomdagi fazilati" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-      </div>
-      
-      <div>
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Muallif</label>
-        <input type="text" id="articleAuthorInput" required placeholder="Abdulloh" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-      </div>
+    <!-- ========================================== -->
+    <!-- MAIN HEADER & NAVIGATION -->
+    <!-- ========================================== -->
+    <header class="site-header" id="sticky-header">
+        <div class="container header-container">
+            <!-- Brand Logo -->
+            <div class="brand-logo">
+                <a href="index.html">
+                    <div class="logo-icon"><i class="fa-solid fa-kaaba"></i></div>
+                    <div class="logo-texts">
+                        <h1>Islamic<span>Official</span></h1>
+                        <p>Rasmiy ma'rifiy portal</p>
+                    </div>
+                </a>
+            </div>
 
-      <div>
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Kategoriya</label>
-        <select id="articleCategoryInput" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-          <option value="Odob-axloq">Odob-axloq</option>
-          <option value="Aqida">Aqida</option>
-          <option value="Fiqh">Fiqh</option>
-          <option value="Tafsir">Tafsir</option>
-        </select>
-      </div>
+            <!-- Global Search Bar -->
+            <div class="header-search-box">
+                <form id="search-form" action="#" method="GET">
+                    <input type="text" id="global-search-input" placeholder="Maqola, fatvo, oyat yoki hadis qidirish..." autocomplete="off">
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+                <div id="search-results-dropdown" class="search-dropdown-hidden"></div>
+            </div>
 
-      <div>
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Rasm (URL manbasi yoki fayl)</label>
-        <div class="flex gap-2">
-          <input type="text" id="articleImageInput" placeholder="https://example.com/image.jpg" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-          <input type="file" id="articleImageFile" accept="image/*" onchange="encodeImageFileAsURL(this)" class="hidden">
-          <button type="button" onclick="document.getElementById('articleImageFile').click()" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-300 transition whitespace-nowrap">Fayl tanlash</button>
+            <!-- Navigation Links -->
+            <nav class="main-navigation" id="main-nav">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">Bosh sahifa</a></li>
+                    <li class="dropdown">
+                        <a href="#articles" class="nav-link">Maqolalar <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Aqida va Fiqh</a></li>
+                            <li><a href="#">Hadis va Sunnat</a></li>
+                            <li><a href="#">Tarix va Siyrat</a></li>
+                            <li><a href="#">Axloq va Oila</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#fatvolar" class="nav-link">Fatvolar</a></li>
+                    <li><a href="#quran" class="nav-link">Qur'on va Audio</a></li>
+                    <li><a href="#multimedia" class="nav-link">Multimedia</a></li>
+                    <li><a href="#contact" class="nav-link">Aloqa</a></li>
+                </ul>
+            </nav>
+
+            <!-- User Authentication & Actions -->
+            <div class="header-user-actions">
+                <button id="theme-toggle-btn" class="icon-btn" title="Rejimni o'zgartirish"><i class="fa-solid fa-moon"></i></button>
+                <button id="auth-modal-open" class="btn-login-portal">
+                    <i class="fa-solid fa-user-shield"></i> <span id="auth-btn-text">Kirish</span>
+                </button>
+                <div class="mobile-menu-toggle" id="mobile-menu-btn">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </div>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <div>
-        <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Matni (HTML/Text)</label>
-        <textarea id="articleContentInput" rows="6" required placeholder="Maqolangiz matnini beraverasiz..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800"></textarea>
-      </div>
+    <!-- ========================================== -->
+    <!-- HERO SECTION & DAILY WISDOM / WIDGETS -->
+    <!-- ========================================== -->
+    <section class="hero-master-section">
+        <div class="container hero-master-grid">
+            <!-- Left Main Hero Banner / Kun Oyati -->
+            <div class="hero-banner-card">
+                <div class="hero-badge-row">
+                    <span class="badge-gold"><i class="fa-solid fa-book-quran"></i> Kun Oyati va Tafsiri</span>
+                    <span class="badge-date"><i class="fa-regular fa-calendar-days"></i> 31-Avgust</span>
+                </div>
+                <h2>"Albatta, har bir og'irchilik bilan birga bir yengillik bordir. Haqiqatan, har bir og'irchilik bilan birga bir yengillik bordir."</h2>
+                <p class="ayah-source">— Inshiroh surasi, 5-6-oyatlar</p>
+                <p class="hero-description">
+                    Ushbu muborak oyat bandalarga har qanday mashaqqat ortidan albatta yengillik kelishini va Alloh taoloning rahmatidan aslo noumid bo'lmaslik kerakligini uqtiradi. Saytimizda ishonchli manbalarga asoslangan diniy-ma'rifiy materiallar bilan tanishing.
+                </p>
+                <div class="hero-cta-buttons">
+                    <a href="#articles-section-main" class="btn-primary-glow"><i class="fa-solid fa-arrow-trend-up"></i> So'nggi materiallar</a>
+                    <a href="#quran-section" class="btn-secondary-border"><i class="fa-solid fa-headphones"></i> Qur'on tinglash</a>
+                </div>
+            </div>
 
-      <div class="flex justify-end gap-3 pt-2">
-        <button type="button" onclick="closeCreateArticleModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold">Bekor qilish</button>
-        <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-700 transition">Chop etish</button>
-      </div>
-    </form>
-  </div>
-</div>
-      <!-- Kategoriya tagiga shuni qo'shasiz -->
-<div>
-  <label class="block text-xs font-semibold text-slate-500 mb-1">Rasm (URL manbasi yoki fayl)</label>
-  <div class="flex gap-2">
-    <input type="text" id="articleImageInput" placeholder="https://example.com/image.jpg" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-    <input type="file" id="articleImageFile" accept="image/*" onchange="encodeImageFileAsURL(this)" class="hidden">
-    <button type="button" onclick="document.getElementById('articleImageFile').click()" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-300 transition whitespace-nowrap">Fayl tanlash</button>
-  </div>
-</div>
-      <form onsubmit="handleArticleSubmit(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Sarlavhasi</label>
-          <input type="text" id="articleTitleInput" required placeholder="Masalan: Sabrning islomdagi fazilati" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+            <!-- Right Sidebar Widgets (Live Clock, Prayer Times & Quick Poll) -->
+            <div class="hero-sidebar-widgets">
+                <!-- Live Prayer Times Widget -->
+                <div class="widget-card prayer-widget-card">
+                    <div class="widget-header">
+                        <h3><i class="fa-solid fa-mosque"></i> O'sh va atrofi vaqtlari</h3>
+                        <span class="live-clock-badge" id="live-digital-clock">17:41:00</span>
+                    </div>
+                    <div class="prayer-times-table">
+                        <div class="p-row"><span>Bomdod (Tong)</span> <strong>04:30</strong></div>
+                        <div class="p-row"><span>Quyosh chiqish</span> <strong>06:00</strong></div>
+                        <div class="p-row active-prayer"><span>Peshin</span> <strong>12:45</strong></div>
+                        <div class="p-row"><span>Asr</span> <strong>17:15</strong></div>
+                        <div class="p-row"><span>Shom (Quyosh botish)</span> <strong>19:30</strong></div>
+                        <div class="p-row"><span>Hufton</span> <strong>21:00</strong></div>
+                    </div>
+                    <div class="widget-footer-link">
+                        <a href="#" id="full-calendar-link">To'liq oylik taqvimni ko'rish <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+                <!-- Daily Hadith Box -->
+                <div class="widget-card hadith-widget-card">
+                    <div class="widget-header">
+                        <h3><i class="fa-solid fa-quote-left"></i> Kun Hadisi</h3>
+                    </div>
+                    <blockquote class="daily-hadith-text">
+                        "Sizlarning eng yaxshingiz Qur'onni o'rgangan va uni boshqalarga o'rgatganingizdir."
+                    </blockquote>
+                    <p class="hadith-reference">— Imom Buxoriy rivoyati</p>
+                </div>
+            </div>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Muallif</label>
-          <input type="text" id="articleAuthorInput" required placeholder="Abdulloh" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT & ARTICLES SECTION (PART 1) -->
+    <!-- ========================================== -->
+    <main class="container main-portal-content" id="articles-section-main">
+        <div class="section-title-wrapper">
+            <div class="title-with-icon">
+                <i class="fa-solid fa-newspaper"></i>
+                <h2>So'nggi Maqolalar, Ilmiy Materiallar va Fatvolar</h2>
+            </div>
+            <div class="category-filter-tabs">
+                <button class="filter-btn active" data-filter="all">Barchasi</button>
+                <button class="filter-btn" data-filter="aqida">Aqida</button>
+                <button class="filter-btn" data-filter="fatva">Fatvo</button>
+                <button class="filter-btn" data-filter="hadis">Hadis</button>
+                <button class="filter-btn" data-filter="oila">Oila va Jamiyat</button>
+            </div>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Kategoriya</label>
-          <select id="articleCategoryInput" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
-            <option value="Odob-axloq">Odob-axloq</option>
-            <option value="Aqida">Aqida</option>
-            <option value="Fiqh">Fiqh</option>
-            <option value="Tafsir">Tafsir</option>
-          </select>
+
+        <!-- Articles Grid Container -->
+        <div class="articles-grid-layout" id="articles-grid">
+            <!-- Article Card 1 -->
+            <article class="article-modern-card" data-category="aqida">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=700&q=80" alt="Ibodatda xushu">
+                    <span class="badge-category aqida">Aqida va Fiqh</span>
+                    <span class="read-time"><i class="fa-regular fa-clock"></i> 4 daqiqa</span>
+                </div>
+                <div class="card-content-body">
+                    <div class="card-meta-info">
+                        <span><i class="fa-regular fa-calendar"></i> 31-Avgust, 2026</span>
+                        <span><i class="fa-regular fa-eye"></i> 1,420 ko'rilgan</span>
+                    </div>
+                    <h3><a href="#">Ibodatda xushu va unga erishishning amaliy yo'llari</a></h3>
+                    <p>Qalb xotirjamligi, namozdagi hushyorlikni saqlab qolish hamda bandaning Parvardigor bilan ruhiy bog'liqligini kuchaytirish sirlari...</p>
+                    <div class="card-author-footer">
+                        <div class="author-info">
+                            <div class="author-avatar"><i class="fa-solid fa-user-tie"></i></div>
+                            <span>Abdurahmon Hanafiy</span>
+                        </div>
+                        <a href="#" class="read-more-link">O'qish <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article Card 2 -->
+            <article class="article-modern-card" data-category="fatva">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=700&q=80" alt="Moliyaviy masalalar">
+                    <span class="badge-category fatva">Fatvolar Markazi</span>
+                    <span class="read-time"><i class="fa-regular fa-clock"></i> 6 daqiqa</span>
+                </div>
+                <div class="card-content-body">
+                    <div class="card-meta-info">
+                        <span><i class="fa-regular fa-calendar"></i> 30-Avgust, 2026</span>
+                        <span><i class="fa-regular fa-eye"></i> 2,890 ko'rilgan</span>
+                    </div>
+                    <h3><a href="#">Zamonaviy raqamli iqtisodiyot va islomiy moliyalashtirish mezonlari</a></h3>
+                    <p>Raqamli aktivlar, zamonaviy savdo-sotiq turlari va elektron tijorat shartnomalarining shariat talablariga muvofiqlik masalalari...</p>
+                    <div class="card-author-footer">
+                        <div class="author-info">
+                            <div class="author-avatar"><i class="fa-solid fa-user-tie"></i></div>
+                            <span>Fatvo Hay'ati</span>
+                        </div>
+                        <a href="#" class="read-more-link">O'qish <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article Card 3 -->
+            <article class="article-modern-card" data-category="hadis">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=700&q=80" alt="Hadis va Sunnat">
+                    <span class="badge-category hadis">Hadis Ilmi</span>
+                    <span class="read-time"><i class="fa-regular fa-clock"></i> 5 daqiqa</span>
+                </div>
+                <div class="card-content-body">
+                    <div class="card-meta-info">
+                        <span><i class="fa-regular fa-calendar"></i> 29-Avgust, 2026</span>
+                        <span><i class="fa-regular fa-eye"></i> 950 ko'rilgan</span>
+                    </div>
+                    <h3><a href="#">Go'zal axloq — mo'min kishining eng ulug' ziynati va najot yo'lidir</a></h3>
+                    <p>Payg'ambarimiz sollallohu alayhi vasallamning muborak hadislari asosida jamiyatdagi o'zaro munosabatlar va odob-axloq qoidalari...</p>
+                    <div class="card-author-footer">
+                        <div class="author-info">
+                            <div class="author-avatar"><i class="fa-solid fa-user-tie"></i></div>
+                            <span>Abdulloh Islomiy</span>
+                        </div>
+                        <a href="#" class="read-more-link">O'qish <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
         </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Matni (HTML/Text)</label>
-          <textarea id="articleContentInput" rows="6" required placeholder="Maqolangiz matnini beraverasiz..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800"></textarea>
+    </main>
+    <!-- ========================================== -->
+    <!-- QUR'ON VA AUDIO KUTUBXONA SECTION -->
+    <!-- ========================================== -->
+    <section class="quran-audio-section" id="quran">
+        <div class="container">
+            <div class="section-title-wrapper centered">
+                <span class="badge-gold-sub">Ma'naviy Hazina</span>
+                <h2>Qur'oni Karim Tilovatlari va Audiolar</h2>
+                <p>Mashhur qorilar ovozida Qur'oni Karim suralarini tinglang va oyatlar ma'nolari bilan tanishing.</p>
+            </div>
+
+            <div class="quran-player-container">
+                <!-- Suralar ro'yxati -->
+                <div class="surah-playlist">
+                    <h3><i class="fa-solid fa-list-ol"></i> Tanlangan Suralar</h3>
+                    <ul class="playlist-items">
+                        <li class="playlist-item active" data-audio="fatiha.mp3" data-title="Al-Fotiha surasi" data-reciter="Mishariy Rashid Afasiy">
+                            <span class="s-num">1</span>
+                            <div class="s-info">
+                                <strong>Al-Fotiha surasi</strong>
+                                <span>Mishariy Rashid Afasiy</span>
+                            </div>
+                            <i class="fa-solid fa-play play-icon"></i>
+                        </li>
+                        <li class="playlist-item" data-audio="baqara.mp3" data-title="Al-Baqara surasi (1-5 oyatlar)" data-reciter="Sa'd G'amdiy">
+                            <span class="s-num">2</span>
+                            <div class="s-info">
+                                <strong>Al-Baqara surasi</strong>
+                                <span>Sa'd G'amdiy</span>
+                            </div>
+                            <i class="fa-solid fa-play play-icon"></i>
+                        </li>
+                        <li class="playlist-item" data-audio="mulk.mp3" data-title="Al-Mulk surasi" data-reciter="Abdurrahmon Sudays">
+                            <span class="s-num">3</span>
+                            <div class="s-info">
+                                <strong>Al-Mulk surasi</strong>
+                                <span>Abdurrahmon Sudays</span>
+                            </div>
+                            <i class="fa-solid fa-play play-icon"></i>
+                        </li>
+                        <li class="playlist-item" data-audio="kahf.mp3" data-title="Al-Kahf surasi" data-reciter="Nosir Al-Qatami">
+                            <span class="s-num">4</span>
+                            <div class="s-info">
+                                <strong>Al-Kahf surasi</strong>
+                                <span>Nosir Al-Qatami</span>
+                            </div>
+                            <i class="fa-solid fa-play play-icon"></i>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Interaktiv Audio Player Box -->
+                <div class="audio-player-card">
+                    <div class="player-disc-animation">
+                        <div class="disc-inner"><i class="fa-solid fa-compact-disc"></i></div>
+                    </div>
+                    <div class="now-playing-info">
+                        <span id="current-surah-title">Al-Fotiha surasi</span>
+                        <p id="current-reciter-name">Mishariy Rashid Afasiy</p>
+                    </div>
+
+                    <!-- Custom Audio Controls -->
+                    <div class="audio-controls-wrapper">
+                        <div class="progress-container" id="audio-progress-bar">
+                            <div class="progress-filled" id="progress-filled"></div>
+                        </div>
+                        <div class="time-stamps">
+                            <span id="current-time">00:00</span>
+                            <span id="total-duration">01:45</span>
+                        </div>
+                        <div class="control-buttons">
+                            <button class="c-btn" id="prev-track-btn" title="Oldingi"><i class="fa-solid fa-backward-step"></i></button>
+                            <button class="c-btn play-main-btn" id="play-pause-btn" title="O'ynash/To'xtatish"><i class="fa-solid fa-play" id="play-icon-state"></i></button>
+                            <button class="c-btn" id="next-track-btn" title="Keyingi"><i class="fa-solid fa-forward-step"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="flex justify-end gap-3 pt-2">
-          <button type="button" onclick="closeCreateArticleModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold">Bekor qilish</button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-700 transition">Chop etish</button>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MULTIMEDIA & VIDEO DARSLAR SECTION -->
+    <!-- ========================================== -->
+    <section class="multimedia-section" id="multimedia">
+        <div class="container">
+            <div class="section-title-wrapper">
+                <div class="title-with-icon">
+                    <i class="fa-solid fa-video"></i>
+                    <h2>Multimedia va Ma'rifiy Videolar</h2>
+                </div>
+                <a href="https://youtube.com" target="_blank" class="view-all">YouTube Kanalimiz <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+
+            <div class="multimedia-grid">
+                <!-- Video Card 1 -->
+                <div class="video-card-item">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1590073844006-33379778ae09?auto=format&fit=crop&w=700&q=80" alt="Video dars">
+                        <a href="#" class="play-video-overlay"><i class="fa-solid fa-circle-play"></i></a>
+                        <span class="video-duration">24:15</span>
+                    </div>
+                    <div class="video-details">
+                        <span class="v-cat">Siyrat darslari</span>
+                        <h4>Payg'ambarimiz hayoti: Makka davri saboqlari (12-qism)</h4>
+                        <div class="v-meta"><span><i class="fa-regular fa-eye"></i> 5.4K ko'rish</span> • <span>2 kun oldin</span></div>
+                    </div>
+                </div>
+
+                <!-- Video Card 2 -->
+                <div class="video-card-item">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=80" alt="Video dars">
+                        <a href="#" class="play-video-overlay"><i class="fa-solid fa-circle-play"></i></a>
+                        <span class="video-duration">18:40</span>
+                    </div>
+                    <div class="video-details">
+                        <span class="v-cat">Hadis suhbatlari</span>
+                        <h4>Sahih al-Buxoriy sharhi: Niyatlarning ixlosliligi haqida</h4>
+                        <div class="v-meta"><span><i class="fa-regular fa-eye"></i> 3.2K ko'rish</span> • <span>5 kun oldin</span></div>
+                    </div>
+                </div>
+
+                <!-- Video Card 3 -->
+                <div class="video-card-item">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=700&q=80" alt="Video dars">
+                        <a href="#" class="play-video-overlay"><i class="fa-solid fa-circle-play"></i></a>
+                        <span class="video-duration">45:00</span>
+                    </div>
+                    <div class="video-details">
+                        <span class="v-cat">Ochiq muloqot</span>
+                        <h4>Juma suhbati: Oilada o'zaro hurmat va tarbiya masalalari</h4>
+                        <div class="v-meta"><span><i class="fa-regular fa-eye"></i> 12.1K ko'rish</span> • <span>1 hafta oldin</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </form>
-    </div>
-  </div>
+    </section>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-      
-      <div class="space-y-3">
-        <span class="text-xl font-extrabold text-white">ISLAMIC<span class="text-gold-500">.OFFICIAL</span></span>
-        <p class="text-xs leading-relaxed">
-          Sahih manbalar va ma'rifat ulashuvchi rasmiy islomiy portal. Zamonaviy raqamli imkoniyatlar orqali dinga xizmat qilish.
-        </p>
-      </div>
+    <!-- ========================================== -->
+    <!-- NEWSLETTER SUBSCRIPTION BANNER -->
+    <!-- ========================================== -->
+    <section class="newsletter-section">
+        <div class="container newsletter-box">
+            <div class="newsletter-content">
+                <i class="fa-solid fa-paper-plane"></i>
+                <div>
+                    <h3>Yangiliklar va maqolalardan xabardor bo'ling</h3>
+                    <p>Elektron pochtangizni kiriting va eng so'nggi ilmiy maqolalar hamda ma'rifiy xabarlarni birinchilardan bo'lib o'qing.</p>
+                </div>
+            </div>
+            <form class="newsletter-form" id="newsletter-form-action">
+                <input type="email" placeholder="Elektron pochtangizni kiriting..." required>
+                <button type="submit" class="btn-subscribe">Obuna bo'lish</button>
+            </form>
+        </div>
+    </section>
 
-      <div>
-        <h4 class="text-white text-sm font-bold mb-3" data-i18n="footer_sections">Bo'limlar</h4>
-        <ul class="space-y-2 text-xs">
-          <li><a href="#quran" class="hover:text-white transition">Qur'oni Karim</a></li>
-          <li><a href="#dhikr" class="hover:text-white transition">Zikr va Duolar</a></li>
-          <li><a href="#articles" class="hover:text-white transition">Maqolalar</a></li>
-          <li><a href="#apps" class="hover:text-white transition">Mobil Ilovalarimiz</a></li>
-        </ul>
-      </div>
+    <!-- ========================================== -->
+    <!-- PROFESSIONAL FOOTER SECTION -->
+    <!-- ========================================== -->
+    <footer class="main-footer-portal" id="contact">
+        <div class="container footer-grid-layout">
+            <!-- Col 1: About -->
+            <div class="footer-col-widget">
+                <div class="brand-logo footer-brand">
+                    <div class="logo-icon"><i class="fa-solid fa-kaaba"></i></div>
+                    <div class="logo-texts">
+                        <h1>Islamic<span>Official</span></h1>
+                        <p>Rasmiy ma'rifiy portal</p>
+                    </div>
+                </div>
+                <p class="footer-about-text">
+                    Ushbu portal islomiy ilmlarni keng tarqatish, ishonchli manbalar asosida ma'rifat ulashish hamda jamiyatda ma'naviy qadriyatlarni mustahkamlash maqsadida tashkil etilgan.
+                </p>
+                <div class="footer-social-links">
+                    <a href="#" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
 
-      <div>
-        <h4 class="text-white text-sm font-bold mb-3" data-i18n="footer_contact">Aloqa va Qo'llab-quvvatlash</h4>
-        <ul class="space-y-2 text-xs">
-          <li>Email: <a href="mailto:info@islamicofficial.com" class="text-emerald-400 hover:underline">info@islamicofficial.com</a></li>
-          <li>Admin: <a href="mailto:admin@islamicofficial.com" class="text-emerald-400 hover:underline">admin@islamicofficial.com</a></li>
-          <li>Support: <a href="mailto:support@islamicofficial.com" class="text-emerald-400 hover:underline">support@islamicofficial.com</a></li>
-        </ul>
-      </div>
+            <!-- Col 2: Quick Links -->
+            <div class="footer-col-widget">
+                <h4>Tezkor havolalar</h4>
+                <ul class="footer-links-list">
+                    <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Bosh sahifa</a></li>
+                    <li><a href="#articles-section-main"><i class="fa-solid fa-angle-right"></i> Maqolalar va Ilm</a></li>
+                    <li><a href="#quran"><i class="fa-solid fa-angle-right"></i> Qur'on kutubxonasi</a></li>
+                    <li><a href="#multimedia"><i class="fa-solid fa-angle-right"></i> Multimedia darslar</a></li>
+                </ul>
+            </div>
 
-      <div>
-        <h4 class="text-white text-sm font-bold mb-3">Biz Haqimizda</h4>
-        <p class="text-xs leading-relaxed">
-          Barcha huquqlar himoyalangan &copy; 2026 ISLAMIC.OFFICIAL.
-        </p>
-      </div>
+            <!-- Col 3: Categories -->
+            <div class="footer-col-widget">
+                <h4>Asosiy Bo'limlar</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Aqida va Fiqh</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Hadis va Sunnat</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Tarix va Siyrat</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-right"></i> Axloq va Oila</a></li>
+                </ul>
+            </div>
 
-    </div>
-  </footer>
+            <!-- Col 4: Contact Info -->
+            <div class="footer-col-widget">
+                <h4>Bog'lanish va Aloqa</h4>
+                <div class="contact-info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>O'sh shahar, Markaziy ko'cha, Qirg'iziston</span>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>info@islamicofficial.com</span>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+996 (3222) 00-00-00</span>
+                </div>
+            </div>
+        </div>
 
-  <!-- Lucide Icons Render Init Script -->
-  <script>
-    lucide.createIcons();
-  </script>
+        <div class="footer-bottom-bar">
+            <div class="container bottom-bar-flex">
+                <p>&copy; 2026 Islamic Official. Barcha huquqlar himoyalangan. Islom.uz uslubidagi rasmiy portal.</p>
+                <div class="bottom-policy-links">
+                    <a href="#">Maxfiylik siyosati</a>
+                    <a href="#">Foydalanish shartlari</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-  <!-- Keyingi JS fayllar ulanishi -->
-  <script src="languages.js"></script>
-  <script src="app.js"></script>
-  <script src="firebase-config.js"></script>
+    <!-- ========================================== -->
+    <!-- FIREBASE SDK & CUSTOM SCRIPTS -->
+    <!-- ========================================== -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDy9LPiiHgeXY8B6dCu0x-No6Xf__CJIqY",
+            authDomain: "islamicofficial-9279f.firebaseapp.com",
+            databaseURL: "https://islamicofficial-9279f-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "islamicofficial-9279f",
+            storageBucket: "islamicofficial-9279f.firebasestorage.app",
+            messagingSenderId: "251823878076",
+            appId: "1:251823878076:web:0235eb20758b9e0927c5b9",
+            measurementId: "G-MBZBKD5FNT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        console.log("Firebase muvaffaqiyatli ulandi!");
+    </script>
+
+    <!-- External Modular JavaScript Files -->
+    <script type="module" src="auth.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
