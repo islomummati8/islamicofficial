@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Islamic Official — Ma'rifat va Hidoiyat Portali</title>
+  <title>Islamic Official — Digital Of Enlightenment</title>
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -35,41 +36,44 @@
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-300">
 
+  <!-- ================= TOP HEADER / NAVBAR (Videodagidek aniq tartib) ================= -->
   <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/60 dark:border-slate-800 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
+      <!-- Logo & Brand -->
       <a href="#" class="flex items-center space-x-3 space-x-reverse group">
         <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-emerald-600/25 group-hover:scale-105 transition">
           ☪
         </div>
         <div>
-          <span class="font-extrabold text-base leading-tight block tracking-tight text-slate-900 dark:text-white">ISLAMIC OFFICIAL</span>
-          <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold block" data-i18n="tagline">Ma'rifat va Hidoiyat Maskani</span>
+          <span class="font-extrabold text-sm leading-tight block tracking-tight text-slate-900 dark:text-white">ISLAMIC OFFICIAL</span>
+          <span class="text-[10px] text-slate-400 dark:text-slate-500 font-semibold block uppercase tracking-wider">Digital Of Enlightenment</span>
         </div>
       </a>
 
+      <!-- Desktop Navigation Menu (Videodagi bandlar aynan) -->
       <nav class="hidden md:flex items-center space-x-6 space-x-reverse text-sm font-semibold text-slate-600 dark:text-slate-300">
-        <a href="#articles" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_articles">Maqolalar</a>
+        <a href="#" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_home">Bosh sahifa</a>
         <a href="#quran" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_quran">Qur'oni Karim</a>
         <a href="#dhikr" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_dhikr">Zikr va Duolar</a>
-        <button onclick="openTasbeehModal()" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition flex items-center space-x-1 space-x-reverse">
-          <i class="fas fa-fingerprint text-emerald-600"></i>
-          <span data-i18n="nav_tasbeeh">Onlayn Tasbeh</span>
-        </button>
+        <a href="#articles" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_articles">Maqolalar</a>
         <a href="#books" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_books">Kitoblar</a>
-        <a href="#apps" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_apps">Ilovalarimiz</a>
+        <a href="#apps" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition" data-i18n="nav_apps">Ilovalar</a>
       </nav>
 
+      <!-- Right Action Controls (Namoz vaqti va Kabinet) -->
       <div class="flex items-center space-x-3 space-x-reverse">
         <select id="languageSelect" onchange="changeLanguage(this.value)" class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold px-3 py-2 rounded-xl border-none focus:ring-2 focus:ring-emerald-500 cursor-pointer">
           <option value="uz">🇺🇿 O'zbek</option>
@@ -79,170 +83,162 @@
           <option value="ar">🇸🇦 العربية</option>
         </select>
 
-        <button id="themeToggle" onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="Mavzuni o'zgartirish">
-          <i class="fas fa-moon dark:hidden"></i>
-          <i class="fas fa-sun hidden dark:block text-amber-400"></i>
-        </button>
+        <a href="#prayer" class="hidden sm:flex items-center space-x-1.5 space-x-reverse bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-3.5 py-2.5 rounded-xl text-xs font-bold transition">
+          <i class="far fa-clock text-emerald-600"></i>
+          <span data-i18n="nav_prayer">Namoz Vaqti</span>
+        </a>
 
         <button onclick="openAuthModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-md shadow-emerald-600/20 flex items-center space-x-1.5 space-x-reverse">
           <i class="fas fa-user-circle text-sm"></i>
-          <span id="authBtnText" data-i18n="admin_btn">Kabinet</span>
+          <span data-i18n="admin_btn">Kabinet</span>
         </button>
       </div>
     </div>
   </header>
 
+  <!-- ================= MAIN CONTENT ================= -->
   <main class="flex-grow space-y-16 pb-20">
 
+    <!-- HERO SECTION -->
     <section class="relative pt-16 pb-12 bg-gradient-to-b from-emerald-50/70 via-teal-50/20 to-transparent dark:from-emerald-950/30 dark:to-transparent">
       <div class="max-w-4xl mx-auto px-4 text-center">
         <span class="inline-flex items-center space-x-2 space-x-reverse px-4 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold mb-4 shadow-xs">
           <span>✨</span>
-          <span data-i18n="hero_badge">Bismillahir Rohmanir Rohiym</span>
+          <span data-i18n="hero_badge">In the name of Allah, the Most Gracious, the Most Merciful</span>
         </span>
         <h1 class="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight mb-5">
-          <span data-i18n="hero_title_1">Ilm va Ma'rifat</span> <br>
-          <span class="text-emerald-600 dark:text-emerald-400" data-i18n="hero_title_2">Yagona Portalda</span>
+          <span data-i18n="hero_title_1">Knowledge & Wisdom</span> <br>
+          <span class="text-emerald-600 dark:text-emerald-400" data-i18n="hero_title_2">In One Unified Hub</span>
         </h1>
         <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-2xl mx-auto mb-8 font-medium leading-relaxed" data-i18n="hero_description">
-          Sahih manbalarga asoslangan islomiy ma'lumotlar, Qur'oni Karim suralari, zikrlar hamda foydali mobil dasturlar jamlangan rasmiy platforma.
+          An official platform featuring authentic islamic resources, Quran recitations, daily supplications, and modern mobile software.
         </p>
         <div class="flex items-center justify-center gap-4 flex-wrap">
           <a href="#quran" class="px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-xl shadow-emerald-600/25 transition flex items-center space-x-2 space-x-reverse">
             <i class="fas fa-book-open"></i>
-            <span data-i18n="btn_read_quran">Qur'on O'qish</span>
+            <span data-i18n="btn_read_quran">Read Quran</span>
           </a>
           <button onclick="openTasbeehModal()" class="px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-750 transition flex items-center space-x-2 space-x-reverse shadow-xs">
             <i class="fas fa-fingerprint text-emerald-600"></i>
-            <span data-i18n="btn_open_tasbeeh">Onlayn Tasbeh</span>
+            <span data-i18n="btn_open_tasbeeh">Online Tasbeeh</span>
           </button>
         </div>
       </div>
     </section>
 
+    <!-- PRAYER TIMES SECTION -->
     <section id="prayer" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-100 dark:border-slate-700/60 shadow-xl shadow-slate-200/50 dark:shadow-none">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h2 class="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
               <i class="far fa-clock text-emerald-600"></i>
-              <span data-i18n="prayer_section_title">Bugungi Namoz Vaqtlari</span>
+              <span data-i18n="prayer_section_title">Today's Prayer Times</span>
             </h2>
-            <p class="text-xs text-slate-400 mt-0.5">Aniq vaqtlar hududingiz bo'yicha avtomatik hisoblanadi</p>
+            <p class="text-xs text-slate-400 mt-0.5">Accurate times calculated automatically based on your location</p>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs text-slate-400 font-medium" data-i18n="location_label">Hudud:</span>
+            <span class="text-xs text-slate-400 font-medium" data-i18n="location_label">Location:</span>
             <select id="citySelect" onchange="fetchPrayerTimes()" class="bg-slate-100 dark:bg-slate-700 text-xs font-bold px-3.5 py-2 rounded-xl border-none text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-emerald-500 cursor-pointer shadow-xs">
-              <option value="Tashkent,Uzbekistan">Toshkent</option>
-              <option value="Osh,Kyrgyzstan" selected>Osh</option>
-              <option value="Bishkek,Kyrgyzstan">Bishkek</option>
-              <option value="Samarkand,Uzbekistan">Samarqand</option>
-              <option value="Andijan,Uzbekistan">Andijon</option>
-              <option value="Fergana,Uzbekistan">Farg'ona</option>
-              <option value="Moscow,Russia">Moskva</option>
-              <option value="Istanbul,Turkey">Istanbul</option>
+              <option value="Osh,Kyrgyzstan" selected>Osh, Kyrgyzstan</option>
+              <option value="Tashkent,Uzbekistan">Tashkent, Uzbekistan</option>
+              <option value="Bishkek,Kyrgyzstan">Bishkek, Kyrgyzstan</option>
+              <option value="Moscow,Russia">Moscow, Russia</option>
             </select>
           </div>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center transition hover:border-emerald-500/50">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1" data-i18n="fajr">Bamdod</span>
+          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1">Fajr</span>
             <span id="fajrTime" class="text-xl font-extrabold text-slate-800 dark:text-slate-100">--:--</span>
           </div>
-          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center transition hover:border-emerald-500/50">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1" data-i18n="sunrise">Quyosh</span>
+          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1">Sunrise</span>
             <span id="sunriseTime" class="text-xl font-extrabold text-slate-800 dark:text-slate-100">--:--</span>
           </div>
-          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center transition hover:border-emerald-500/50">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1" data-i18n="dhuhr">Peshin</span>
+          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1">Dhuhr</span>
             <span id="dhuhrTime" class="text-xl font-extrabold text-slate-800 dark:text-slate-100">--:--</span>
           </div>
-          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center transition hover:border-emerald-500/50">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1" data-i18n="asr">Asr</span>
+          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1">Asr</span>
             <span id="asrTime" class="text-xl font-extrabold text-slate-800 dark:text-slate-100">--:--</span>
           </div>
-          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center transition hover:border-emerald-500/50">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1" data-i18n="maghrib">Shom</span>
+          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1">Maghrib</span>
             <span id="maghribTime" class="text-xl font-extrabold text-slate-800 dark:text-slate-100">--:--</span>
           </div>
-          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center transition hover:border-emerald-500/50">
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1" data-i18n="isha">Xufton</span>
+          <div class="prayer-card p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-center">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold block mb-1">Isha</span>
             <span id="ishaTime" class="text-xl font-extrabold text-slate-800 dark:text-slate-100">--:--</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="articles" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between mb-8">
-        <div>
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-white" data-i18n="articles_title">Ma'rifiy Maqolalar va Hikmatlar</h2>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="articles_subtitle">Dolzarb islomiy mavzular, odob-axloq va hayotiy o'gitlar</p>
-        </div>
-        <button onclick="openNewArticleModal()" class="flex items-center space-x-1.5 space-x-reverse bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 px-4 py-2.5 rounded-xl text-xs font-bold border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 transition shadow-xs">
-          <i class="fas fa-plus"></i>
-          <span data-i18n="btn_add_article">Yangi Maqola Yozish</span>
-        </button>
-      </div>
-
-      <div id="articlesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        </div>
-    </section>
-
+    <!-- QURAN SECTION -->
     <section id="quran" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-white" data-i18n="quran_title">Qur'oni Karim Suralari</h2>
-          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="quran_subtitle">Suralarni matn va audio holida tinglash va mutolaa qilish</p>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white" data-i18n="quran_title">Surahs of the Holy Quran</h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Listen and read surahs with audio and translation support</p>
         </div>
         <div class="w-full sm:w-72">
-          <input type="text" id="searchSurahInput" data-i18n-placeholder="search_surah_ph" placeholder="Sura nomi yoki raqami..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-xs">
+          <input type="text" id="searchSurahInput" placeholder="Search surah or number..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-xs">
         </div>
       </div>
-
       <div id="surahContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        </div>
+        <!-- Injected via app.js -->
+      </div>
     </section>
 
+    <!-- DHIKR SECTION -->
     <section id="dhikr" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-6">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white" data-i18n="dhikr_title">Zikrlar va Mastur Duolar</h2>
-        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="dhikr_subtitle">Kundalik o'qiladigan sahih duolar va zikrlar to'plami</p>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Dhikr & Supplications</h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Authentic daily prayers and remembrances</p>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-xs hover:shadow-md transition">
-          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full">Ertalabki Zikr</span>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-xs">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full">Morning Dhikr</span>
           <h3 class="font-bold text-lg text-slate-800 dark:text-white mt-3 mb-2">Sayyidul Istighfor</h3>
           <p class="font-arabic text-xl text-right text-emerald-800 dark:text-emerald-300 leading-loose mb-3">
             اللَّهُمَّ أَنْتَ رَبِّي لاَ إِلَهَ إِلاَّ أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ...
           </p>
-          <p class="text-xs text-slate-600 dark:text-slate-300 italic">"Allohumma anta Rabbii laa ilaaha illaa anta khalaqtanii va anaa 'abduka..."</p>
         </div>
-
-        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-xs hover:shadow-md transition">
-          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full">Kechki Zikr</span>
-          <h3 class="font-bold text-lg text-slate-800 dark:text-white mt-3 mb-2">Oyatul Kursiy</h3>
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700/60 shadow-xs">
+          <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-full">Evening Dhikr</span>
+          <h3 class="font-bold text-lg text-slate-800 dark:text-white mt-3 mb-2">Ayatul Kursiy</h3>
           <p class="font-arabic text-xl text-right text-emerald-800 dark:text-emerald-300 leading-loose mb-3">
             اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ...
           </p>
-          <p class="text-xs text-slate-600 dark:text-slate-300 italic">"Allohu laa ilaaha illaa huval Hayyul Qoyyuum..."</p>
         </div>
       </div>
     </section>
 
+    <!-- ARTICLES SECTION -->
+    <section id="articles" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Islamic Articles</h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Insightful articles on morals, ethics, and islamic guidance</p>
+      </div>
+      <div id="articlesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Injected via articles.js -->
+      </div>
+    </section>
+
+    <!-- BOOKS SECTION -->
     <section id="books" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-6">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white" data-i18n="nav_books">Islomiy Kitoblar</h2>
-        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Ishonchli va sahih adabiyotlar to'plami</p>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Islamic Books</h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Collection of authentic and verified islamic literature</p>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-xs flex items-center justify-between">
           <div>
             <span class="text-xs font-semibold text-emerald-600">Hadis va Hayot</span>
             <h4 class="font-bold text-base text-slate-800 dark:text-white mt-1">Hadis va Hayot (1-jild)</h4>
-            <span class="text-xs text-slate-400 mt-2 block">Muallif: Shayx Muhammad Sodiq Muhammad Yusuf</span>
           </div>
           <a href="#" class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950 text-emerald-600 flex items-center justify-center hover:bg-emerald-100 transition shadow-xs">
             <i class="fas fa-download"></i>
@@ -251,20 +247,21 @@
       </div>
     </section>
 
+    <!-- MOBILE APPS SECTION -->
     <section id="apps" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-6">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white" data-i18n="nav_apps">Mobil Ilovalar Ekosistemasi</h2>
-        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Kundalik zikr va ibodatlaringiz uchun qulay mobil ilovalarimiz</p>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Mobile App Ecosystem</h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Perform your daily religious commitments with our modern mobile apps</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-100 dark:border-slate-700/60 shadow-xs flex flex-col justify-between">
           <div>
             <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center font-bold text-2xl mb-4 shadow-lg shadow-emerald-500/30">📿</div>
-            <h3 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Zikr & Tasbeh (Rasmiy Ilova)</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Google Play do'konidagi rasmiy zikr va raqamli tasbeh ilovamiz. Yuklab oling va baho bering!</p>
+            <h3 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Zikr (Tasbeh) App</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Kundalik zikrlar, sajdalardan saboq olish taqvimlar, namoz vaqtlari va tasbeh hisoblagichiga ega mobil ilovamiz.</p>
           </div>
           <div class="flex items-center gap-3">
-            <span class="px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold">Mavjud</span>
+            <span class="px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold">Available</span>
             <a href="https://play.google.com/store/apps/details?id=com.zikr.zkr&pcampaignid=web_share" target="_blank" class="px-4 py-2 rounded-xl bg-slate-900 dark:bg-slate-700 text-white text-xs font-bold hover:bg-emerald-600 transition flex items-center space-x-1.5 space-x-reverse shadow-sm">
               <i class="fab fa-google-play"></i>
               <span>Google Play</span>
@@ -276,10 +273,10 @@
           <div>
             <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold text-2xl mb-4 shadow-lg shadow-amber-500/30">📖</div>
             <h3 class="font-bold text-xl text-slate-800 dark:text-white mb-2">Islamic Official Rasmiy App</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Portalning to'liq mobil versiyasi. Internetga ulanmagan holda ham barcha ma'lumotlar ishlaydi.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Portarning to'liq mobil versiyasi. Suratlar offline audio tinglash, maqolalar va eng sara kitoblar birga.</p>
           </div>
           <div class="flex items-center gap-3">
-            <span class="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 text-xs font-bold">Tez kunda</span>
+            <span class="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 text-xs font-bold">Coming Soon</span>
           </div>
         </div>
       </div>
@@ -287,6 +284,7 @@
 
   </main>
 
+  <!-- ================= FOOTER ================= -->
   <footer class="bg-white dark:bg-slate-950 border-t border-slate-200/80 dark:border-slate-800/80 pt-16 pb-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
       <div>
@@ -297,20 +295,21 @@
           <span class="font-bold text-base text-slate-900 dark:text-white">ISLAMIC OFFICIAL</span>
         </div>
         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-          Sahih manbalarga asoslangan islomiy ma'lumotlar, Qur'on va zikrlar rasmiy portali. Barcha huquqlar himoyalangan.
+          Sahih manbalarga asoslangan islomiy ma'lumotlar, Qur'on va zikrlar rasmiy portali.
         </p>
       </div>
       <div>
-        <h4 class="font-bold text-sm text-slate-800 dark:text-white mb-4">Tezkor Havolalar</h4>
+        <h4 class="font-bold text-sm text-slate-800 dark:text-white mb-4">Sections</h4>
         <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400 font-medium">
-          <li><a href="#articles" class="hover:text-emerald-600 transition">Maqolalar</a></li>
           <li><a href="#quran" class="hover:text-emerald-600 transition">Qur'oni Karim</a></li>
           <li><a href="#dhikr" class="hover:text-emerald-600 transition">Zikr va Duolar</a></li>
+          <li><a href="#articles" class="hover:text-emerald-600 transition">Maqolalar</a></li>
           <li><a href="#books" class="hover:text-emerald-600 transition">Kitoblar</a></li>
+          <li><a href="#apps" class="hover:text-emerald-600 transition">Mobil Ilovalarimiz</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-bold text-sm text-slate-800 dark:text-white mb-4">Aloqa va Qo'llab-quvvatlash</h4>
+        <h4 class="font-bold text-sm text-slate-800 dark:text-white mb-4">Contact & Support</h4>
         <div class="space-y-2 text-xs text-slate-500 dark:text-slate-400 font-medium">
           <p class="flex items-center gap-2"><i class="far fa-envelope text-emerald-600"></i> support@islamicofficial.com</p>
           <p class="flex items-center gap-2"><i class="fab fa-telegram text-emerald-600"></i> @islamic_official_support</p>
@@ -319,83 +318,15 @@
       <div>
         <h4 class="font-bold text-sm text-slate-800 dark:text-white mb-4">Biz Haqimizda</h4>
         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-          Buxoro, Toshkent va Osh shahrida faoliyat yurituvchi dasturchilar va ilmiy jamoa tomonidan ishlab chiqilgan.
+          Barcha huquqlar himoyalangan © 2026 Islamic Official.
         </p>
       </div>
     </div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-100 dark:border-slate-900 text-center text-xs text-slate-400 font-medium">
-      &copy; 2026 Islamic Official. Barcha huquqlar himoyalangan.
-    </div>
   </footer>
 
-  <div id="tasbeehModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-800 w-full max-w-md rounded-3xl p-6 border border-slate-100 dark:border-slate-700 shadow-2xl relative text-center">
-      <button onclick="closeTasbeehModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-        <i class="fas fa-times text-lg"></i>
-      </button>
-      <span class="text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-3 py-1 rounded-full uppercase tracking-wider">Onlayn Tasbeh</span>
-      <div class="my-6">
-        <div id="tasbeehDisplay" class="text-6xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">0</div>
-        <p class="text-xs text-slate-400 mt-2">Maqsad: <span id="tasbeehTargetDisplay">33</span> ta</p>
-      </div>
-      <button id="tasbeehBtn" class="w-32 h-32 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 text-white font-bold text-xl shadow-xl shadow-emerald-600/40 active:scale-95 transition mx-auto flex items-center justify-center">BOSING</button>
-      <div class="flex items-center justify-between mt-8 pt-4 border-t border-slate-100 dark:border-slate-700 text-xs">
-        <button id="tasbeehResetBtn" class="text-rose-500 font-semibold hover:underline"><i class="fas fa-redo-alt mr-1"></i> Qayta o'rnatish</button>
-        <select id="tasbeehTargetSelect" class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg px-2 py-1 border-none font-bold">
-          <option value="33">33 talik</option>
-          <option value="99">99 talik</option>
-          <option value="100">100 talik</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div id="authModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-800 w-full max-w-sm rounded-3xl p-6 border border-slate-100 dark:border-slate-700 shadow-2xl relative">
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-        <i class="fas fa-times text-lg"></i>
-      </button>
-      <div class="text-center mb-6">
-        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Tizimga Kirish</h3>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ma'lumotlarni saqlash va sinxronlash uchun kiring</p>
-      </div>
-      <div class="space-y-2.5 mb-6">
-        <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center space-x-2 space-x-reverse bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 py-2.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 transition">
-          <i class="fab fa-google text-red-500 text-sm"></i>
-          <span>Google orqali kirish</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
+  <!-- Scripts -->
   <script src="languages.js"></script>
   <script src="articles.js"></script>
   <script src="app.js"></script>
-
-  <script>
-    function toggleTheme() {
-      const html = document.documentElement;
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      } else {
-        html.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      }
-    }
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
-
-    function openTasbeehModal() { document.getElementById('tasbeehModal').classList.remove('hidden'); }
-    function closeTasbeehModal() { document.getElementById('tasbeehModal').classList.add('hidden'); }
-    function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
-    function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
-    function loginWithGoogle() {
-      localStorage.setItem('islamic_auth_user', JSON.stringify({ name: 'Google User', provider: 'google' }));
-      alert("Muvaffaqiyatli kirdingiz!");
-      closeAuthModal();
-    }
-  </script>
 </body>
 </html>
