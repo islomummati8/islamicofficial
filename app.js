@@ -299,3 +299,28 @@ function updatePlayPauseIcon(isPlaying) {
     playBtn.className = isPlaying ? 'fas fa-pause' : 'fas fa-play';
   }
 }
+
+// Mobil menyuni ochish/yopish
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+}
+
+// Tema (Dark/Light mode) almashtirish
+function toggleTheme() {
+    const html = document.documentElement;
+    const sunIcon = document.getElementById('themeIconSun');
+    const moonIcon = document.getElementById('themeIconMoon');
+
+    html.classList.toggle('dark');
+    
+    if (html.classList.contains('dark')) {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+        localStorage.setItem('theme', 'light');
+    }
+}
