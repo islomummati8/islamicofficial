@@ -612,7 +612,7 @@
     </div>
   </div>
 
-  <!-- Modal 3: Yangi Maqola Yozish Oynasi (Firebase Firestore uchun) -->
+ <!-- Modal 3: Yangi Maqola Yozish Oynasi (Firebase Firestore uchun) -->
   <div id="createArticleModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 relative max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -621,6 +621,50 @@
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
+
+      <form onsubmit="handleArticleSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Sarlavhasi</label>
+          <input type="text" id="articleTitleInput" required placeholder="Masalan: Sabrning islomdagi fazilati" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+        </div>
+        
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Muallif</label>
+          <input type="text" id="articleAuthorInput" required placeholder="Abdulloh" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Kategoriya</label>
+          <select id="articleCategoryInput" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+            <option value="Odob-axloq">Odob-axloq</option>
+            <option value="Aqida">Aqida</option>
+            <option value="Fiqh">Fiqh</option>
+            <option value="Tafsir">Tafsir</option>
+          </select>
+        </div>
+
+        <!-- Rasm (URL manbasi yoki fayl) maydoni form ichiga olib o'tildi -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Rasm (URL manbasi yoki fayl)</label>
+          <div class="flex gap-2">
+            <input type="text" id="articleImageInput" placeholder="https://example.com/image.jpg" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800">
+            <input type="file" id="articleImageFile" accept="image/*" onchange="encodeImageFileAsURL(this)" class="hidden">
+            <button type="button" onclick="document.getElementById('articleImageFile').click()" class="px-3 py-2 bg-slate-200 dark:bg-slate-700 rounded-xl text-xs font-semibold hover:bg-slate-300 transition whitespace-nowrap">Fayl tanlash</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 mb-1">Maqola Matni (HTML/Text)</label>
+          <textarea id="articleContentInput" rows="6" required placeholder="Maqolangiz matnini beraverasiz..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-800"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-2">
+          <button type="button" onclick="closeCreateArticleModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold">Bekor qilish</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-800 text-white text-xs font-bold hover:bg-brand-700 transition">Chop etish</button>
+        </div>
+      </form>
+    </div>
+  </div>
       <!-- Kategoriya tagiga shuni qo'shasiz -->
 <div>
   <label class="block text-xs font-semibold text-slate-500 mb-1">Rasm (URL manbasi yoki fayl)</label>
