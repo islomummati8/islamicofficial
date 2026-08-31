@@ -365,3 +365,88 @@ function filterSurahs() {
         }
     });
 }
+
+// Faylni Base64 formatga o'tkazish (rasm yuklash uchun)
+let uploadedArticleImage = "";
+function encodeImageFileAsURL(element) {
+    const file = element.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onloadend = function() {
+            uploadedArticleImage = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+// Maqolalarni chiroyli dizaynda chiqarish namunasi
+function renderArticles(articlesArray) {
+    const container = document.getElementById('articlesGridContainer');
+    container.innerHTML = "";
+
+    articlesArray.forEach((article, index) => {
+        container.innerHTML += `
+            <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-700 flex flex-col justify-between group transition hover:-translate-y-1">
+                <div>
+                    <!-- Rasm -->
+                    <div class="h-48 overflow-hidden relative bg-slate-100 dark:bg-slate-900">
+                        <img src="${article.image || 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600'}" alt="Article" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 bg-brand-800 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow">${article.category}</span>
+                    </div>
+                    <!-- Matn qismi -->
+                    <div class="p-5">
+                        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                            <span><i data-lucide="user" class="w-3 h-3 inline mr-1"></i>${article.author}</span>
+                            <span class="flex items-center gap-1"><i data-lucide="eye" class="w-3 h-3"></i>${article.views || 0}</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2 line-clamp-2">${article.title}</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3">${article.content}</p>
+                    </div>
+                </div>
+
+                <!-- Pastki qism: Like/Dislike va Tahrirlash -->
+                <div class="p-5 pt-0 flex items-center justify-between border-t border-slate-100 dark:border-slate-700/60 mt-4">
+                    <div class="flex items-center gap-2">
+                        <button onclick="likeArticle(${index})" class="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-100 transition">
+                            <i data-lucide="thumbs-up" class="w-3.5 h-3.5"></i> <span>${article.likes || 0}</span>
+                        </button>
+                        <button onclick="dislikeArticle(${index})" class="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/50 text-rose-500 hover:bg-rose-100 transition">
+                            <i data-lucide="thumbs-down" class="w-3.5 h-3.5"></i> <span>${article.dislikes || 0}</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Tahrirlash tugmasi (Faqat admin uchun ko'rinadi) -->
+                    <button onclick="editArticle(${index})" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-brand-800 hover:text-white transition" title="Tahrirlash">
+                        <i data-lucide="edit-3" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    lucide.createIcons(); // Iconlarni yangilash
+}
+
+let articlesData = []; // Maqolalar massivi
+
+function likeArticle(index) {
+    articlesData[index].likes = (articlesData[index].likes || 0) + 1;
+    renderArticles(articlesData);
+}
+
+function dislikeArticle(index) {
+    articlesData[index].dislikes = (articlesData[index].dislikes || 0) + 1;
+    renderArticles(articlesData);
+}
+
+function editArticle(index) {
+    const art = articlesData[index];
+    // Modalni ochib, eski ma'lumotlarni inputlarga to'ldirish
+    openCreateArticleModal();
+    document.getElementById('articleTitleInput').value = art.title;
+    document.getElementById('articleAuthorInput').value = art.author;
+    document.getElementById('articleCategoryInput').value = art.category;
+    document.getElementById('articleContentInput').value = art.content;
+    document.getElementById('articleImageInput').value = art.image || '';
+    
+    // O'zgartirish paytida eski maqolani yangilash logikasini qo'shishingiz mumkin
+}
