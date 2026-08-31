@@ -146,6 +146,7 @@ html[dir="rtl"] .font-arabic {
 /* Audio Player Range Progress styling */
 input[type=range] {
   -webkit-appearance: none;
+  appearance: none;
   background: transparent;
 }
 
