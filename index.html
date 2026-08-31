@@ -145,3 +145,156 @@
 
     </div>
   </header>
+  <!-- ================= MOBILE MENU (MOBIL MENYU) ================= -->
+  <div id="mobileMenu" class="hidden lg:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-3 pb-6 space-y-3 transition-all duration-300">
+    <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_home">Bosh sahifa</a>
+    <a href="#quran" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_quran">Qur'oni Karim</a>
+    <a href="#dhikr" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_dhikr">Zikr va Duolar</a>
+    <a href="#articles" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_articles">Maqolalar</a>
+    <a href="#books" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_books">Kitoblar</a>
+    <a href="#apps" onclick="toggleMobileMenu()" class="block py-2 text-slate-700 dark:text-slate-200 font-medium hover:text-brand-800 dark:hover:text-emerald-400" data-i18n="nav_apps">Ilovalarimiz</a>
+    <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex gap-2">
+      <button onclick="openPrayerModal(); toggleMobileMenu()" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-brand-800 dark:text-emerald-400 text-xs font-semibold flex items-center justify-center gap-2">
+        <i data-lucide="clock" class="w-4 h-4"></i>
+        <span data-i18n="prayer_times_btn">Namoz Vaqtlari</span>
+      </button>
+      <button onclick="openAdminModal(); toggleMobileMenu()" class="flex-1 py-2.5 px-4 rounded-xl bg-brand-800 text-white text-xs font-semibold flex items-center justify-center gap-2">
+        <i data-lucide="user-check" class="w-4 h-4"></i>
+        <span data-i18n="admin_btn">Kabinet</span>
+      </button>
+    </div>
+  </div>
+
+  <main class="flex-grow">
+    
+    <!-- ================= HERO BANNER SECTION ================= -->
+    <section id="home" class="relative bg-gradient-to-b from-brand-50 via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 py-16 lg:py-24 overflow-hidden">
+      <!-- Orqa fon Naqshlari (Decorative Background SVG) -->
+      <div class="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none flex items-center justify-center">
+        <svg width="800" height="800" viewBox="0 0 100 100" fill="currentColor" class="text-brand-900 dark:text-emerald-300">
+          <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="0.5" fill="none"/>
+          <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="0.5" fill="none"/>
+          <path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" stroke="currentColor" stroke-width="0.3"/>
+        </svg>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <div class="text-center max-w-3xl mx-auto space-y-6">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-brand-800 dark:text-emerald-300 text-xs font-semibold border border-emerald-200 dark:border-emerald-800/60 shadow-sm">
+            <i data-lucide="sparkles" class="w-4 h-4 text-gold-500"></i>
+            <span data-i18n="hero_badge">Bismillahir Rohmanir Rohiym</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+            <span data-i18n="hero_title_1">Ilm va Ma'rifat</span> <br>
+            <span class="text-brand-800 dark:text-emerald-400" data-i18n="hero_title_2">Yagona Portalda</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 font-normal leading-relaxed" data-i18n="hero_description">
+            Sahih manbalarga asoslangan islomiy ma'lumotlar, Qur'oni Karim suralari, zikrlar hamda foydali mobil dasturlar jamlangan rasmiy platforma.
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-4 pt-2">
+            <a href="#quran" class="px-7 py-3.5 rounded-xl bg-brand-800 hover:bg-brand-700 text-white font-semibold text-sm transition shadow-lg shadow-emerald-900/20 flex items-center gap-2">
+              <i data-lucide="book-open" class="w-4 h-4"></i>
+              <span data-i18n="btn_read_quran">Qur'on O'qish</span>
+            </a>
+            <a href="#dhikr" class="px-7 py-3.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-200 dark:border-slate-700 transition shadow-sm flex items-center gap-2">
+              <i data-lucide="disc" class="w-4 h-4 text-gold-500"></i>
+              <span data-i18n="btn_open_tasbeeh">Onlayn Tasbeh</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= NAMOZ VAQTLARI MAIN BLOCK ================= -->
+    <section class="max-w-7xl mx-auto px-4 -mt-6 relative z-20 mb-16">
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-700/80 p-6 sm:p-8 transition-colors duration-300">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-700/60">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i data-lucide="clock" class="w-5 h-5 text-brand-800 dark:text-emerald-400"></i>
+              <span data-i18n="prayer_section_title">Bugungi Namoz Vaqtlari</span>
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              <span data-i18n="location_label">Hudud:</span> <strong id="prayerLocationName" class="text-slate-700 dark:text-slate-200">Aniqlanmoqda...</strong>
+            </p>
+          </div>
+          <div class="text-right">
+            <span id="nextPrayerCountdown" class="inline-block bg-emerald-50 dark:bg-emerald-950/60 text-brand-800 dark:text-emerald-300 font-mono text-xs px-3 py-1.5 rounded-lg font-bold border border-emerald-200 dark:border-emerald-800">
+              Keyingi namozga: --:--:--
+            </span>
+          </div>
+        </div>
+
+        <!-- Namoz Vaqtlari Kartochkalari (Grid) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" id="prayerTimesGrid">
+          
+          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="fajr">Bamdod</span>
+            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeFajr">--:--</span>
+          </div>
+
+          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="sunrise">Quyosh</span>
+            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeSunrise">--:--</span>
+          </div>
+
+          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="dhuhr">Peshin</span>
+            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeDhuhr">--:--</span>
+          </div>
+
+          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="asr">Asr</span>
+            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeAsr">--:--</span>
+          </div>
+
+          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="maghrib">Shom</span>
+            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeMaghrib">--:--</span>
+          </div>
+
+          <div class="prayer-card p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-700/50 text-center transition">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium block mb-1" data-i18n="isha">Xufton</span>
+            <span class="text-lg font-black text-slate-800 dark:text-slate-100 font-mono" id="timeIsha">--:--</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUR'ONI KARIM SECTION ================= -->
+    <section id="quran" class="py-16 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4">
+        
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" data-i18n="quran_title">
+              Qur'oni Karim Suralari
+            </h2>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-2" data-i18n="quran_subtitle">
+              Suralarni matn va audio holida tinglash hamda mutolaa qilish bo'limi
+            </p>
+          </div>
+
+          <!-- Surani Qidiruv qutisi -->
+          <div class="relative w-full md:w-72">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
+            <input type="text" id="surahSearchInput" onkeyup="filterSurahs()" placeholder="Sura nomi yoki raqami..." data-i18n-placeholder="search_surah_ph" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-800">
+          </div>
+        </div>
+
+        <!-- Suralar Ro'yxati (Grid) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="surahListContainer">
+          <!-- Dinamik ravishda JS orqali Quran API dan yuklanadi -->
+          <div class="col-span-full text-center py-12 text-slate-400">
+            <i data-lucide="loader-2" class="w-8 h-8 animate-spin mx-auto mb-2 text-brand-800 dark:text-emerald-400"></i>
+            <span data-i18n="loading_surahs">Suralar ro'yxati yuklanmoqda...</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
