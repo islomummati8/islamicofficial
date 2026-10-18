@@ -1,10 +1,12 @@
-const CACHE_NAME = 'islamic-zikr-static-v2';
+const CACHE_NAME = 'islamic-zikr-static-v5';
 const ASSETS = [
   './',
   './index.html',
-  './zikr.css?v=2',
-  './zikr.js?v=6',
-  './site-locale.js?v=5',
+  './zikr.css?v=4',
+  './zikr.js?v=9',
+  './site-locale.js?v=7',
+  './dhikr-catalog.js?v=1',
+  './reminder-utils.js?v=1',
   './ai-config.js?v=1',
   './manifest.webmanifest',
   './icon.svg'

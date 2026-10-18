@@ -204,16 +204,29 @@ service cloud.firestore {
           && request.resource.data.updatedAt is timestamp
           && data is map
           && (appId == 'zikr'
-            ? data.keys().hasOnly(['counts', 'customDhikr', 'active', 'target', 'vibration', 'sound', 'theme', 'reminder', 'remindedOn', 'day'])
+            ? data.keys().hasOnly(['counts', 'customDhikr', 'agentHistory', 'active', 'target', 'vibration', 'sound', 'celebration', 'goalSound', 'theme', 'reminders', 'reminder', 'remindedOn', 'day'])
               && data.keys().hasAll(['counts', 'customDhikr', 'active', 'target', 'day'])
               && data.counts is map
               && data.counts.keys().size() <= 100
               && data.customDhikr is list
               && data.customDhikr.size() <= 100
+              && (!('agentHistory' in data)
+                || (data.agentHistory is list && data.agentHistory.size() <= 12))
               && data.active is string
               && data.target is int
               && data.target >= 0
               && data.target <= 99999
+              && (!('vibration' in data) || data.vibration is bool)
+              && (!('sound' in data) || data.sound is bool)
+              && (!('celebration' in data) || data.celebration is bool)
+              && (!('goalSound' in data) || data.goalSound in ['none', 'gentle', 'bright'])
+              && (!('theme' in data) || data.theme in ['light', 'dark'])
+              && (!('reminders' in data)
+                || (data.reminders is list
+                  && data.reminders.size() <= 10))
+              && (!('reminder' in data)
+                || (data.reminder is string && data.reminder.matches('^([01][0-9]|2[0-3]):[0-5][0-9]$')))
+              && (!('remindedOn' in data) || data.remindedOn is string)
               && data.day is string
             : appId == 'kids'
               ? data.keys().hasOnly(['bestScores'])

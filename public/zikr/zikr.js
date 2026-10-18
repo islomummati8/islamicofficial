@@ -1,31 +1,38 @@
 (() => {
   const storageKey = 'islamic-official-smart-zikr-v1';
-  const builtInDhikr = [
-    { id: 'subhanallah', arabic: 'سُبْحَانَ اللهِ', latin: 'Subhanalloh', meaning: 'Alloh barcha nuqsonlardan pokdir.' },
-    { id: 'alhamdulillah', arabic: 'الْحَمْدُ لِلَّهِ', latin: 'Alhamdulillah', meaning: 'Hamd va shukr Allohgadir.' },
-    { id: 'allahuakbar', arabic: 'اللهُ أَكْبَرُ', latin: 'Allohu akbar', meaning: 'Alloh ulug‘dir.' },
-    { id: 'astaghfirullah', arabic: 'أَسْتَغْفِرُ اللهَ', latin: 'Astag‘firulloh', meaning: 'Allohdan mag‘firat so‘rayman.' }
-  ];
+  const dhikrCatalog = Array.isArray(window.ISLAMIC_ZIKR_CATALOG) ? window.ISLAMIC_ZIKR_CATALOG : [];
+  const reminderUtils = window.ISLAMIC_ZIKR_REMINDER_UTILS;
+  const builtInDhikr = dhikrCatalog.filter(item => item.category === 'dhikr');
+  const builtInDuas = dhikrCatalog.filter(item => item.category === 'dua');
   function localDayKey(date = new Date()) {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
-  const defaultState = { counts: {}, customDhikr: [], agentHistory: [], active: builtInDhikr[0].id, target: 0, vibration: true, sound: false, theme: 'light', reminder: '', remindedOn: '', day: localDayKey() };
+  const defaultState = { counts: {}, customDhikr: [], agentHistory: [], active: builtInDhikr[0].id, target: 0, vibration: true, sound: false, celebration: false, goalSound: 'none', theme: 'light', reminders: [], day: localDayKey() };
   let state = readState();
   let reminderTimer;
+  let celebrationTimer;
+  let toneContext;
   let accountSaveTimer;
+  let editingCustomDhikrId = null;
 
   function readState() {
     try {
       const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
       const sameDay = saved.day === localDayKey();
-      return {
+      const restored = {
         ...defaultState,
         ...saved,
+        celebration: saved.celebration === true,
         counts: sameDay && saved.counts && typeof saved.counts === 'object' ? saved.counts : {},
         customDhikr: Array.isArray(saved.customDhikr) ? saved.customDhikr.filter(isValidCustomDhikr).slice(0, 100) : [],
+        reminders: reminderUtils.normalize(saved.reminders, saved.reminder, saved.remindedOn),
+        goalSound: ['none', 'gentle', 'bright'].includes(saved.goalSound) ? saved.goalSound : 'none',
         agentHistory: normalizeAgentHistory(saved.agentHistory),
         day: localDayKey()
       };
+      delete restored.reminder;
+      delete restored.remindedOn;
+      return restored;
     } catch (error) {
       console.error('Could not read private zikr data:', error);
       return { ...defaultState };
@@ -46,12 +53,19 @@
     return item && typeof item.id === 'string' && item.id.startsWith('custom-')
       && ['arabic', 'latin', 'meaning'].every(key => typeof item[key] === 'string' && item[key].length > 0)
       && item.arabic.length <= 500 && item.latin.length <= 100 && item.meaning.length <= 240
+      && (item.source === undefined || typeof item.source === 'string' && item.source.length <= 120)
+      && (item.sourceId === undefined || typeof item.sourceId === 'string' && dhikrCatalog.some(source => source.id === item.sourceId))
       && (item.target === undefined || Number.isInteger(item.target) && item.target >= 1 && item.target <= 99999)
       && (item.planTime === undefined || /^([01]\d|2[0-3]):[0-5]\d$/.test(item.planTime));
   }
 
   function allDhikr() {
-    return [...builtInDhikr, ...state.customDhikr];
+    const personalDuaIds = new Set(state.customDhikr.map(item => item.sourceId).filter(Boolean));
+    return [
+      ...builtInDhikr,
+      ...builtInDuas.filter(item => !personalDuaIds.has(item.id)),
+      ...state.customDhikr
+    ];
   }
 
   function activeDhikr() {
@@ -112,6 +126,8 @@
     const customTarget = document.getElementById('custom-target');
     customTarget.hidden = targetSelect.value !== 'custom';
     if (targetSelect.value === 'custom') customTarget.value = String(selectedTarget);
+    document.getElementById('goal-celebration').checked = state.celebration;
+    document.getElementById('goal-sound').value = state.goalSound;
     renderCount();
   }
 
@@ -137,7 +153,11 @@
       const add = document.createElement('span');
       add.className = 'add-label';
       add.textContent = 'Tanlash va sanash →';
-      button.append(arabic, title, meaning, add);
+      const source = document.createElement('small');
+      source.className = 'dhikr-source';
+      source.textContent = item.source || '';
+      source.hidden = !item.source;
+      button.append(arabic, title, meaning, source, add);
       button.addEventListener('click', () => {
         state.active = item.id;
         document.getElementById('zikr-select').value = item.id;
@@ -147,6 +167,11 @@
       });
       entry.append(button);
       if (item.id.startsWith('custom-')) {
+        const edit = document.createElement('button');
+        edit.type = 'button';
+        edit.className = 'dhikr-edit';
+        edit.textContent = 'O‘qilishi va ma’nosini tahrirlash';
+        edit.addEventListener('click', () => editPersonalDhikr(item.id));
         const remove = document.createElement('button');
         remove.type = 'button';
         remove.className = 'dhikr-remove';
@@ -160,7 +185,7 @@
           renderAdhkar();
           renderSelection();
         });
-        entry.append(remove);
+        entry.append(edit, remove);
       }
       return entry;
     }));
@@ -196,6 +221,29 @@
     return true;
   }
 
+  function editPersonalDhikr(id) {
+    const item = state.customDhikr.find(custom => custom.id === id);
+    if (!item) return;
+    editingCustomDhikrId = id;
+    const form = document.getElementById('custom-dhikr-form');
+    form.elements.arabic.value = item.arabic;
+    form.elements.latin.value = item.latin;
+    form.elements.meaning.value = item.meaning;
+    document.getElementById('custom-dhikr-submit').textContent = 'O‘zgarishni saqlash';
+    document.getElementById('custom-dhikr-cancel').hidden = false;
+    document.getElementById('custom-dhikr-status').textContent = 'O‘qilishi, ma’nosi yoki arabcha matnini tahrirlang.';
+    form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    form.elements.latin.focus({ preventScroll: true });
+  }
+
+  function cancelEditPersonalDhikr() {
+    editingCustomDhikrId = null;
+    document.getElementById('custom-dhikr-form').reset();
+    document.getElementById('custom-dhikr-submit').textContent = 'Zikrni ro‘yxatga qo‘shish';
+    document.getElementById('custom-dhikr-cancel').hidden = true;
+    document.getElementById('custom-dhikr-status').textContent = '';
+  }
+
   function parseAgentPlan(response) {
     const cleaned = response.replace(/^```(?:json)?\s*|\s*```$/g, '').trim();
     const parsed = JSON.parse(cleaned);
@@ -203,10 +251,11 @@
       throw new Error('Agent zikr rejasini kutilgan formatda qaytarmadi.');
     }
     return parsed.map(item => {
-      const source = builtInDhikr.find(dhikrItem => dhikrItem.id === item.id);
-      if (!source || !/^([01]\d|2[0-3]):[0-5]\d$/.test(item.time)
+      const source = dhikrCatalog.find(dhikrItem => dhikrItem.id === item.id);
+      if (!source || typeof item.time !== 'string'
+        || (item.time !== '' && !/^([01]\d|2[0-3]):[0-5]\d$/.test(item.time))
         || !Number.isInteger(item.target) || item.target < 1 || item.target > 99999) {
-        throw new Error('Agent yaroqsiz zikr yoki vaqt qaytardi. Rejani qayta tuzing.');
+        throw new Error('Agent noma’lum duo yoki noto‘g‘ri reja qaytardi. Boshqacha so‘rov bilan urinib ko‘ring.');
       }
       return { source, time: item.time, target: item.target };
     });
@@ -255,7 +304,7 @@
         throw new Error('Shaxsiy zikrlar ro‘yxati 100 ta bilan cheklangan. Avval ayrimlarini o‘chiring.');
       }
       const assistantMessage = plan.length
-        ? `${answer}\nReja: ${plan.map(({ source, time, target }) => `${time} ${source.latin} — ${target} marta`).join('; ')}`
+        ? `${answer}\nQo‘shiladigan zikr/duo: ${plan.map(({ source, time, target }) => `${source.latin}${time ? ` · ${time}` : ''}${target > 1 ? ` · ${target} marta` : ''}`).join('; ')}`
         : answer;
       state.agentHistory = normalizeAgentHistory([
         ...history,
@@ -265,14 +314,17 @@
       persist();
       renderAgentHistory();
       document.getElementById('zikr-agent-request').value = '';
-      const additions = plan.map(({ source, time, target }) => ({
+      const additions = plan
+        .filter(({ source }) => !state.customDhikr.some(item => item.sourceId === source.id))
+        .map(({ source, time, target }) => ({
         id: makeCustomId(),
         arabic: source.arabic,
-        latin: `${source.latin} · ${time}`,
-        meaning: `${source.meaning} Shaxsiy reja: ${target} marta.`,
+        latin: source.latin,
+        meaning: source.meaning,
+        source: source.source,
         sourceId: source.id,
-        planTime: time,
-        target
+        ...(time ? { planTime: time } : {}),
+        ...(target > 1 ? { target } : {})
       }));
       if (additions.length) {
         state.customDhikr.push(...additions);
@@ -281,19 +333,30 @@
         persist();
         renderAdhkar();
         renderSelection();
-        additions.forEach(({ latin, planTime, target }) => {
+        additions.forEach(item => {
           const card = document.createElement('article');
           card.className = 'zikr-agent-result';
-          const text = document.createElement('span');
-          text.textContent = `${planTime} · ${latin.replace(` · ${planTime}`, '')} · ${target} marta`;
-          const saved = document.createElement('small');
-          saved.textContent = 'Shaxsiy zikrlar ro‘yxatiga qo‘shildi.';
-          card.append(text, saved);
+          const details = document.createElement('div');
+          const title = document.createElement('strong');
+          title.textContent = item.latin;
+          const meaning = document.createElement('span');
+          meaning.textContent = item.meaning;
+          const source = document.createElement('small');
+          source.textContent = item.source;
+          const edit = document.createElement('button');
+          edit.type = 'button';
+          edit.className = 'dhikr-edit';
+          edit.textContent = 'O‘qilishi va ma’nosini o‘zgartirish';
+          edit.addEventListener('click', () => editPersonalDhikr(item.id));
+          details.append(title, meaning, source);
+          card.append(details, edit);
           results.append(card);
         });
-        status.textContent = `${answer} ${plan.length} ta zikr shaxsiy ro‘yxatga qo‘shildi.`;
+        status.textContent = `${answer} ${additions.length} ta yangi ibora shaxsiy ro‘yxatga qo‘shildi.${plan.length > additions.length ? ' Bor iboralar takror qo‘shilmadi.' : ''}`;
       } else {
-        status.textContent = answer;
+        status.textContent = plan.length
+          ? `${answer} Tanlangan iboralar allaqachon shaxsiy ro‘yxatingizda bor.`
+          : answer;
       }
       if (response.model) status.textContent += ` · ${response.model}`;
     } catch (error) {
@@ -323,15 +386,62 @@
     }
   }
 
+  function playOptionalTone(kind, contextName) {
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) throw new Error('Web Audio API is not supported.');
+      toneContext = toneContext || new AudioContextClass();
+      const context = toneContext;
+      if (context.state === 'suspended') {
+        context.resume().catch(error => console.error(`Could not resume optional ${contextName} tone:`, error));
+      }
+      const notes = kind === 'bright' ? [660, 880] : [520];
+      notes.forEach((frequency, index) => {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+        const start = context.currentTime + index * 0.16;
+        oscillator.type = 'sine';
+        oscillator.frequency.value = frequency;
+        gain.gain.setValueAtTime(.0001, start);
+        gain.gain.exponentialRampToValueAtTime(.045, start + .02);
+        gain.gain.exponentialRampToValueAtTime(.0001, start + .22);
+        oscillator.connect(gain).connect(context.destination);
+        oscillator.start(start);
+        oscillator.stop(start + .23);
+      });
+    } catch (error) {
+      console.error(`Could not play optional ${contextName} tone:`, error);
+      document.getElementById(contextName === 'reminder' ? 'reminder-status' : 'counter-status').textContent =
+        'Tanlangan ohang bu brauzerda ijro etilmadi.';
+    }
+  }
+
+  function celebrateGoal(target) {
+    const message = document.getElementById('goal-celebration-message');
+    message.textContent = `🌙 ✨ Maqsadingizga yetdingiz — ${target} marta. Alhamdulillah! ✨`;
+    message.hidden = false;
+    message.classList.remove('is-celebrating');
+    void message.offsetWidth;
+    message.classList.add('is-celebrating');
+    window.clearTimeout(celebrationTimer);
+    celebrationTimer = window.setTimeout(() => {
+      message.hidden = true;
+      message.classList.remove('is-celebrating');
+    }, 5000);
+    if (state.goalSound !== 'none') playOptionalTone(state.goalSound, 'celebration');
+  }
+
   function increment(amount) {
+    const previous = countFor();
     const next = Math.max(0, countFor() + amount);
     state.counts[state.active] = next;
     persist();
     renderCount();
     if (amount > 0 && state.sound) playClickTone();
     const target = targetValue();
-    if (amount > 0 && target && next >= target && countFor() - amount < target) {
+    if (amount > 0 && target && next >= target && previous < target) {
       document.getElementById('counter-status').textContent = `Shaxsiy ${target} talik maqsadingizga yetdingiz. Xohlasangiz, davom eting yoki sanagichni yangilang.`;
+      if (state.celebration) celebrateGoal(target);
       if (state.vibration && navigator.vibrate) navigator.vibrate([20, 40, 20]);
     } else {
       document.getElementById('counter-status').textContent = 'Hisob ushbu qurilmada saqlandi.';
@@ -392,46 +502,143 @@
   }
 
   function renderReminder() {
-    const enabled = Boolean(state.reminder);
-    document.getElementById('reminder-time').value = state.reminder || '08:00';
-    document.getElementById('reminder-toggle').textContent = enabled ? 'Eslatma yoqilgan' : 'Eslatmani yoqish';
-    document.getElementById('reminder-off').hidden = !enabled;
-    document.getElementById('reminder-status').textContent = enabled
-      ? `${state.reminder} da eslatma yoqildi. Bildirishnoma faqat sahifa ochiq turganda yuboriladi.`
-      : 'Eslatma faqat sahifa ochiq turganda ishlaydi. Push xabari uchun ruxsat so‘raladi.';
+    const frequency = document.getElementById('reminder-frequency');
+    const weekdays = document.getElementById('reminder-weekdays');
+    weekdays.hidden = frequency.value === 'daily';
+    document.getElementById('reminder-list').replaceChildren(...state.reminders.map(reminder => {
+      const item = document.createElement('article');
+      item.className = 'reminder-item';
+      const details = document.createElement('div');
+      const time = document.createElement('strong');
+      time.textContent = reminder.time;
+      const schedule = document.createElement('small');
+      const dayNames = ['Yak', 'Du', 'Se', 'Chor', 'Pay', 'Ju', 'Sha'];
+      const days = reminder.weekdays.map(day => dayNames[day]).join(', ');
+      schedule.textContent = reminder.frequency === 'daily'
+        ? 'Har kuni'
+        : reminder.frequency === 'weekly'
+          ? `Haftada bir marta · ${days || 'kun tanlanmagan'}`
+          : `Tanlangan kunlarda · ${days || 'kun tanlanmagan'}`;
+      const sound = document.createElement('small');
+      sound.textContent = `Ohang: ${{ none: 'o‘chiq', gentle: 'mayin', bright: 'quvnoq' }[reminder.sound]}`;
+      details.append(time, schedule, sound);
+      const actions = document.createElement('div');
+      actions.className = 'reminder-item-actions';
+      const soundSelect = document.createElement('select');
+      soundSelect.className = 'reminder-sound-setting';
+      soundSelect.setAttribute('aria-label', `${reminder.time} eslatma ohangi`);
+      [
+        ['none', 'Ovozsiz'],
+        ['gentle', 'Mayin signal'],
+        ['bright', 'Quvnoq signal']
+      ].forEach(([value, label]) => soundSelect.add(new Option(label, value)));
+      soundSelect.value = reminder.sound;
+      soundSelect.addEventListener('change', () => {
+        reminder.sound = soundSelect.value;
+        persist();
+        if (reminder.sound !== 'none') playOptionalTone(reminder.sound, 'reminder');
+      });
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'text-button';
+      toggle.textContent = reminder.enabled ? 'Vaqtincha o‘chirish' : 'Yoqish';
+      toggle.setAttribute('aria-pressed', String(reminder.enabled));
+      toggle.addEventListener('click', () => {
+        reminder.enabled = !reminder.enabled;
+        persist();
+        renderReminder();
+      });
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'text-button reminder-remove';
+      remove.textContent = 'Butunlay o‘chirish';
+      remove.addEventListener('click', () => {
+        state.reminders = state.reminders.filter(existing => existing.id !== reminder.id);
+        persist();
+        renderReminder();
+      });
+      actions.append(soundSelect, toggle, remove);
+      item.append(details, actions);
+      return item;
+    }));
+    document.getElementById('reminder-save').disabled = state.reminders.length >= 10;
+    if (state.reminders.length >= 10) {
+      document.getElementById('reminder-status').textContent = 'Ko‘pi bilan 10 ta eslatma qo‘shish mumkin.';
+    }
   }
 
-  async function enableReminder() {
+  async function addReminder(event) {
+    event.preventDefault();
+    const status = document.getElementById('reminder-status');
+    if (state.reminders.length >= 10) {
+      status.textContent = 'Ko‘pi bilan 10 ta eslatma qo‘shish mumkin.';
+      return;
+    }
     const time = document.getElementById('reminder-time').value;
+    const frequency = document.getElementById('reminder-frequency').value;
+    const weekdays = [...document.querySelectorAll('#reminder-weekdays input:checked')].map(input => Number(input.value));
+    if (frequency !== 'daily' && (!weekdays.length || (frequency === 'weekly' && weekdays.length !== 1))) {
+      status.textContent = frequency === 'weekly'
+        ? 'Haftalik eslatma uchun bitta kun tanlang.'
+        : 'Eslatma ishlaydigan kamida bitta kunni tanlang.';
+      return;
+    }
     if (!/^\d{2}:\d{2}$/.test(time)) {
-      document.getElementById('reminder-status').textContent = 'Eslatma vaqtini tanlang.';
+      status.textContent = 'Eslatma vaqtini tanlang.';
       return;
     }
-    if (!('Notification' in window)) {
-      document.getElementById('reminder-status').textContent = 'Bu brauzer bildirishnomalarni qo‘llamaydi. Eslatma yoqilmadi.';
-      return;
+    if ('Notification' in window && Notification.permission === 'default') {
+      try {
+        await Notification.requestPermission();
+      } catch (error) {
+        console.error('Could not request reminder notification permission:', error);
+      }
     }
-    let permission = Notification.permission;
-    if (permission === 'default') permission = await Notification.requestPermission();
-    if (permission !== 'granted') {
-      document.getElementById('reminder-status').textContent = 'Bildirishnoma ruxsati berilmadi. Brauzer sozlamasidan ruxsat berib qayta urinib ko‘ring.';
-      return;
-    }
-    state.reminder = time;
-    state.remindedOn = '';
+    state.reminders.push({
+      id: `reminder-${crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`}`,
+      time,
+      frequency,
+      weekdays: frequency === 'daily' ? [] : weekdays,
+      sound: document.getElementById('reminder-sound').value,
+      enabled: true,
+      lastSentOn: ''
+    });
     persist();
+    document.getElementById('reminder-form').reset();
     renderReminder();
+    const permissionText = !('Notification' in window)
+      ? ' Bu brauzer bildirishnomalarni qo‘llamaydi; sahifadagi ohang sahifa ochiq bo‘lganda ishlashi mumkin.'
+      : Notification.permission !== 'granted'
+        ? ' Bildirishnomaga ruxsat berilmadi; brauzer sozlamalaridan yoqing.'
+        : '';
+    status.textContent = `Eslatma qo‘shildi. Jadval sahifa ochiq turganda tekshiriladi.${permissionText}`;
   }
 
   function checkReminder() {
-    if (!state.reminder || !('Notification' in window) || Notification.permission !== 'granted') return;
     const now = new Date();
     const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    const today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-    if (time !== state.reminder || state.remindedOn === today) return;
-    state.remindedOn = today;
-    persist();
-    new Notification('Zikr vaqti', { body: 'O‘zingizga ajratgan sokin daqiqalarni eslang.', icon: './icon.svg' });
+    const today = localDayKey(now);
+    let changed = false;
+    state.reminders.forEach(reminder => {
+      if (!reminderUtils.isDue(reminder, now, time, today)) return;
+      reminder.lastSentOn = today;
+      changed = true;
+      if ('Notification' in window && Notification.permission === 'granted') {
+        try {
+          new Notification('Zikr vaqti', {
+            body: 'O‘zingizga ajratgan sokin daqiqalarni eslang.',
+            icon: './icon.svg',
+            silent: true,
+            tag: reminder.id
+          });
+        } catch (error) {
+          console.error('Could not show a zikr reminder notification:', error);
+          document.getElementById('reminder-status').textContent = 'Eslatma vaqti keldi, ammo brauzer bildirishnomani ko‘rsata olmadi.';
+        }
+      }
+      if (reminder.sound !== 'none') playOptionalTone(reminder.sound, 'reminder');
+    });
+    if (changed) persist();
   }
 
   document.getElementById('zikr-select').replaceChildren(...allDhikr().map(item => new Option(item.latin, item.id)));
@@ -454,11 +661,36 @@
   document.getElementById('custom-dhikr-form').addEventListener('submit', event => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    const arabic = String(form.get('arabic') || '').trim();
+    const latin = String(form.get('latin') || '').trim();
+    const meaning = String(form.get('meaning') || '').trim();
+    if (editingCustomDhikrId) {
+      const item = state.customDhikr.find(custom => custom.id === editingCustomDhikrId);
+      if (!item) {
+        cancelEditPersonalDhikr();
+        return;
+      }
+      if (!arabic || arabic.length > 500 || !latin || latin.length > 100 || !meaning || meaning.length > 240) {
+        document.getElementById('custom-dhikr-status').textContent = 'Arabcha matn, o‘qilishi yoki ma’nosini tekshiring.';
+        return;
+      }
+      if (arabic !== item.arabic) {
+        delete item.source;
+        delete item.sourceId;
+      }
+      Object.assign(item, { arabic, latin, meaning });
+      persist();
+      renderAdhkar();
+      renderSelection();
+      cancelEditPersonalDhikr();
+      document.getElementById('custom-dhikr-status').textContent = 'Shaxsiy zikrning o‘qilishi va ma’nosi saqlandi.';
+      return;
+    }
     const item = {
       id: makeCustomId(),
-      arabic: String(form.get('arabic') || '').trim(),
-      latin: String(form.get('latin') || '').trim(),
-      meaning: String(form.get('meaning') || '').trim()
+      arabic,
+      latin,
+      meaning
     };
     if (!addPersonalDhikr(item)) {
       document.getElementById('custom-dhikr-status').textContent = 'Matnlarni tekshiring; zikrlar ro‘yxati to‘la bo‘lishi ham mumkin.';
@@ -467,6 +699,7 @@
     event.currentTarget.reset();
     document.getElementById('custom-dhikr-status').textContent = 'Zikr shaxsiy ro‘yxatingizga qo‘shildi.';
   });
+  document.getElementById('custom-dhikr-cancel').addEventListener('click', cancelEditPersonalDhikr);
   document.getElementById('zikr-agent-run').addEventListener('click', requestZikrAgentPlan);
   document.getElementById('zikr-agent-clear').addEventListener('click', () => {
     state.agentHistory = [];
@@ -498,6 +731,11 @@
           ...remote,
           counts,
           customDhikr: [...combinedCustom.values()].slice(0, 100),
+          reminders: remote.reminders !== undefined || remote.reminder !== undefined
+            ? reminderUtils.normalize(remote.reminders, remote.reminder, remote.remindedOn)
+            : state.reminders,
+          celebration: remote.celebration === undefined ? state.celebration : remote.celebration === true,
+          goalSound: ['none', 'gentle', 'bright'].includes(remote.goalSound) ? remote.goalSound : state.goalSound,
           agentHistory: normalizeAgentHistory(
             Array.isArray(remote.agentHistory) && remote.agentHistory.length
               ? remote.agentHistory
@@ -510,6 +748,7 @@
         renderAdhkar();
         renderSelection();
         renderAgentHistory();
+        renderReminder();
       }
       await account.save('zikr', state);
     } catch (error) {
@@ -576,19 +815,19 @@
     event.currentTarget.setAttribute('aria-pressed', String(state.theme === 'dark'));
     persist();
   });
-  document.getElementById('reminder-toggle').addEventListener('click', enableReminder);
-  document.getElementById('reminder-off').addEventListener('click', () => {
-    state.reminder = '';
+  document.getElementById('goal-celebration').addEventListener('change', event => {
+    state.celebration = event.currentTarget.checked;
     persist();
-    renderReminder();
   });
-  document.getElementById('reminder-time').addEventListener('change', event => {
-    if (state.reminder) {
-      state.reminder = event.target.value;
-      state.remindedOn = '';
-      persist();
-      renderReminder();
-    }
+  document.getElementById('goal-sound').addEventListener('change', event => {
+    state.goalSound = event.currentTarget.value;
+    persist();
+    if (state.goalSound !== 'none') playOptionalTone(state.goalSound, 'celebration');
+  });
+  document.getElementById('reminder-frequency').addEventListener('change', renderReminder);
+  document.getElementById('reminder-form').addEventListener('submit', addReminder);
+  document.getElementById('reminder-sound').addEventListener('change', event => {
+    if (event.currentTarget.value !== 'none') playOptionalTone(event.currentTarget.value, 'reminder');
   });
   checkReminder();
   reminderTimer = window.setInterval(checkReminder, 30000);

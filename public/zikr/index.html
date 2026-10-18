@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#12352b">
-  <meta name="description" content="Zikr hisoblagichi, kundalik zikr matnlari va hijriy taqvim. Tanlovlar faqat qurilmangizda saqlanadi.">
+  <meta name="description" content="Shaxsiy zikr hisoblagichi, moslashuvchan eslatmalar, duolar va hijriy taqvim. Ixtiyoriy hisob sinxronlashi.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="zikr.css?v=2">
+  <link rel="stylesheet" href="zikr.css?v=4">
   <title>Zikr va hijriy taqvim | Islamic Official</title>
 </head>
 <body data-site-locale="zikr">
@@ -18,7 +18,7 @@
   </header>
   <main>
     <section class="hero">
-      <div><span class="eyebrow"><span class="glow-dot"></span> KUNLIK ZIKR VA TAQVIM</span><h1>Qalbni zikr bilan<br><em>osoyishta qiling.</em></h1><p>Zikrlaringizni qulay sanang, foydali iboralarni tanlang va bugungi hijriy sanani ko‘ring. Ma’lumotlar shu qurilmada qoladi.</p><a class="hero-link" href="#tasbih">Zikrni boshlash <span>↓</span></a></div>
+      <div><span class="eyebrow"><span class="glow-dot"></span> KUNLIK ZIKR VA TAQVIM</span><h1>Qalbni zikr bilan<br><em>osoyishta qiling.</em></h1><p>Zikrlaringizni qulay sanang, foydali iboralarni tanlang va bugungi hijriy sanani ko‘ring. Ma’lumotlar qurilmada saqlanadi; hisobga kirsangiz sinxronlanadi.</p><a class="hero-link" href="#tasbih">Zikrni boshlash <span>↓</span></a></div>
       <div class="hero-date-card"><span class="date-moon">☾</span><span class="date-kicker">BUGUNGI SANA</span><strong id="gregorian-date">—</strong><span id="hijri-date">—</span><small>Hijriy sana hisoblash usuliga ko‘ra 1 kungacha farq qilishi mumkin.</small></div>
     </section>
     <section class="main-grid">
@@ -32,37 +32,67 @@
           <label for="target-select">Shaxsiy maqsad <select id="target-select"><option value="0">Maqsadsiz sanash</option><option value="33">33 marta</option><option value="99">99 marta</option><option value="custom">O‘zim kiritaman</option></select></label>
           <input id="custom-target" type="number" min="1" max="99999" inputmode="numeric" placeholder="Miqdor" aria-label="Shaxsiy zikr maqsadi" hidden>
         </div>
+        <div class="goal-celebration">
+          <label><input id="goal-celebration" type="checkbox"> Maqsadga yetganda tabrik ko‘rsatish</label>
+          <label for="goal-sound">Tabrik ohangi <select id="goal-sound"><option value="none">O‘chiq</option><option value="gentle">Mayin signal</option><option value="bright">Quvnoq signal</option></select></label>
+        </div>
         <div class="counter-actions"><button id="undo-count" class="undo-button" type="button" aria-label="Bitta sanog‘ni bekor qilish">−</button><button id="count-button" class="count-button" type="button" aria-label="Zikrni sanash"><span>+</span><small>SANASH</small></button><div class="feedback-toggles"><button id="haptic-toggle" class="haptic-button" type="button" aria-pressed="true">⌁ Tebranish</button><button id="sound-toggle" class="haptic-button" type="button" aria-pressed="false">♪ Ovoz</button></div></div>
         <p class="counter-status" id="counter-status" role="status" aria-live="polite">Har bir bosish qurilmangizda saqlanadi.</p>
+        <div class="goal-celebration-message" id="goal-celebration-message" role="status" aria-live="polite" hidden></div>
       </section>
       <aside class="side-column">
         <section class="panel today-panel">
           <span class="eyebrow dark">BUGUNGI FAOLLIGINGIZ</span><h2>Kichik qadam ham qadrli</h2>
           <div class="stat-line"><span>Bugun sanalgan zikrlar</span><strong id="today-total">0</strong></div>
           <div class="stat-line"><span>Tanlangan zikr</span><strong id="today-selected">0</strong></div>
-          <p>Hisoblar shaxsiy bo‘lib, ushbu brauzerdan tashqariga yuborilmaydi.</p>
+          <p>Hisoblar shaxsiy bo‘lib, ushbu brauzerdan tashqariga yuborilmaydi; kirgan hisobingiz bilan ixtiyoriy sinxronlanadi.</p>
         </section>
         <section class="panel reminder-panel">
           <span class="eyebrow dark">MULOYIM ESLATMA</span><h2>O‘zingizga eslatma qo‘ying</h2>
-          <label class="reminder-time" for="reminder-time">Mahalliy vaqt <input id="reminder-time" type="time" value="08:00"></label>
-          <div class="reminder-actions"><button class="outline-button" id="reminder-toggle" type="button">Eslatmani yoqish</button><button class="text-button" id="reminder-off" type="button" hidden>O‘chirish</button></div>
-          <p class="reminder-status" id="reminder-status" role="status" aria-live="polite">Eslatma faqat sahifa ochiq turganda ishlaydi. Push xabari uchun ruxsat so‘raladi.</p>
+          <form id="reminder-form" class="reminder-form">
+            <label class="reminder-time" for="reminder-time">Mahalliy vaqt <input id="reminder-time" type="time" value="08:00" required></label>
+            <label class="reminder-time" for="reminder-frequency">Takrorlanishi
+              <select id="reminder-frequency">
+                <option value="daily">Har kuni</option>
+                <option value="weekly">Haftada bir marta</option>
+                <option value="custom">Tanlangan kunlarda</option>
+              </select>
+            </label>
+            <fieldset class="reminder-weekdays" id="reminder-weekdays" hidden>
+              <legend>Hafta kunlari</legend>
+              <label><input type="checkbox" value="1"> Du</label><label><input type="checkbox" value="2"> Se</label>
+              <label><input type="checkbox" value="3"> Chor</label><label><input type="checkbox" value="4"> Pay</label>
+              <label><input type="checkbox" value="5"> Ju</label><label><input type="checkbox" value="6"> Sha</label>
+              <label><input type="checkbox" value="0"> Yak</label>
+            </fieldset>
+            <label class="reminder-time" for="reminder-sound">Shu eslatmaning ohangi
+              <select id="reminder-sound">
+                <option value="none">Ovozsiz</option><option value="gentle">Mayin signal</option><option value="bright">Quvnoq signal</option>
+              </select>
+            </label>
+            <button class="outline-button" id="reminder-save" type="submit">Eslatma qo‘shish</button>
+          </form>
+          <div class="reminder-list" id="reminder-list" aria-live="polite"></div>
+          <p class="reminder-status" id="reminder-status" role="status" aria-live="polite">Bildirishnoma va ohang faqat sahifa ochiq turganda ishlaydi. Tizim bildirishnomasining tovushini brauzer boshqaradi; bu yerdagi ohang alohida va ixtiyoriy.</p>
         </section>
       </aside>
     </section>
     <section class="section-block" id="adhkar">
-      <div class="section-heading"><div><span class="eyebrow dark">ZIKR TANLOVLARI</span><h2>Yodga olish uchun iboralar</h2><p>Quyidagilardan birini tanlang yoki shaxsiy zikringizni qo‘shing.</p></div></div>
+      <div class="section-heading"><div><span class="eyebrow dark">ZIKR VA DUOLAR</span><h2>Yodga olish uchun iboralar</h2><p>Quyidagilardan birini tanlang yoki shaxsiy zikringizni qo‘shing.</p></div></div>
       <form class="custom-dhikr-form panel" id="custom-dhikr-form">
         <h3>Shaxsiy zikr qo‘shish</h3>
         <label>Arabcha matn <input name="arabic" lang="ar" dir="rtl" maxlength="500" required></label>
         <label>O‘qilishi <input name="latin" maxlength="100" required></label>
         <label>Ma’nosi <input name="meaning" maxlength="240" required></label>
-        <button class="outline-button" type="submit">Zikrni ro‘yxatga qo‘shish</button>
+        <div class="custom-dhikr-actions">
+          <button class="outline-button" id="custom-dhikr-submit" type="submit">Zikrni ro‘yxatga qo‘shish</button>
+          <button class="text-button" id="custom-dhikr-cancel" type="button" hidden>Tahrirlashni bekor qilish</button>
+        </div>
         <p class="counter-status" id="custom-dhikr-status" role="status" aria-live="polite"></p>
       </form>
       <details class="zikr-agent panel">
         <summary>AI yordamchi bilan shaxsiy suhbat</summary>
-        <p>Yordamchi suhbatdagi oxirgi 12 ta xabarni eslab, zikr rejangizni davom ettiradi. Reja faqat saytdagi zikrlardan tuziladi; diniy hukm yoki manba tekshiruvi bermaydi. Suhbat qurilmangizda saqlanadi, Google hisobiga kirsangiz hisobingiz bilan sinxronlanadi.</p>
+        <p>Yordamchi suhbatdagi oxirgi 12 ta xabarni eslab, tasbeh iboralari yoki Qur’ondagi manbasi ko‘rsatilgan duolarni tanlaydi. Arabcha matn, o‘qilishi va ma’nosini o‘zingiz tahrirlashingiz mumkin. Yordamchi diniy hukm yoki manbasi tasdiqlanmagan duo bermaydi. Suhbat qurilmangizda saqlanadi, hisobga kirsangiz hisobingiz bilan sinxronlanadi.</p>
         <div class="zikr-agent-conversation" id="zikr-agent-conversation" role="log" aria-live="polite" aria-label="Shaxsiy AI suhbati"></div>
         <label for="zikr-agent-request">Yangi topshiriq yoki savol</label>
         <textarea id="zikr-agent-request" maxlength="2000" rows="3" placeholder="Masalan: ertangi tong va kechki zikrlarimni 33 martadan rejalashtir"></textarea>
@@ -80,11 +110,13 @@
       <div class="section-heading"><div><span class="eyebrow dark">HIJRIY VA MILODIY</span><h2>Islomiy taqvim</h2><p>Kelgusi muhim sanalar astronomik taqvim asosida taxmin qilinadi.</p></div></div>
       <div class="calendar-card"><div class="calendar-intro"><span class="calendar-icon">✧</span><div><strong>Yaqinlashayotgan sanalar</strong><small>Mahalliy hilol kuzatuviga qarab sana farq qilishi mumkin.</small></div></div><div class="upcoming-dates" id="upcoming-dates"><p>Hijriy taqvim ma’lumoti tayyorlanmoqda…</p></div></div>
     </section>
-    <p class="privacy-note"><strong>Maxfiylik:</strong> zikr hisobi, shaxsiy zikrlar va AI suhbat tarixi qurilmangizda saqlanadi; Google hisobiga kirsangiz, zikr ma’lumotlari shu hisobga ham sinxronlanadi. So‘rov va suhbat konteksti Gemini’ga xavfsiz server orqali yuboriladi; maxfiy API kalit brauzerga berilmaydi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas. <a href="https://islamicofficial-ibadat.web.app/">Shaxsiy ibodat rejasiga o‘tish ↗</a></p>
+    <p class="privacy-note"><strong>Maxfiylik:</strong> zikr hisobi, shaxsiy zikrlar va AI suhbat tarixi qurilmangizda saqlanadi; Google yoki email hisobiga kirsangiz, zikr ma’lumotlari shaxsiy hisobingizga ham sinxronlanadi. So‘rov va suhbat konteksti Gemini’ga xavfsiz server orqali yuboriladi; maxfiy API kalit brauzerga berilmaydi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas. <a href="https://islamicofficial-ibadat.web.app/">Shaxsiy ibodat rejasiga o‘tish ↗</a></p>
   </main>
   <footer><a href="https://islamicofficial.com/">Islamic Official</a><span>Oddiy va shaxsiy zikr vositasi.</span><a href="https://islamicofficial-quran.web.app/">Qur’on o‘qish ↗</a></footer>
+  <script src="dhikr-catalog.js?v=1"></script>
+  <script src="reminder-utils.js?v=1"></script>
   <script src="ai-config.js?v=1"></script>
-  <script src="site-locale.js?v=5" defer></script>
-  <script src="zikr.js?v=6" defer></script>
+  <script src="site-locale.js?v=7" defer></script>
+  <script src="zikr.js?v=9" defer></script>
 </body>
 </html>

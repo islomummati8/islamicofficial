@@ -25,10 +25,25 @@
     'Audio kutubxonasi ↗': ['Audio library ↗', 'Аудиотека ↗', 'مكتبة الصوتيات ↗'],
     'Google bilan kirish': ['Sign in with Google', 'Войти через Google', 'تسجيل الدخول عبر Google'],
     'Google hisobidan chiqish': ['Sign out', 'Выйти', 'تسجيل الخروج'],
+    'Hisobdan chiqish': ['Sign out', 'Выйти', 'تسجيل الخروج'],
     'Akkaunt ulanmoqda…': ['Connecting account…', 'Подключение аккаунта…', 'جارٍ ربط الحساب…'],
     'Kirish amalga oshmadi. Firebase ruxsatlari va internetni tekshiring.': ['Sign-in failed. Check Firebase authorization and your connection.', 'Не удалось войти. Проверьте разрешения Firebase и подключение.', 'تعذر تسجيل الدخول. تحقق من إعدادات Firebase والاتصال.'],
     'Akkaunt holatini tekshirib bo‘lmadi.': ['Could not check account status.', 'Не удалось проверить статус аккаунта.', 'تعذر التحقق من حالة الحساب.'],
-    'Google hisobi hozircha mavjud emas.': ['Google sign-in is currently unavailable.', 'Вход через Google сейчас недоступен.', 'تسجيل الدخول عبر Google غير متاح حالياً.']
+    'Google hisobi hozircha mavjud emas.': ['Google sign-in is currently unavailable.', 'Вход через Google сейчас недоступен.', 'تسجيل الدخول عبر Google غير متاح حالياً.'],
+    'Email orqali kirish': ['Sign in with email', 'Войти по email', 'تسجيل الدخول بالبريد الإلكتروني'],
+    'Email manzil': ['Email address', 'Адрес email', 'البريد الإلكتروني'],
+    'Parol': ['Password', 'Пароль', 'كلمة المرور'],
+    'Kirish': ['Sign in', 'Войти', 'تسجيل الدخول'],
+    'Ro‘yxatdan o‘tish': ['Create account', 'Зарегистрироваться', 'إنشاء حساب'],
+    'Parolni tiklash': ['Reset password', 'Сбросить пароль', 'إعادة تعيين كلمة المرور'],
+    'Email orqali kirish uchun Firebase sozlamasida Email/Password provayderini yoqing.': ['Enable the Email/Password provider in Firebase Authentication settings.', 'Включите провайдер Email/Password в настройках Firebase Authentication.', 'فعّل موفر Email/Password في إعدادات Firebase Authentication.'],
+    'Bu sayt manzili Firebase Authentication ruxsat etilgan domenlariga qo‘shilmagan.': ['Add this website domain to Firebase Authentication authorized domains.', 'Добавьте домен сайта в список разрешённых доменов Firebase Authentication.', 'أضف نطاق هذا الموقع إلى النطاقات المعتمدة في Firebase Authentication.'],
+    'Email yoki parol noto‘g‘ri.': ['The email or password is incorrect.', 'Неверный email или пароль.', 'البريد الإلكتروني أو كلمة المرور غير صحيحة.'],
+    'Parol kamida 6 belgidan iborat bo‘lishi kerak.': ['The password must be at least 6 characters.', 'Пароль должен содержать не менее 6 символов.', 'يجب ألا تقل كلمة المرور عن 6 أحرف.'],
+    'Bu email bilan hisob allaqachon mavjud.': ['An account already exists for this email.', 'Аккаунт с таким email уже существует.', 'يوجد حساب بهذا البريد الإلكتروني بالفعل.'],
+    'Parolni tiklash havolasi emailingizga yuborildi.': ['A password reset link was sent to your email.', 'Ссылка для сброса пароля отправлена на вашу почту.', 'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.'],
+    'Email orqali kirish hozircha o‘chirib qo‘yilgan. Firebase’da Email/Password provayderini yoqing.': ['Email sign-in is disabled. Enable the Email/Password provider in Firebase.', 'Вход по email отключён. Включите провайдер Email/Password в Firebase.', 'تسجيل الدخول بالبريد معطّل. فعّل موفر Email/Password في Firebase.'],
+    'Firebase’da ushbu kirish usuli yoqilmagan. Authentication sozlamasidan provayderni faollashtiring.': ['This sign-in method is disabled. Enable its provider in Firebase Authentication settings.', 'Этот способ входа отключён. Включите провайдер в настройках Firebase Authentication.', 'طريقة تسجيل الدخول هذه معطّلة. فعّل موفرها في إعدادات Firebase Authentication.']
   };
   const translations = {
     audio: {
@@ -306,7 +321,7 @@
       'KUNLIK ZIKR VA TAQVIM': ['DAILY DHIKR AND CALENDAR', 'ЕЖЕДНЕВНЫЙ ЗИКР И КАЛЕНДАРЬ', 'الذكر اليومي والتقويم'],
       'Qalbni zikr bilan': ['Bring your heart peace', 'Наполните сердце зикром', 'أرح قلبك بالذكر'],
       'osoyishta qiling.': ['and tranquility.', 'والسكينة.', 'والطمأنينة.'],
-      'Zikrlaringizni qulay sanang, foydali iboralarni tanlang va bugungi hijriy sanani ko‘ring. Ma’lumotlar shu qurilmada qoladi.': ['Count dhikr, choose phrases, and see today’s Hijri date. Your data stays on this device.', 'Считайте зикр, выбирайте фразы и смотрите дату хиджры. Данные остаются на устройстве.', 'أحصِ الأذكار واختر العبارات واعرف التاريخ الهجري. تبقى بياناتك على هذا الجهاز.'],
+      'Zikrlaringizni qulay sanang, foydali iboralarni tanlang va bugungi hijriy sanani ko‘ring. Ma’lumotlar qurilmada saqlanadi; hisobga kirsangiz sinxronlanadi.': ['Count dhikr, choose phrases, and see today’s Hijri date. Data stays on this device and syncs if you sign in.', 'Считайте зикр, выбирайте фразы и смотрите дату хиджры. Данные остаются на устройстве и синхронизируются после входа.', 'أحصِ الأذكار واختر العبارات واعرف التاريخ الهجري. تبقى البيانات على الجهاز وتتم مزامنتها بعد تسجيل الدخول.'],
       'Zikrni boshlash': ['Start dhikr', 'Начать зикр', 'ابدأ الذكر'],
       'BUGUNGI SANA': ['TODAY', 'СЕГОДНЯ', 'تاريخ اليوم'],
       'Hijriy sana hisoblash usuliga ko‘ra 1 kungacha farq qilishi mumkin.': ['The Hijri date may vary by one day depending on the calculation method.', 'Дата хиджры может отличаться на один день в зависимости от метода расчёта.', 'قد يختلف التاريخ الهجري يوماً حسب طريقة الحساب.'],
@@ -332,9 +347,27 @@
       'MULOYIM ESLATMA': ['GENTLE REMINDER', 'МЯГКОЕ НАПОМИНАНИЕ', 'تذكير لطيف'],
       'O‘zingizga eslatma qo‘ying': ['Set a reminder', 'Установите напоминание', 'اضبط تذكيراً'],
       'Mahalliy vaqt': ['Local time', 'Местное время', 'الوقت المحلي'],
-      'Eslatmani yoqish': ['Enable reminder', 'Включить напоминание', 'تفعيل التذكير'],
+      'Takrorlanishi': ['Repeat', 'Повтор', 'التكرار'],
+      'Har kuni': ['Every day', 'Каждый день', 'كل يوم'],
+      'Haftada bir marta': ['Once a week', 'Раз в неделю', 'مرة في الأسبوع'],
+      'Tanlangan kunlarda': ['On selected days', 'В выбранные дни', 'في الأيام المحددة'],
+      'Hafta kunlari': ['Days of the week', 'Дни недели', 'أيام الأسبوع'],
+      'Shu eslatmaning ohangi': ['This reminder’s tone', 'Звук этого напоминания', 'نغمة هذا التذكير'],
+      'Eslatma qo‘shish': ['Add reminder', 'Добавить напоминание', 'أضف تذكيراً'],
+      'Ovozsiz': ['Silent', 'Без звука', 'بدون صوت'],
+      'Mayin signal': ['Gentle tone', 'Мягкий сигнал', 'نغمة هادئة'],
+      'Quvnoq signal': ['Bright tone', 'Весёлый сигнал', 'نغمة مرحة'],
+      'Butunlay o‘chirish': ['Delete permanently', 'Удалить навсегда', 'حذف نهائياً'],
+      'Yoqish': ['Enable', 'Включить', 'تفعيل'],
+      'Vaqtincha o‘chirish': ['Pause', 'Приостановить', 'إيقاف مؤقت'],
+      'Eslatma ishlaydigan kamida bitta kunni tanlang.': ['Choose at least one reminder day.', 'Выберите хотя бы один день напоминания.', 'اختر يوماً واحداً على الأقل للتذكير.'],
+      'Haftalik eslatma uchun bitta kun tanlang.': ['Choose one day for a weekly reminder.', 'Выберите один день для еженедельного напоминания.', 'اختر يوماً واحداً للتذكير الأسبوعي.'],
+      'Maqsadga yetganda tabrik ko‘rsatish': ['Show a celebration when the goal is reached', 'Показывать поздравление при достижении цели', 'أظهر تهنئة عند بلوغ الهدف'],
+      'Tabrik ohangi': ['Celebration tone', 'Звук поздравления', 'نغمة التهنئة'],
+      'Zikrni ro‘yxatga qo‘shish': ['Add dhikr to list', 'Добавить зикр в список', 'أضف الذكر إلى القائمة'],
       'O‘chirish': ['Turn off', 'Выключить', 'إيقاف'],
       'ZIKR TANLOVLARI': ['DHIKR OPTIONS', 'ВАРИАНТЫ ЗИКРА', 'خيارات الذكر'],
+      'ZIKR VA DUOLAR': ['DHIKR AND DUAS', 'ЗИКР И ДУА', 'الذكر والأدعية'],
       'Yodga olish uchun iboralar': ['Phrases to remember', 'Фразы для поминания', 'عبارات للذكر'],
       'Tanlash va sanash →': ['Select and count →', 'Выбрать и считать →', 'اختر وابدأ العد ←'],
       'HIJRIY VA MILODIY': ['HIJRI AND GREGORIAN', 'ХИДЖРА И ГРИГОРИАНСКИЙ', 'هجري وميلادي'],
@@ -352,20 +385,28 @@
       'O‘qilishi': ['Transliteration', 'Транслитерация', 'النطق'],
       'Ma’nosi': ['Meaning', 'Значение', 'المعنى'],
       'Zikrni ro‘yxatga qo‘shish': ['Add dhikr to list', 'Добавить зикр в список', 'أضف الذكر إلى القائمة'],
+      'O‘zgarishni saqlash': ['Save changes', 'Сохранить изменения', 'حفظ التغييرات'],
+      'Tahrirlashni bekor qilish': ['Cancel editing', 'Отменить редактирование', 'إلغاء التعديل'],
+      'O‘qilishi va ma’nosini tahrirlash': ['Edit pronunciation and meaning', 'Изменить произношение и значение', 'تعديل النطق والمعنى'],
+      'O‘qilishi va ma’nosini o‘zgartirish': ['Change pronunciation and meaning', 'Изменить произношение и значение', 'غيّر النطق والمعنى'],
       'AI agent bilan ertangi zikr rejasini tuzish': ['Plan tomorrow’s dhikr with an AI agent', 'Составьте план зикра на завтра с ИИ', 'خطط لأذكار الغد بمساعدة الذكاء الاصطناعي'],
       'AI yordamchi bilan shaxsiy suhbat': ['Personal chat with an AI assistant', 'Личный чат с ИИ-помощником', 'محادثة شخصية مع مساعد ذكي'],
-      'Yordamchi suhbatdagi oxirgi 12 ta xabarni eslab, zikr rejangizni davom ettiradi. Reja faqat saytdagi zikrlardan tuziladi; diniy hukm yoki manba tekshiruvi bermaydi. Suhbat qurilmangizda saqlanadi, Google hisobiga kirsangiz hisobingiz bilan sinxronlanadi.': ['The assistant remembers the latest 12 messages and continues your dhikr plan. Plans use only the dhikr phrases on this site; it does not issue religious rulings or verify sources. Your conversation is stored on this device and syncs with your account when you sign in with Google.', 'Помощник помнит последние 12 сообщений и продолжает ваш план зикра. План составляется только из фраз на сайте; помощник не выносит религиозных решений и не проверяет источники. История хранится на устройстве и синхронизируется с аккаунтом Google после входа.', 'يتذكر المساعد آخر 12 رسالة ويتابع خطة الذكر. تُستخدم العبارات الموجودة في الموقع فقط؛ ولا يصدر المساعد أحكاماً دينية أو يتحقق من المصادر. تُحفظ المحادثة على الجهاز وتتزامن مع حساب Google عند تسجيل الدخول.'],
+      'Yordamchi suhbatdagi oxirgi 12 ta xabarni eslab, tasbeh iboralari yoki Qur’ondagi manbasi ko‘rsatilgan duolarni tanlaydi. Arabcha matn, o‘qilishi va ma’nosini o‘zingiz tahrirlashingiz mumkin. Yordamchi diniy hukm yoki manbasi tasdiqlanmagan duo bermaydi. Suhbat qurilmangizda saqlanadi, hisobga kirsangiz hisobingiz bilan sinxronlanadi.': ['The assistant remembers the latest 12 messages and can select tasbih phrases or duas cited to the Qur’an. You can edit the Arabic text, pronunciation and meaning. It does not give religious rulings or unsourced duas. Your conversation stays on this device and syncs with your account when you sign in.', 'Помощник помнит последние 12 сообщений и может выбрать тасбих или дуа со ссылкой на Коран. Вы можете изменить арабский текст, произношение и значение. Он не выносит религиозных решений и не предлагает дуа без источника. История остаётся на устройстве и синхронизируется с аккаунтом после входа.', 'يتذكر المساعد آخر 12 رسالة ويمكنه اختيار التسبيح أو الأدعية الموثقة في القرآن. يمكنك تعديل النص العربي والنطق والمعنى. لا يصدر أحكاماً دينية ولا يقدم أدعية بلا مصدر. تُحفظ المحادثة على الجهاز وتتزامن مع الحساب عند تسجيل الدخول.'],
       'Yangi topshiriq yoki savol': ['New request or question', 'Новая задача или вопрос', 'طلب أو سؤال جديد'],
       'Gemini Flash · avtomatik zaxira modellar': ['Gemini Flash · automatic model fallback', 'Gemini Flash · автоматический переход между моделями', 'Gemini Flash · تبديل تلقائي بين النماذج'],
       'Yuborish': ['Send', 'Отправить', 'إرسال'],
       'Suhbatni tozalash': ['Clear conversation', 'Очистить переписку', 'مسح المحادثة'],
+      'Ilmimni ziyoda qil.': ['Increase me in knowledge.', 'Умножь мои знания.', 'زدني علماً.'],
+      'Ey Rabbim, ilmimni ziyoda qil.': ['My Lord, increase me in knowledge.', 'Господи, умножь мои знания.', 'رب زدني علماً.'],
+      'Rabbi zidnī ʿilmā': ['Rabbi zidni ilma', 'Рабби зидни ильма', 'رب زدني علماً'],
+      'Qur’on, Toha surasi, 20:114': ['Qur’an, Ta-Ha 20:114', 'Коран, Та-Ха 20:114', 'القرآن، طه ٢٠:١١٤'],
       'Agent faqat saytdagi zikr iboralaridan shaxsiy vaqt va sanoq rejasini tuzadi. Bu diniy hukm yoki manba tekshiruvi emas. So‘rovingiz xavfsiz AI serveriga yuboriladi; maxfiy API kaliti brauzerga berilmaydi.': ['The agent schedules only the dhikr phrases provided by the site. It does not issue religious rulings or verify sources. Your request is sent to a secure AI server; the private API key is never sent to your browser.', 'Агент составляет расписание только из фраз на сайте. Он не выносит религиозных решений и не проверяет источники. Запрос отправляется на защищённый сервер ИИ; секретный API-ключ не передаётся в браузер.', 'ينظم الوكيل العبارات الموجودة في الموقع فقط، ولا يصدر أحكاماً دينية ولا يتحقق من المصادر. يُرسل طلبك إلى خادم آمن؛ ولا يصل مفتاح API السري إلى متصفحك.'],
       'Zikr hisobi va shaxsiy zikrlar qurilmangizda saqlanadi; Google hisobiga kirsangiz, zikr ma’lumotlari shu hisobga ham sinxronlanadi. AI so‘rovi maxfiy kalit ko‘rsatilmaydigan server orqali Gemini xizmatiga yuboriladi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas.': ['Dhikr counts and custom phrases stay on this device; sign in with Google to sync them to your private account. AI requests go to Gemini through a server that keeps the private key hidden. Dhikr content is not a religious ruling or claim of special virtue.', 'Счётчик и личные фразы хранятся на устройстве; войдите через Google для синхронизации с личным аккаунтом. Запросы ИИ отправляются в Gemini через сервер, скрывающий секретный ключ. Текст зикра не является религиозным решением или утверждением об особой награде.', 'تبقى الأذكار الشخصية والعداد على جهازك؛ سجّل الدخول عبر Google لمزامنتها مع حسابك الخاص. تُرسل طلبات الذكاء الاصطناعي إلى Gemini عبر خادم يخفي المفتاح السري. نص الذكر ليس حكماً دينياً أو ادعاء بفضيلة خاصة.'],
       'Masalan: ertangi tong va kechki zikrlarimni 33 martadan rejalashtir': ['Example: plan 33 repetitions of my morning and evening dhikr for tomorrow', 'Например: составь на завтра утренний и вечерний зикр по 33 раза', 'مثال: خطط لأذكار الصباح والمساء غداً 33 مرة لكل منها'],
       'Kalit faqat joriy brauzer sessiyasida saqlanadi, hisobga yoki serverga yuborilmaydi. Gemini kvotasi cheklangan; GPT API ChatGPT bepul akkauntidan alohida va haq olinishi mumkin. Hisob parolingizni bu yerga kiritmang.': ['The key stays only in this browser session and is not sent to the account or our server. Gemini quotas are limited; GPT API is separate from a free ChatGPT account and may cost money. Never enter your account password here.', 'Ключ хранится только в текущей сессии браузера и не отправляется в аккаунт или на наш сервер. Квота Gemini ограничена; GPT API отличается от бесплатного аккаунта ChatGPT и может быть платным. Не вводите здесь пароль.', 'يبقى المفتاح في جلسة المتصفح فقط ولا يُرسل إلى الحساب أو خادمنا. حصة Gemini محدودة؛ وواجهة GPT API منفصلة عن حساب ChatGPT المجاني وقد تكون مدفوعة. لا تدخل كلمة مرور حسابك هنا.'],
       'So‘rov va zikr rejalari tanlangan AI provayderiga yuboriladi.': ['Your prompt and dhikr plan are sent to the selected AI provider.', 'Ваш запрос и план зикра отправляются выбранному провайдеру ИИ.', 'يُرسل طلبك وخطة الذكر إلى مزود الذكاء الاصطناعي المختار.'],
       'Gemini · server orqali': ['Gemini · through the secure server', 'Gemini · через защищённый сервер', 'Gemini · عبر الخادم الآمن'],
-      'Zikr hisobi, shaxsiy zikrlar va AI suhbat tarixi qurilmangizda saqlanadi; Google hisobiga kirsangiz, zikr ma’lumotlari shu hisobga ham sinxronlanadi. So‘rov va suhbat konteksti Gemini’ga xavfsiz server orqali yuboriladi; maxfiy API kalit brauzerga berilmaydi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas.': ['Dhikr counts, personal dhikr and AI chat history are stored on this device; sign in with Google to sync them to your account. Your request and conversation context are sent to Gemini through a secure server; the private API key is never exposed to the browser. Dhikr text is not a religious ruling or a claim of special virtue.', 'Счётчик, личные зикры и история чата с ИИ хранятся на устройстве; войдите через Google для синхронизации с аккаунтом. Запрос и контекст переписки отправляются в Gemini через защищённый сервер; секретный API-ключ не передаётся браузеру. Текст зикра не является религиозным решением или утверждением об особой награде.', 'تُحفظ الأذكار الشخصية وسجل محادثة الذكاء الاصطناعي على الجهاز؛ سجّل الدخول عبر Google لمزامنتها مع حسابك. يُرسل الطلب وسياق المحادثة إلى Gemini عبر خادم آمن؛ ولا يُكشف مفتاح API السري للمتصفح. نص الذكر ليس حكماً دينياً ولا ادعاء بفضيلة خاصة.'],
+      'Zikr hisobi, shaxsiy zikrlar va AI suhbat tarixi qurilmangizda saqlanadi; Google yoki email hisobiga kirsangiz, zikr ma’lumotlari shaxsiy hisobingizga ham sinxronlanadi. So‘rov va suhbat konteksti Gemini’ga xavfsiz server orqali yuboriladi; maxfiy API kalit brauzerga berilmaydi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas.': ['Dhikr counts, personal dhikr and AI chat history are stored on this device; sign in with Google or email to sync them to your account. Your request and conversation context are sent to Gemini through a secure server; the private API key is never exposed to the browser. Dhikr text is not a religious ruling or a claim of special virtue.', 'Счётчик, личные зикры и история чата с ИИ хранятся на устройстве; войдите через Google или email для синхронизации с аккаунтом. Запрос и контекст переписки отправляются в Gemini через защищённый сервер; секретный API-ключ не передаётся браузеру. Текст зикра не является религиозным решением или утверждением об особой награде.', 'تُحفظ الأذكار الشخصية وسجل محادثة الذكاء الاصطناعي على الجهاز؛ سجّل الدخول عبر Google أو البريد الإلكتروني لمزامنتها مع حسابك. يُرسل الطلب وسياق المحادثة إلى Gemini عبر خادم آمن؛ ولا يُكشف مفتاح API السري للمتصفح. نص الذكر ليس حكماً دينياً ولا ادعاء بفضيلة خاصة.'],
       'Suhbat shu yerda saqlanadi. Topshiriq yozib boshlang.': ['Your conversation stays here. Start by sending a request.', 'История переписки будет здесь. Начните с нового запроса.', 'ستُحفظ المحادثة هنا. ابدأ بإرسال طلب.'],
       'AI server manzili hali ulanmagan. Sayt egasi uni bir marta sozlashi kerak.': ['The AI server URL is not connected yet. The site owner needs to configure it once.', 'Адрес сервера ИИ ещё не подключён. Владельцу сайта нужно настроить его один раз.', 'عنوان خادم الذكاء الاصطناعي غير متصل بعد. على مالك الموقع إعداده مرة واحدة.'],
       'AI server manzili noto‘g‘ri sozlangan.': ['The AI server URL is configured incorrectly.', 'Адрес сервера ИИ настроен неверно.', 'عنوان خادم الذكاء الاصطناعي غير مضبوط بشكل صحيح.'],
@@ -653,16 +694,94 @@
   accountButton.type = 'button';
   accountButton.textContent = 'Google bilan kirish';
   accountButton.setAttribute('aria-label', 'Google bilan kirish');
+  const emailDetails = document.createElement('details');
+  emailDetails.className = 'site-email-auth';
+  const emailSummary = document.createElement('summary');
+  emailSummary.textContent = 'Email orqali kirish';
+  const emailForm = document.createElement('form');
+  emailForm.className = 'site-email-form';
+  emailForm.noValidate = false;
+  const emailInput = document.createElement('input');
+  emailInput.type = 'email';
+  emailInput.name = 'email';
+  emailInput.autocomplete = 'email';
+  emailInput.required = true;
+  emailInput.placeholder = 'Email manzil';
+  emailInput.setAttribute('aria-label', emailInput.placeholder);
+  const passwordInput = document.createElement('input');
+  passwordInput.type = 'password';
+  passwordInput.name = 'password';
+  passwordInput.autocomplete = 'current-password';
+  passwordInput.minLength = 6;
+  passwordInput.required = true;
+  passwordInput.placeholder = 'Parol';
+  passwordInput.setAttribute('aria-label', passwordInput.placeholder);
+  const emailActions = document.createElement('div');
+  emailActions.className = 'site-email-actions';
+  const emailSubmit = document.createElement('button');
+  emailSubmit.type = 'submit';
+  emailSubmit.className = 'site-email-submit';
+  let emailMode = 'login';
+  const emailModeButtons = ['login', 'register', 'reset'].map(mode => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.emailMode = mode;
+    button.textContent = mode === 'login' ? 'Kirish' : mode === 'register' ? 'Ro‘yxatdan o‘tish' : 'Parolni tiklash';
+    return button;
+  });
+  function updateEmailFormMode(mode) {
+    emailMode = mode;
+    passwordInput.hidden = mode === 'reset';
+    passwordInput.required = mode !== 'reset';
+    passwordInput.autocomplete = mode === 'register' ? 'new-password' : 'current-password';
+    emailSubmit.textContent = mode === 'register' ? 'Ro‘yxatdan o‘tish' : mode === 'reset' ? 'Parolni tiklash' : 'Kirish';
+    emailModeButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.emailMode === mode)));
+  }
+  emailActions.append(...emailModeButtons);
+  emailForm.append(emailInput, passwordInput, emailSubmit, emailActions);
+  emailDetails.append(emailSummary, emailForm);
+  updateEmailFormMode('login');
+  const authSdkUrl = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+  let accountContextPromise;
+  let accountFeedback = '';
+  function getAccountContext() {
+    if (!accountContextPromise) {
+      accountContextPromise = Promise.all([
+        import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js'),
+        import(authSdkUrl),
+        import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js')
+      ]).then(([sdk, authSdk, storeSdk]) => {
+        const config = {
+          apiKey: 'AIzaSyDy9LPiiHgeXY8B6dCu0x-No6Xf__CJIqY',
+          authDomain: 'islamicofficial-9279f.firebaseapp.com',
+          projectId: 'islamicofficial-9279f',
+          storageBucket: 'islamicofficial-9279f.firebasestorage.app',
+          messagingSenderId: '251823878076',
+          appId: '1:251823878076:web:9eff3e9b8b01f6f827c5b9'
+        };
+        const app = sdk.getApps().find(item => item.options.projectId === config.projectId) || sdk.initializeApp(config);
+        const auth = authSdk.getAuth(app);
+        window.islamicFirestore = { db: storeSdk.getFirestore(app), ...storeSdk };
+        return { authSdk, auth };
+      }).catch(error => {
+        accountContextPromise = null;
+        throw error;
+      });
+    }
+    return accountContextPromise;
+  }
   function updateAccountLabel() {
     if (!accountButton.isConnected) return;
     const signedIn = Boolean(window.islamicSiteAccount?.user);
-    accountButton.textContent = localize(signedIn ? 'Google hisobidan chiqish' : 'Google bilan kirish');
+    accountButton.textContent = localize(signedIn ? 'Hisobdan chiqish' : 'Google bilan kirish');
     accountButton.setAttribute('aria-label', accountButton.textContent);
-    accountStatus.textContent = signedIn ? window.islamicSiteAccount.user.email || window.islamicSiteAccount.user.displayName || '' : '';
+    accountStatus.textContent = signedIn
+      ? window.islamicSiteAccount.user.email || window.islamicSiteAccount.user.displayName || ''
+      : accountFeedback;
   }
   const accountControls = document.createElement('div');
   accountControls.className = 'site-account-controls';
-  accountControls.append(accountButton, accountStatus);
+  accountControls.append(accountButton, accountStatus, emailDetails);
   const hasExistingAccountControl = document.querySelector('#google-sign-in, #google-login-btn, #google-sign-out');
   if (header && !hasExistingAccountControl) header.append(accountControls);
   window.islamicSiteAccount = {
@@ -687,57 +806,94 @@
   };
   accountButton.addEventListener('click', async () => {
     accountButton.disabled = true;
-    accountStatus.textContent = localize('Akkaunt ulanmoqda…');
+    accountFeedback = localize('Akkaunt ulanmoqda…');
+    updateAccountLabel();
     try {
-      const sdk = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-      const authSdk = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
-      const storeSdk = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-      const config = {
-        apiKey: 'AIzaSyDy9LPiiHgeXY8B6dCu0x-No6Xf__CJIqY',
-        authDomain: 'islamicofficial-9279f.firebaseapp.com',
-        projectId: 'islamicofficial-9279f',
-        storageBucket: 'islamicofficial-9279f.firebasestorage.app',
-        messagingSenderId: '251823878076',
-        appId: '1:251823878076:web:9eff3e9b8b01f6f827c5b9'
-      };
-      const app = sdk.getApps().find(item => item.options.projectId === config.projectId) || sdk.initializeApp(config);
-      const auth = authSdk.getAuth(app);
-      window.islamicFirestore = { db: storeSdk.getFirestore(app), ...storeSdk };
+      const { authSdk, auth } = await getAccountContext();
       if (window.islamicSiteAccount.user) {
         await authSdk.signOut(auth);
       } else {
         const provider = new authSdk.GoogleAuthProvider();
         provider.addScope('email');
         provider.setCustomParameters({ prompt: 'select_account' });
-        await authSdk.signInWithPopup(auth, provider);
+        try {
+          await authSdk.signInWithPopup(auth, provider);
+        } catch (error) {
+          if (!['auth/popup-blocked', 'auth/operation-not-supported-in-this-environment', 'auth/web-storage-unsupported'].includes(error.code)) throw error;
+          await authSdk.signInWithRedirect(auth, provider);
+        }
       }
-      accountStatus.textContent = '';
+      accountFeedback = '';
     } catch (error) {
       console.error('Could not sign in to the personal account:', error);
-      accountStatus.textContent = localize('Kirish amalga oshmadi. Firebase ruxsatlari va internetni tekshiring.');
+      accountFeedback = getAuthErrorMessage(error);
     } finally {
       accountButton.disabled = false;
       updateAccountLabel();
     }
   });
+  emailModeButtons.forEach(button => button.addEventListener('click', () => {
+    updateEmailFormMode(button.dataset.emailMode);
+    accountFeedback = '';
+    updateAccountLabel();
+    if (emailMode === 'reset') passwordInput.value = '';
+  }));
+  emailForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!emailForm.reportValidity()) return;
+    emailSubmit.disabled = true;
+    accountFeedback = localize('Akkaunt ulanmoqda…');
+    updateAccountLabel();
+    try {
+      const { authSdk, auth } = await getAccountContext();
+      const email = emailInput.value.trim();
+      if (emailMode === 'reset') {
+        await authSdk.sendPasswordResetEmail(auth, email);
+        accountFeedback = localize('Parolni tiklash havolasi emailingizga yuborildi.');
+      } else if (emailMode === 'register') {
+        await authSdk.createUserWithEmailAndPassword(auth, email, passwordInput.value);
+        accountFeedback = '';
+        emailDetails.open = false;
+      } else {
+        await authSdk.signInWithEmailAndPassword(auth, email, passwordInput.value);
+        accountFeedback = '';
+        emailDetails.open = false;
+      }
+    } catch (error) {
+      console.error('Could not authenticate with email:', error);
+      accountFeedback = getAuthErrorMessage(error, 'email');
+    } finally {
+      emailSubmit.disabled = false;
+      updateAccountLabel();
+    }
+  });
+  function getAuthErrorMessage(error, method = 'google') {
+    const code = typeof error?.code === 'string' ? error.code : '';
+    const messages = {
+      'auth/operation-not-allowed': localize(method === 'email'
+        ? 'Email orqali kirish hozircha o‘chirib qo‘yilgan. Firebase’da Email/Password provayderini yoqing.'
+        : 'Firebase’da ushbu kirish usuli yoqilmagan. Authentication sozlamasidan provayderni faollashtiring.'),
+      'auth/unauthorized-domain': localize('Bu sayt manzili Firebase Authentication ruxsat etilgan domenlariga qo‘shilmagan.'),
+      'auth/invalid-email': localize('Email manzil noto‘g‘ri.'),
+      'auth/too-many-requests': localize('Juda ko‘p urinish bo‘ldi. Birozdan keyin qayta urinib ko‘ring.'),
+      'auth/network-request-failed': localize('Internetga ulanib bo‘lmadi. Aloqani tekshirib, qayta urinib ko‘ring.')
+    };
+    if (method === 'email') Object.assign(messages, {
+      'auth/invalid-credential': localize('Email yoki parol noto‘g‘ri.'),
+      'auth/user-not-found': localize('Email yoki parol noto‘g‘ri.'),
+      'auth/wrong-password': localize('Email yoki parol noto‘g‘ri.'),
+      'auth/email-already-in-use': localize('Bu email bilan hisob allaqachon mavjud.'),
+      'auth/weak-password': localize('Parol kamida 6 belgidan iborat bo‘lishi kerak.')
+    });
+    return `${messages[code] || localize('Kirish amalga oshmadi. Firebase ruxsatlari va internetni tekshiring.')}${code ? ` (${code})` : ''}`;
+  }
   (async () => {
     try {
-      const sdk = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
-      const authSdk = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
-      const storeSdk = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
-      const config = {
-        apiKey: 'AIzaSyDy9LPiiHgeXY8B6dCu0x-No6Xf__CJIqY',
-        authDomain: 'islamicofficial-9279f.firebaseapp.com',
-        projectId: 'islamicofficial-9279f',
-        storageBucket: 'islamicofficial-9279f.firebasestorage.app',
-        messagingSenderId: '251823878076',
-        appId: '1:251823878076:web:9eff3e9b8b01f6f827c5b9'
-      };
-      const app = sdk.getApps().find(item => item.options.projectId === config.projectId) || sdk.initializeApp(config);
-      const auth = authSdk.getAuth(app);
-      window.islamicFirestore = { db: storeSdk.getFirestore(app), ...storeSdk };
+      const { authSdk, auth } = await getAccountContext();
+      await authSdk.getRedirectResult(auth);
       authSdk.onAuthStateChanged(auth, user => {
         window.islamicSiteAccount.user = user;
+        if (user) accountFeedback = '';
         updateAccountLabel();
         window.dispatchEvent(new CustomEvent('islamic-account-changed', { detail: { user } }));
       }, error => {
@@ -746,8 +902,8 @@
       });
     } catch (error) {
       console.error('Could not initialize personal account:', error);
-      accountButton.disabled = true;
-      accountStatus.textContent = localize('Google hisobi hozircha mavjud emas.');
+      accountFeedback = getAuthErrorMessage(error);
+      updateAccountLabel();
     }
   })();
 
@@ -759,6 +915,8 @@
   if (header) header.append(selector);
   const styles = document.createElement('style');
   styles.textContent = '.site-language-select{min-height:38px;max-width:142px;padding:.4rem .65rem;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;font-family:inherit;font-size:.78rem;font-weight:600}.site-language-select option{background:#fff;color:#24362d}.site-account-controls{display:flex;align-items:center;gap:.4rem}.site-account-button{min-height:38px;max-width:190px;padding:.4rem .65rem;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;font-family:inherit;font-size:.73rem;font-weight:600;cursor:pointer}.site-account-button:disabled{opacity:.55}.site-account-status{max-width:160px;overflow:hidden;font-size:.65rem;text-overflow:ellipsis;white-space:nowrap}@media(max-width:820px){.topbar .site-language-select{max-width:118px;margin-left:auto}.site-account-status{display:none}.site-account-button{max-width:145px;font-size:.65rem}}';
+  styles.textContent += '.site-email-auth{position:relative}.site-email-auth summary{max-width:150px;padding:.45rem .6rem;border:1px solid currentColor;border-radius:10px;font-size:.68rem;font-weight:700;cursor:pointer;white-space:nowrap}.site-email-form{position:absolute;z-index:8;top:calc(100% + .45rem);right:0;display:grid;width:min(290px,calc(100vw - 2rem));gap:.5rem;padding:.8rem;border:1px solid #d5e0d6;border-radius:13px;background:#fff;color:#24362d;box-shadow:0 12px 34px #10291d30}.site-email-form input{width:100%;min-height:38px;padding:.5rem .6rem;border:1px solid #cbd8ce;border-radius:8px;background:#fff;color:#24362d;font:inherit;font-size:.75rem}.site-email-form input[hidden]{display:none}.site-email-form button{min-height:34px;padding:.4rem .55rem;border:1px solid #b8d0bd;border-radius:8px;background:#f5f8f4;color:#285b40;font-family:inherit;font-size:.67rem;font-weight:600;cursor:pointer}.site-email-form button:disabled{opacity:.55}.site-email-actions{display:flex;flex-wrap:wrap;gap:.3rem}.site-email-actions button[aria-pressed=true]{background:#e4efe4}.site-account-controls{position:relative}@media(max-width:820px){.site-email-auth summary{font-size:.61rem}.site-email-form{right:0}.site-account-controls{gap:.3rem}}';
+  styles.textContent += '.site-account-status{overflow-wrap:anywhere}@media(max-width:820px){.topbar{flex-wrap:wrap;min-height:unset;padding-top:.5rem;padding-bottom:.5rem}.brand{order:1}.topbar .theme-toggle{order:2}.topbar .site-language-select{order:3;margin-left:auto}.site-account-controls{order:4;flex:1 0 100%;max-width:100%;flex-wrap:wrap;justify-content:flex-end;margin-left:0}.site-account-status{display:block;flex:1 0 100%;max-width:100%;white-space:normal;text-align:right}.site-account-status:empty{display:none}.topbar nav{order:5;flex:1 0 100%;justify-content:center}}';
   document.head.append(styles);
   selector.addEventListener('change', () => setLanguage(selector.value));
 

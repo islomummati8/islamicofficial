@@ -67,12 +67,15 @@ test('validates Gemini output before returning a personal schedule', async () =>
   const originalFetch = global.fetch;
   process.env.GEMINI_API_KEY = 'server-only-test-secret';
   global.fetch = async (url, options) => {
-    assert.match(String(url), /gemini-flash-latest:generateContent/);
+    assert.match(String(url), /gemini-3\.1-flash-lite:generateContent/);
     assert.equal(new URL(String(url)).searchParams.has('key'), false);
     assert.equal(options.headers['x-goog-api-key'], 'server-only-test-secret');
     const body = JSON.parse(options.body);
     assert.match(body.systemInstruction.parts[0].text, /suhbat kontekstini eslab qoluvchi/i);
     assert.match(body.contents[0].parts[0].text, /ertangi zikr/i);
+    assert.equal(body.generationConfig.responseMimeType, 'application/json');
+    assert.ok(body.generationConfig.responseSchema.properties.plan.items.properties.id.enum.includes('subhanallah'));
+    assert.deepEqual(body.generationConfig.responseSchema.properties.plan.items.required, ['id', 'time', 'target']);
     return {
       ok: true,
       json: async () => ({
@@ -88,8 +91,17 @@ test('validates Gemini output before returning a personal schedule', async () =>
     assert.equal(res.statusCode, 200);
     assert.deepEqual(res.json(), {
       reply: 'Ertalabki reja tayyor.',
-      plan: [{ id: 'subhanallah', time: '06:00', target: 33 }],
-      model: 'gemini-flash-latest'
+      plan: [{
+        id: 'subhanallah',
+        time: '06:00',
+        target: 33,
+        category: 'dhikr',
+        arabic: 'سُبْحَانَ اللهِ',
+        latin: 'Subhanalloh',
+        meaning: 'Alloh barcha nuqsonlardan pokdir.',
+        source: 'Zikr iborasi'
+      }],
+      model: 'gemini-3.1-flash-lite'
     });
   } finally {
     global.fetch = originalFetch;
@@ -106,7 +118,7 @@ test('falls back to the next Flash model on quota and includes prior conversatio
   global.fetch = async (url, options) => {
     const model = String(url).match(/models\/([^:]+)/)[1];
     requestedModels.push(model);
-    if (model === 'gemini-flash-latest') {
+    if (model === 'gemini-3.1-flash-lite') {
       return { ok: false, status: 429 };
     }
     const body = JSON.parse(options.body);
@@ -136,12 +148,50 @@ test('falls back to the next Flash model on quota and includes prior conversatio
     const res = createResponse();
     await chatHandler(req, res);
     assert.equal(res.statusCode, 200);
-    assert.deepEqual(requestedModels, ['gemini-flash-latest', 'gemini-3.6-flash']);
+    assert.deepEqual(requestedModels, ['gemini-3.1-flash-lite', 'gemini-3.8-flash']);
     assert.deepEqual(res.json(), {
       reply: 'Avvalgi rejangiz yangilandi.',
       plan: [],
-      model: 'gemini-3.6-flash'
+      model: 'gemini-3.8-flash'
     });
+  } finally {
+    global.fetch = originalFetch;
+    if (originalKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = originalKey;
+  }
+});
+
+test('adds a source-verified knowledge dua when Gemini cannot create a valid plan', async () => {
+  const originalKey = process.env.GEMINI_API_KEY;
+  const originalFetch = global.fetch;
+  process.env.GEMINI_API_KEY = 'server-only-test-secret';
+  global.fetch = async () => ({
+    ok: true,
+    json: async () => ({
+      candidates: [{
+        content: { parts: [{ text: '{"reply":"Boshqa duo.","plan":[{"id":"unknown-dua","time":"","target":1}]}' }] }
+      }]
+    })
+  });
+  try {
+    const req = createRequest({
+      body: { request: 'Ilmni ziyoda qilish uchun duo qo‘shib ber', history: [] }
+    });
+    const res = createResponse();
+    await chatHandler(req, res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.json().plan, [{
+      id: 'rabbi-zidni-ilma',
+      time: '',
+      target: 1,
+      category: 'dua',
+      arabic: 'رَبِّ زِدْنِي عِلْمًا',
+      latin: 'Rabbi zidnī ʿilmā',
+      meaning: 'Ey Rabbim, ilmimni ziyoda qil.',
+      source: 'Qur’on, Toha surasi, 20:114'
+    }]);
+    assert.equal(res.json().model, 'verified-quran-catalog');
+    assert.match(res.json().reply, /20:114/);
   } finally {
     global.fetch = originalFetch;
     if (originalKey === undefined) delete process.env.GEMINI_API_KEY;

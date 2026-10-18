@@ -1,14 +1,34 @@
+const dhikrCatalog = require('../public/zikr/dhikr-catalog.js');
+const dhikrById = new Map(dhikrCatalog.map(item => [item.id, item]));
 const allowedFirebaseHosts = new Set([
   'islamicofficial-zikr.web.app',
   'islamicofficial-zikr.firebaseapp.com'
 ]);
 const flashModels = [
-  'gemini-flash-latest',
-  'gemini-3.6-flash',
-  'gemini-2.5-flash',
-  'gemini-2.5-flash-lite'
+  'gemini-3.1-flash-lite',
+  'gemini-3.8-flash',
+  'gemini-2.5-flash-lite',
+  'gemini-2.5-flash'
 ];
-const knownDhikrIds = new Set(['subhanallah', 'alhamdulillah', 'allahuakbar', 'astaghfirullah']);
+const responseSchema = {
+  type: 'OBJECT',
+  properties: {
+    reply: { type: 'STRING' },
+    plan: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          id: { type: 'STRING', enum: dhikrCatalog.map(item => item.id) },
+          time: { type: 'STRING' },
+          target: { type: 'INTEGER' }
+        },
+        required: ['id', 'time', 'target']
+      }
+    }
+  },
+  required: ['reply', 'plan']
+};
 const requestWindowMs = 60_000;
 const requestLimit = 5;
 const requestTimestamps = new Map();
@@ -43,12 +63,23 @@ function readPlan(value) {
     throw new Error('AI returned an invalid plan length.');
   }
   return value.map(item => {
-    if (!item || !knownDhikrIds.has(item.id)
-      || typeof item.time !== 'string' || !/^([01]\d|2[0-3]):[0-5]\d$/.test(item.time)
+    const source = item && dhikrById.get(item.id);
+    if (!source
+      || typeof item.time !== 'string'
+      || (item.time !== '' && !/^([01]\d|2[0-3]):[0-5]\d$/.test(item.time))
       || !Number.isInteger(item.target) || item.target < 1 || item.target > 99999) {
-      throw new Error('AI returned an invalid plan item.');
+      throw new Error('AI returned an invalid catalog item.');
     }
-    return { id: item.id, time: item.time, target: item.target };
+    return {
+      id: source.id,
+      time: item.time,
+      target: item.target,
+      category: source.category,
+      arabic: source.arabic,
+      latin: source.latin,
+      meaning: source.meaning,
+      source: source.source
+    };
   });
 }
 
@@ -90,6 +121,37 @@ function validateHistory(history, request) {
   return normalized;
 }
 
+function findCatalogDua(request) {
+  const text = request.toLocaleLowerCase('uz-UZ').replace(/[’‘`]/g, "'");
+  if (!/\b(dua|duo|zikr|qo'shib|qo'sh|qo'sha|qo'shish|add)\b/.test(text)) return null;
+  const requestedId = /\b(ilm|bilim|o'qish|oqish|tahsil|knowledge|study)\w*/.test(text)
+    ? 'rabbi-zidni-ilma'
+    : /\b(ota|ona|ota-ona|parents)\w*/.test(text)
+      ? 'rabbighfir-li-wa-liwalidayya'
+      : /\b(rizq|daromad|kasb|muhtoj)\w*/.test(text)
+        ? 'rabbi-inni-lima-anzalta'
+        : /\b(oson|yengil|hayajon|nutq|gapir|imtihon|imtixon)\w*/.test(text)
+          ? 'rabbi-ishrah-li-sadri'
+          : /\b(dunyo|oxirat|yaxshilik|jannat)\w*/.test(text)
+            ? 'rabbana-atina'
+            : null;
+  const source = dhikrById.get(requestedId);
+  return source ? {
+    reply: `${source.latin} duosi ${source.source} da kelgan. O‘qilishi va ma’nosini xohlaganingizcha tahrirlashingiz mumkin.`,
+    plan: [{
+      id: source.id,
+      time: '',
+      target: 1,
+      category: source.category,
+      arabic: source.arabic,
+      latin: source.latin,
+      meaning: source.meaning,
+      source: source.source
+    }],
+    model: 'verified-quran-catalog'
+  } : null;
+}
+
 function allowRequest(ip, now = Date.now()) {
   const recent = (requestTimestamps.get(ip) || []).filter(time => now - time < requestWindowMs);
   if (recent.length >= requestLimit) {
@@ -124,12 +186,14 @@ async function requestGemini(contents, apiKey, signal) {
             parts: [{
               text: [
                 'Sen foydalanuvchining shaxsiy zikr rejasini tuzuvchi va shu suhbat kontekstini eslab qoluvchi yordamchisan.',
-                'Faqat quyidagi ruxsat etilgan zikr idlaridan foydalan: subhanallah, alhamdulillah, allahuakbar, astaghfirullah.',
-                'Diniy hukm, hadis, Qur’on iqtibosi, manba yoki maxsus fazilat to‘qima. Diniy savol so‘ralsa, ishonchli olimdan so‘rashni tavsiya et.',
+                `Faqat quyidagi katalog idlaridan foydalan: ${dhikrCatalog.map(item => item.id).join(', ')}.`,
+                'Katalogdagi arabcha matn, o‘qilishi, ma’nosi va manbasi tekshirilgan deb hisobla; yangi diniy matn, tarjima, hadis, manba yoki fazilatni o‘zing to‘qima.',
+                'Duo yoki zikr so‘ralganda maqsadiga eng mos katalog idlarini tanla. Masalan, ilmni ziyoda qilish uchun rabbi-zidni-ilma. Reja vaqtini so‘ramasa time bo‘sh satr, target esa 1 bo‘lsin.',
+                'Diniy hukm yoki katalogda yo‘q duo so‘ralsa, manba to‘qima; reply ichida cheklovni muloyim tushuntir va kerak bo‘lsa ishonchli olimga murojaat qilishni tavsiya et.',
                 'Suhbat tarixini va oxirgi topshiriqni hisobga ol. Yangi reja so‘ralsa, oldingi reja bilan zid bo‘lmagan to‘liq yangilangan rejani qaytar.',
-                'Faqat JSON obyekt qaytar: {"reply":"qisqa javob","plan":[{"id":"subhanallah","time":"06:00","target":33}]}',
-                'Agar foydalanuvchi faqat savol bersa yoki aniqlik kiritsa, plan bo‘sh massiv bo‘lishi mumkin. Reja so‘ralganda 1–8 ta element qaytar.',
-                'Har bir plan elementi ruxsat etilgan id, HH:MM va 1–99999 oralig‘idagi butun target qiymatiga ega bo‘lsin.'
+                'Faqat JSON obyekt qaytar: {"reply":"qisqa javob","plan":[{"id":"rabbi-zidni-ilma","time":"","target":1}]}',
+                'Oddiy savol yoki aniqlik uchun plan bo‘sh massiv bo‘lishi mumkin. Reja yoki zikr qo‘shishda 1–8 ta katalog elementi qaytar.',
+                'Har bir plan elementi katalogdagi id, HH:MM yoki bo‘sh time va 1–99999 oralig‘idagi butun target qiymatiga ega bo‘lsin.'
               ].join('\n')
             }]
           },
@@ -139,8 +203,9 @@ async function requestGemini(contents, apiKey, signal) {
           })),
           generationConfig: {
             temperature: 0.2,
-            maxOutputTokens: 768,
-            responseMimeType: 'application/json'
+            maxOutputTokens: 1024,
+            responseMimeType: 'application/json',
+            responseSchema
           }
         }),
         signal
@@ -253,16 +318,22 @@ module.exports = async function chatHandler(req, res) {
   try {
     const result = await requestGemini(contents, process.env.GEMINI_API_KEY, controller.signal);
     if (result.errorStatus) {
+      const catalogDua = findCatalogDua(request);
+      if (catalogDua) return send(res, 200, catalogDua);
       if (result.errorStatus === 429) {
-        return send(res, 429, { error: 'Barcha Gemini Flash modellari vaqtincha kvota yoki tezlik chekloviga uchradi. Keyinroq qayta urinib ko‘ring.' });
+        return send(res, 429, { error: 'Barcha Gemini modellari vaqtincha kvota yoki tezlik chekloviga uchradi. Keyinroq qayta urinib ko‘ring.' });
       }
       if (result.errorStatus === 401 || result.errorStatus === 403) {
         return send(res, 503, { error: 'Gemini kaliti yaroqsiz yoki ruxsati cheklangan. Vercel Secret sozlamasini tekshiring.' });
       }
       if (result.errorReason === 'invalid-response') {
-        return send(res, 502, { error: 'Gemini Flash modellari yaroqli zikr rejasini qaytara olmadi. Boshqacha so‘rov bilan urinib ko‘ring.' });
+        return send(res, 502, { error: 'Gemini modellari yaroqli zikr rejasini qaytara olmadi. Boshqacha so‘rov bilan urinib ko‘ring.' });
       }
-      return send(res, 502, { error: 'Gemini Flash modellari javob bera olmadi. Birozdan keyin qayta urinib ko‘ring.' });
+      return send(res, 502, { error: 'Gemini modellari javob bera olmadi. Birozdan keyin qayta urinib ko‘ring.' });
+    }
+    if (!result.plan.length) {
+      const catalogDua = findCatalogDua(request);
+      if (catalogDua) return send(res, 200, catalogDua);
     }
     return send(res, 200, {
       reply: result.reply,
