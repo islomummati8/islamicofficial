@@ -43,11 +43,25 @@ restarts. Set appropriate quota limits in Google AI Studio for public use.
 Run the focused checks with
 `node --test tests/api-chat.test.js tests/zikr-reminders.test.js`.
 
-The Zikr API currently uses Google's Gemini API. We could not verify
-“GPT-6 Luna” as a documented OpenAI API model, so it is not configured as a
-model ID. If it belongs to another provider, verify that provider's API
-endpoint/model ID first; additional providers require their own server-side API
-key and must not expose credentials to the browser.
+## Optional OpenAI fallback
+
+Gemini remains the default provider. The OpenAI fallback is disabled unless
+both `OPENAI_API_KEY` is stored as an encrypted Vercel Secret and
+`OPENAI_FALLBACK_ENABLED=true` is set for Production. When enabled, the function
+tries OpenAI's `gpt-6-luna` only after Gemini models fail (or if Gemini is not
+configured). Its API key is only read on the server and is never sent to the
+browser.
+
+`gpt-6-luna` is a metered API model, not a free API tier. OpenAI's published
+standard rates are $0.10 per 1M input tokens and $0.50 per 1M output tokens for
+short context; ChatGPT subscriptions are separate from API billing. See the
+[model documentation](https://developers.openai.com/api/docs/models/gpt-6-luna)
+and [API pricing](https://developers.openai.com/api/docs/pricing) before
+enabling it. No OpenAI key is committed or configured by this repository.
+Requests are additionally limited to one OpenAI fallback per IP per minute per
+warm function instance; this in-memory throttle is best-effort and is not a
+hard spending cap. Set provider-side budgets and usage alerts before enabling
+OpenAI for public visitors.
 
 ## Zikr reminders and account sign-in
 

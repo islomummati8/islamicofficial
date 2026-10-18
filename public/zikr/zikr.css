@@ -27,10 +27,19 @@ body[data-theme="dark"]{color-scheme:dark;--ink:#e6eee7;--muted:#a9b8ad;--line:#
 .custom-dhikr-form input[lang="ar"]{font:1.25rem/1.7 "Noto Naskh Arabic",serif}
 .custom-dhikr-actions{display:flex;align-items:center;gap:.5rem}
 .custom-dhikr-form button{justify-self:start}
-.zikr-agent summary{color:var(--deep);font-size:.82rem;font-weight:800;cursor:pointer}
+.zikr-agent summary{display:flex;align-items:center;justify-content:space-between;gap:.7rem;color:var(--deep);font-size:.82rem;font-weight:800;cursor:pointer}
+.zikr-agent summary::marker{color:var(--green)}
+.ai-agent-badge{padding:.3rem .5rem;border:1px solid var(--line);border-radius:999px;background:var(--wash);color:var(--green);font-size:.57rem;font-weight:800;white-space:nowrap}
 .zikr-agent>p{margin:0;color:var(--muted);font-size:.67rem;line-height:1.6}
-.zikr-agent-controls{display:flex;align-items:center;gap:.65rem}
+.ai-agent-suggestions{display:flex;flex-wrap:wrap;gap:.4rem}
+.ai-agent-suggestions[hidden]{display:none}
+.ai-agent-suggestions button{padding:.42rem .6rem;border:1px solid var(--line);border-radius:999px;background:var(--wash);color:var(--ink);font:700 .62rem Manrope,system-ui,sans-serif;cursor:pointer}
+.ai-agent-suggestions button:hover{border-color:#a5c1aa;background:#edf5ec}
+.zikr-agent-controls{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}
 .ai-provider-label{color:var(--muted);font-size:.7rem;font-weight:750}
+.ai-shortcut{margin-left:auto;color:var(--muted);font-size:.58rem}
+.zikr-agent textarea:focus-visible,.ai-agent-suggestions button:focus-visible{outline:2px solid #79a485;outline-offset:2px}
+.zikr-agent #zikr-agent-run:disabled{cursor:wait;opacity:.72}
 .zikr-agent-conversation{display:grid;max-height:360px;gap:.55rem;overflow:auto;padding:.7rem;border:1px solid var(--line);border-radius:12px;background:var(--wash);scroll-behavior:smooth}
 .zikr-agent-conversation:empty::before{content:"Suhbat shu yerda saqlanadi. Topshiriq yozib boshlang.";color:var(--muted);font-size:.68rem;line-height:1.5}
 .zikr-agent-message{max-width:min(88%,620px);padding:.65rem .75rem;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
@@ -42,6 +51,8 @@ body[data-theme="dark"]{color-scheme:dark;--ink:#e6eee7;--muted:#a9b8ad;--line:#
 .zikr-agent-result>div{display:grid;gap:.25rem;min-width:0}
 .zikr-agent-result>div span{color:var(--muted);line-height:1.45}
 .zikr-agent-result>div small,.dhikr-source{color:var(--muted);font-size:.62rem}
+body[data-theme="dark"] .ai-agent-badge,body[data-theme="dark"] .ai-agent-suggestions button{border-color:var(--line);background:#203629;color:#bdd9c1}
+body[data-theme="dark"] .ai-agent-suggestions button:hover{background:#294532}
 .dhikr-entry{display:flex;min-width:0;flex-direction:column}
 .dhikr-entry .dhikr-card{width:100%;flex:1}
 .dhikr-remove,.dhikr-edit{align-self:flex-end;margin:.25rem .35rem 0;padding:.3rem .45rem;border:0;border-radius:8px;background:transparent;color:#496f5a;font:700 .6rem Manrope,system-ui,sans-serif;cursor:pointer}

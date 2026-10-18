@@ -29,9 +29,43 @@ const responseSchema = {
   },
   required: ['reply', 'plan']
 };
+const openAiResponseSchema = {
+  type: 'object',
+  properties: {
+    reply: { type: 'string' },
+    plan: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: { type: 'string', enum: dhikrCatalog.map(item => item.id) },
+          time: { type: 'string' },
+          target: { type: 'integer' }
+        },
+        required: ['id', 'time', 'target'],
+        additionalProperties: false
+      }
+    }
+  },
+  required: ['reply', 'plan'],
+  additionalProperties: false
+};
+const systemPrompt = [
+  'Sen foydalanuvchining shaxsiy zikr rejasini tuzuvchi va shu suhbat kontekstini eslab qoluvchi yordamchisan.',
+  `Faqat quyidagi katalog idlaridan foydalan: ${dhikrCatalog.map(item => item.id).join(', ')}.`,
+  'Katalogdagi arabcha matn, o‘qilishi, ma’nosi va manbasi tekshirilgan deb hisobla; yangi diniy matn, tarjima, hadis, manba yoki fazilatni o‘zing to‘qima.',
+  'Duo yoki zikr so‘ralganda maqsadiga eng mos katalog idlarini tanla. Masalan, ilmni ziyoda qilish uchun rabbi-zidni-ilma. Reja vaqtini so‘ramasa time bo‘sh satr, target esa 1 bo‘lsin.',
+  'Diniy hukm yoki katalogda yo‘q duo so‘ralsa, manba to‘qima; reply ichida cheklovni muloyim tushuntir va kerak bo‘lsa ishonchli olimga murojaat qilishni tavsiya et.',
+  'Suhbat tarixini va oxirgi topshiriqni hisobga ol. Yangi reja so‘ralsa, oldingi reja bilan zid bo‘lmagan to‘liq yangilangan rejani qaytar.',
+  'Faqat JSON obyekt qaytar: {"reply":"qisqa javob","plan":[{"id":"rabbi-zidni-ilma","time":"","target":1}]}',
+  'Oddiy savol yoki aniqlik uchun plan bo‘sh massiv bo‘lishi mumkin. Reja yoki zikr qo‘shishda 1–8 ta katalog elementi qaytar.',
+  'Har bir plan elementi katalogdagi id, HH:MM yoki bo‘sh time va 1–99999 oralig‘idagi butun target qiymatiga ega bo‘lsin.'
+].join('\n');
 const requestWindowMs = 60_000;
 const requestLimit = 5;
 const requestTimestamps = new Map();
+const openAiRequestTimestamps = new Map();
+const openAiRequestLimit = 1;
 const maxHistoryMessages = 12;
 const maxHistoryCharacters = 8_000;
 
@@ -168,6 +202,22 @@ function allowRequest(ip, now = Date.now()) {
   return true;
 }
 
+function allowOpenAIRequest(ip, now = Date.now()) {
+  const recent = (openAiRequestTimestamps.get(ip) || []).filter(time => now - time < requestWindowMs);
+  if (recent.length >= openAiRequestLimit) {
+    openAiRequestTimestamps.set(ip, recent);
+    return false;
+  }
+  recent.push(now);
+  openAiRequestTimestamps.set(ip, recent);
+  if (openAiRequestTimestamps.size > 5000) {
+    for (const [key, timestamps] of openAiRequestTimestamps) {
+      if (!timestamps.some(time => now - time < requestWindowMs)) openAiRequestTimestamps.delete(key);
+    }
+  }
+  return true;
+}
+
 async function requestGemini(contents, apiKey, signal) {
   let lastStatus = 502;
   let sawRateLimit = false;
@@ -183,19 +233,7 @@ async function requestGemini(contents, apiKey, signal) {
         },
         body: JSON.stringify({
           systemInstruction: {
-            parts: [{
-              text: [
-                'Sen foydalanuvchining shaxsiy zikr rejasini tuzuvchi va shu suhbat kontekstini eslab qoluvchi yordamchisan.',
-                `Faqat quyidagi katalog idlaridan foydalan: ${dhikrCatalog.map(item => item.id).join(', ')}.`,
-                'Katalogdagi arabcha matn, o‘qilishi, ma’nosi va manbasi tekshirilgan deb hisobla; yangi diniy matn, tarjima, hadis, manba yoki fazilatni o‘zing to‘qima.',
-                'Duo yoki zikr so‘ralganda maqsadiga eng mos katalog idlarini tanla. Masalan, ilmni ziyoda qilish uchun rabbi-zidni-ilma. Reja vaqtini so‘ramasa time bo‘sh satr, target esa 1 bo‘lsin.',
-                'Diniy hukm yoki katalogda yo‘q duo so‘ralsa, manba to‘qima; reply ichida cheklovni muloyim tushuntir va kerak bo‘lsa ishonchli olimga murojaat qilishni tavsiya et.',
-                'Suhbat tarixini va oxirgi topshiriqni hisobga ol. Yangi reja so‘ralsa, oldingi reja bilan zid bo‘lmagan to‘liq yangilangan rejani qaytar.',
-                'Faqat JSON obyekt qaytar: {"reply":"qisqa javob","plan":[{"id":"rabbi-zidni-ilma","time":"","target":1}]}',
-                'Oddiy savol yoki aniqlik uchun plan bo‘sh massiv bo‘lishi mumkin. Reja yoki zikr qo‘shishda 1–8 ta katalog elementi qaytar.',
-                'Har bir plan elementi katalogdagi id, HH:MM yoki bo‘sh time va 1–99999 oralig‘idagi butun target qiymatiga ega bo‘lsin.'
-              ].join('\n')
-            }]
+            parts: [{ text: systemPrompt }]
           },
           contents: contents.map(message => ({
             role: message.role === 'assistant' ? 'model' : 'user',
@@ -242,7 +280,7 @@ async function requestGemini(contents, apiKey, signal) {
       continue;
     }
     try {
-      return { ...readAssistantResponse(text), model };
+      return { ...readAssistantResponse(text), model, provider: 'gemini' };
     } catch (error) {
       lastStatus = 502;
       sawInvalidResponse = true;
@@ -251,8 +289,69 @@ async function requestGemini(contents, apiKey, signal) {
   }
   return {
     errorStatus: sawRateLimit ? 429 : lastStatus,
-    errorReason: sawInvalidResponse ? 'invalid-response' : null
+    errorReason: sawInvalidResponse ? 'invalid-response' : null,
+    provider: 'gemini'
   };
+}
+
+async function requestOpenAI(contents, apiKey, signal) {
+  let upstream;
+  try {
+    upstream = await fetch('https://api.openai.com/v1/responses', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-6-luna',
+        input: [
+          { role: 'system', content: systemPrompt },
+          ...contents
+        ],
+        reasoning: { effort: 'none' },
+        max_output_tokens: 1024,
+        text: {
+          format: {
+            type: 'json_schema',
+            name: 'zikr_plan',
+            strict: true,
+            schema: openAiResponseSchema
+          }
+        }
+      }),
+      signal
+    });
+  } catch (error) {
+    if (error.name === 'AbortError') throw error;
+    console.error('OpenAI model request failed:', error.message);
+    return { errorStatus: 502, provider: 'openai' };
+  }
+
+  if (!upstream.ok) {
+    console.error('OpenAI model returned HTTP status:', upstream.status);
+    return { errorStatus: upstream.status, provider: 'openai' };
+  }
+
+  let result;
+  try {
+    result = await upstream.json();
+  } catch {
+    return { errorStatus: 502, errorReason: 'invalid-response', provider: 'openai' };
+  }
+  const text = (Array.isArray(result.output) ? result.output : [])
+    .flatMap(item => Array.isArray(item.content) ? item.content : [])
+    .filter(part => part.type === 'output_text' && typeof part.text === 'string')
+    .map(part => part.text)
+    .join('')
+    .trim();
+  if (!text) return { errorStatus: 502, errorReason: 'invalid-response', provider: 'openai' };
+  try {
+    return { ...readAssistantResponse(text), model: 'gpt-6-luna', provider: 'openai' };
+  } catch (error) {
+    console.error('OpenAI model returned an invalid zikr response:', error.message);
+    return { errorStatus: 502, errorReason: 'invalid-response', provider: 'openai' };
+  }
 }
 
 module.exports = async function chatHandler(req, res) {
@@ -273,7 +372,9 @@ module.exports = async function chatHandler(req, res) {
     res.setHeader('Allow', 'POST, OPTIONS');
     return send(res, 405, { error: 'Faqat POST so‘rovi qabul qilinadi.' });
   }
-  if (!process.env.GEMINI_API_KEY) {
+  const openAiFallbackEnabled = process.env.OPENAI_FALLBACK_ENABLED === 'true'
+    && Boolean(process.env.OPENAI_API_KEY);
+  if (!process.env.GEMINI_API_KEY && !openAiFallbackEnabled) {
     return send(res, 503, { error: 'AI server hozircha sozlanmagan.' });
   }
   const contentLength = Number(req.headers['content-length']);
@@ -316,20 +417,32 @@ module.exports = async function chatHandler(req, res) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 50_000);
   try {
-    const result = await requestGemini(contents, process.env.GEMINI_API_KEY, controller.signal);
+    let result = process.env.GEMINI_API_KEY
+      ? await requestGemini(contents, process.env.GEMINI_API_KEY, controller.signal)
+      : { errorStatus: 503, provider: 'gemini' };
     if (result.errorStatus) {
       const catalogDua = findCatalogDua(request);
       if (catalogDua) return send(res, 200, catalogDua);
+      if (openAiFallbackEnabled) {
+        if (!allowOpenAIRequest(String(ip))) {
+          res.setHeader('Retry-After', '60');
+          return send(res, 429, { error: 'OpenAI zaxira modeli uchun bu daqiqadagi so‘rov limiti tugadi. Keyinroq qayta urinib ko‘ring.' });
+        }
+        result = await requestOpenAI(contents, process.env.OPENAI_API_KEY, controller.signal);
+      }
+    }
+    if (result.errorStatus) {
       if (result.errorStatus === 429) {
-        return send(res, 429, { error: 'Barcha Gemini modellari vaqtincha kvota yoki tezlik chekloviga uchradi. Keyinroq qayta urinib ko‘ring.' });
+        return send(res, 429, { error: 'AI modellari vaqtincha kvota yoki tezlik chekloviga uchradi. Keyinroq qayta urinib ko‘ring.' });
       }
       if (result.errorStatus === 401 || result.errorStatus === 403) {
-        return send(res, 503, { error: 'Gemini kaliti yaroqsiz yoki ruxsati cheklangan. Vercel Secret sozlamasini tekshiring.' });
+        const provider = result.provider === 'openai' ? 'OpenAI' : 'Gemini';
+        return send(res, 503, { error: `${provider} API kaliti yaroqsiz yoki ruxsati cheklangan. Vercel Secret sozlamasini tekshiring.` });
       }
       if (result.errorReason === 'invalid-response') {
-        return send(res, 502, { error: 'Gemini modellari yaroqli zikr rejasini qaytara olmadi. Boshqacha so‘rov bilan urinib ko‘ring.' });
+        return send(res, 502, { error: 'AI modellari yaroqli zikr rejasini qaytara olmadi. Boshqacha so‘rov bilan urinib ko‘ring.' });
       }
-      return send(res, 502, { error: 'Gemini modellari javob bera olmadi. Birozdan keyin qayta urinib ko‘ring.' });
+      return send(res, 502, { error: 'AI modellari javob bera olmadi. Birozdan keyin qayta urinib ko‘ring.' });
     }
     if (!result.plan.length) {
       const catalogDua = findCatalogDua(request);

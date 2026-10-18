@@ -48,9 +48,13 @@ test('handles preflight requests for the Zikr website', async () => {
   assert.equal(res.headers['access-control-allow-origin'], req.headers.origin);
 });
 
-test('reports missing server-side Gemini configuration without exposing a key field', async () => {
+test('does not enable OpenAI from a key alone or expose provider key fields', async () => {
   const originalKey = process.env.GEMINI_API_KEY;
+  const originalOpenAIKey = process.env.OPENAI_API_KEY;
+  const originalOpenAIFallback = process.env.OPENAI_FALLBACK_ENABLED;
   delete process.env.GEMINI_API_KEY;
+  process.env.OPENAI_API_KEY = 'server-only-test-secret';
+  delete process.env.OPENAI_FALLBACK_ENABLED;
   try {
     const res = createResponse();
     await chatHandler(createRequest(), res);
@@ -59,6 +63,10 @@ test('reports missing server-side Gemini configuration without exposing a key fi
   } finally {
     if (originalKey === undefined) delete process.env.GEMINI_API_KEY;
     else process.env.GEMINI_API_KEY = originalKey;
+    if (originalOpenAIKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = originalOpenAIKey;
+    if (originalOpenAIFallback === undefined) delete process.env.OPENAI_FALLBACK_ENABLED;
+    else process.env.OPENAI_FALLBACK_ENABLED = originalOpenAIFallback;
   }
 });
 
@@ -158,6 +166,59 @@ test('falls back to the next Flash model on quota and includes prior conversatio
     global.fetch = originalFetch;
     if (originalKey === undefined) delete process.env.GEMINI_API_KEY;
     else process.env.GEMINI_API_KEY = originalKey;
+  }
+});
+
+test('uses GPT-6 Luna only when the explicit OpenAI fallback switch is enabled', async () => {
+  const originalGeminiKey = process.env.GEMINI_API_KEY;
+  const originalOpenAIKey = process.env.OPENAI_API_KEY;
+  const originalOpenAIFallback = process.env.OPENAI_FALLBACK_ENABLED;
+  const originalFetch = global.fetch;
+  process.env.GEMINI_API_KEY = 'server-only-gemini-test-secret';
+  process.env.OPENAI_API_KEY = 'server-only-openai-test-secret';
+  process.env.OPENAI_FALLBACK_ENABLED = 'true';
+  const requests = [];
+  global.fetch = async (url, options) => {
+    requests.push(String(url));
+    if (String(url).includes('generativelanguage.googleapis.com')) {
+      return { ok: false, status: 429 };
+    }
+    assert.equal(String(url), 'https://api.openai.com/v1/responses');
+    assert.equal(options.headers.Authorization, 'Bearer server-only-openai-test-secret');
+    const body = JSON.parse(options.body);
+    assert.equal(body.model, 'gpt-6-luna');
+    assert.equal(body.reasoning.effort, 'none');
+    assert.equal(body.text.format.strict, true);
+    assert.ok(body.text.format.schema.properties.plan.items.properties.id.enum.includes('subhanallah'));
+    assert.equal(body.text.format.schema.additionalProperties, false);
+    return {
+      ok: true,
+      json: async () => ({
+        output: [{
+          content: [{
+            type: 'output_text',
+            text: '{"reply":"Reja tayyor.","plan":[{"id":"subhanallah","time":"07:00","target":33}]}'
+          }]
+        }]
+      })
+    };
+  };
+  try {
+    const res = createResponse();
+    await chatHandler(createRequest(), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.json().model, 'gpt-6-luna');
+    assert.equal(res.json().plan[0].id, 'subhanallah');
+    assert.equal(requests.filter(url => url.includes('generativelanguage.googleapis.com')).length, 4);
+    assert.equal(requests[4], 'https://api.openai.com/v1/responses');
+  } finally {
+    global.fetch = originalFetch;
+    if (originalGeminiKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = originalGeminiKey;
+    if (originalOpenAIKey === undefined) delete process.env.OPENAI_API_KEY;
+    else process.env.OPENAI_API_KEY = originalOpenAIKey;
+    if (originalOpenAIFallback === undefined) delete process.env.OPENAI_FALLBACK_ENABLED;
+    else process.env.OPENAI_FALLBACK_ENABLED = originalOpenAIFallback;
   }
 });
 

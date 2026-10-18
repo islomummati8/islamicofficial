@@ -7,7 +7,7 @@
   <meta name="description" content="Shaxsiy zikr hisoblagichi, moslashuvchan eslatmalar, duolar va hijriy taqvim. Ixtiyoriy hisob sinxronlashi.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="zikr.css?v=4">
+  <link rel="stylesheet" href="zikr.css?v=5">
   <title>Zikr va hijriy taqvim | Islamic Official</title>
 </head>
 <body data-site-locale="zikr">
@@ -91,15 +91,21 @@
         <p class="counter-status" id="custom-dhikr-status" role="status" aria-live="polite"></p>
       </form>
       <details class="zikr-agent panel">
-        <summary>AI yordamchi bilan shaxsiy suhbat</summary>
+        <summary><span>AI yordamchi bilan shaxsiy suhbat</span><span class="ai-agent-badge">Shaxsiy reja</span></summary>
         <p>Yordamchi suhbatdagi oxirgi 12 ta xabarni eslab, tasbeh iboralari yoki Qur’ondagi manbasi ko‘rsatilgan duolarni tanlaydi. Arabcha matn, o‘qilishi va ma’nosini o‘zingiz tahrirlashingiz mumkin. Yordamchi diniy hukm yoki manbasi tasdiqlanmagan duo bermaydi. Suhbat qurilmangizda saqlanadi, hisobga kirsangiz hisobingiz bilan sinxronlanadi.</p>
+        <div class="ai-agent-suggestions" id="zikr-agent-suggestions" aria-label="Tezkor topshiriqlar">
+          <button type="button" data-agent-prompt="Ertangi tong va kechki zikrlarimni 33 martadan rejalashtir">Ertangi reja</button>
+          <button type="button" data-agent-prompt="Ilm haqida duo qo‘sh">Ilm duosi</button>
+          <button type="button" data-agent-prompt="Ota-onam uchun duo qo‘sh">Ota-onam uchun duo</button>
+        </div>
         <div class="zikr-agent-conversation" id="zikr-agent-conversation" role="log" aria-live="polite" aria-label="Shaxsiy AI suhbati"></div>
         <label for="zikr-agent-request">Yangi topshiriq yoki savol</label>
         <textarea id="zikr-agent-request" maxlength="2000" rows="3" placeholder="Masalan: ertangi tong va kechki zikrlarimni 33 martadan rejalashtir"></textarea>
         <div class="zikr-agent-controls">
-          <span class="ai-provider-label">Gemini Flash · avtomatik zaxira modellar</span>
+          <span class="ai-provider-label">AI yordamchi · avtomatik model tanlovi</span>
           <button class="outline-button" id="zikr-agent-run" type="button">Yuborish</button>
           <button class="text-button" id="zikr-agent-clear" type="button">Suhbatni tozalash</button>
+          <span class="ai-shortcut">Ctrl + Enter</span>
         </div>
         <p id="zikr-agent-status" class="counter-status" role="status" aria-live="polite"></p>
         <div id="zikr-agent-results" class="zikr-agent-results"></div>
@@ -110,13 +116,13 @@
       <div class="section-heading"><div><span class="eyebrow dark">HIJRIY VA MILODIY</span><h2>Islomiy taqvim</h2><p>Kelgusi muhim sanalar astronomik taqvim asosida taxmin qilinadi.</p></div></div>
       <div class="calendar-card"><div class="calendar-intro"><span class="calendar-icon">✧</span><div><strong>Yaqinlashayotgan sanalar</strong><small>Mahalliy hilol kuzatuviga qarab sana farq qilishi mumkin.</small></div></div><div class="upcoming-dates" id="upcoming-dates"><p>Hijriy taqvim ma’lumoti tayyorlanmoqda…</p></div></div>
     </section>
-    <p class="privacy-note"><strong>Maxfiylik:</strong> zikr hisobi, shaxsiy zikrlar va AI suhbat tarixi qurilmangizda saqlanadi; Google yoki email hisobiga kirsangiz, zikr ma’lumotlari shaxsiy hisobingizga ham sinxronlanadi. So‘rov va suhbat konteksti Gemini’ga xavfsiz server orqali yuboriladi; maxfiy API kalit brauzerga berilmaydi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas. <a href="https://islamicofficial-ibadat.web.app/">Shaxsiy ibodat rejasiga o‘tish ↗</a></p>
+    <p class="privacy-note"><strong>Maxfiylik:</strong> zikr hisobi, shaxsiy zikrlar va AI suhbat tarixi qurilmangizda saqlanadi; Google yoki email hisobiga kirsangiz, zikr ma’lumotlari shaxsiy hisobingizga ham sinxronlanadi. So‘rov va suhbat konteksti sozlangan AI xizmatiga xavfsiz server orqali yuboriladi; maxfiy API kalit brauzerga berilmaydi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas. <a href="https://islamicofficial-ibadat.web.app/">Shaxsiy ibodat rejasiga o‘tish ↗</a></p>
   </main>
   <footer><a href="https://islamicofficial.com/">Islamic Official</a><span>Oddiy va shaxsiy zikr vositasi.</span><a href="https://islamicofficial-quran.web.app/">Qur’on o‘qish ↗</a></footer>
   <script src="dhikr-catalog.js?v=1"></script>
   <script src="reminder-utils.js?v=1"></script>
   <script src="ai-config.js?v=1"></script>
-  <script src="site-locale.js?v=7" defer></script>
-  <script src="zikr.js?v=9" defer></script>
+  <script src="site-locale.js?v=8" defer></script>
+  <script src="zikr.js?v=10" defer></script>
 </body>
 </html>

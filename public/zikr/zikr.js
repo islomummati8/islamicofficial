@@ -263,6 +263,7 @@
 
   function renderAgentHistory() {
     const conversation = document.getElementById('zikr-agent-conversation');
+    document.getElementById('zikr-agent-suggestions').hidden = state.agentHistory.length > 0;
     conversation.replaceChildren();
     state.agentHistory.forEach(message => {
       const article = document.createElement('article');
@@ -290,7 +291,12 @@
       return;
     }
     const button = document.getElementById('zikr-agent-run');
+    const buttonLabel = button.textContent;
+    const agent = document.querySelector('.zikr-agent');
     button.disabled = true;
+    button.textContent = 'Javob tayyorlanmoqda…';
+    agent.dataset.loading = 'true';
+    status.setAttribute('aria-busy', 'true');
     status.textContent = 'Suhbat va oldingi so‘rovlar hisobga olinib, javob tayyorlanmoqda…';
     results.replaceChildren();
     try {
@@ -364,6 +370,9 @@
       status.textContent = error.message;
     } finally {
       button.disabled = false;
+      button.textContent = buttonLabel;
+      delete agent.dataset.loading;
+      status.removeAttribute('aria-busy');
     }
   }
 
@@ -701,6 +710,19 @@
   });
   document.getElementById('custom-dhikr-cancel').addEventListener('click', cancelEditPersonalDhikr);
   document.getElementById('zikr-agent-run').addEventListener('click', requestZikrAgentPlan);
+  document.querySelectorAll('[data-agent-prompt]').forEach(button => {
+    button.addEventListener('click', () => {
+      const input = document.getElementById('zikr-agent-request');
+      input.value = button.dataset.agentPrompt;
+      input.focus();
+    });
+  });
+  document.getElementById('zikr-agent-request').addEventListener('keydown', event => {
+    if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
+      requestZikrAgentPlan();
+    }
+  });
   document.getElementById('zikr-agent-clear').addEventListener('click', () => {
     state.agentHistory = [];
     persist();
