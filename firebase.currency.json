@@ -2,6 +2,9 @@
   "hosting": {
     "site": "islamicofficial-valyuta",
     "public": "dist/currency",
+    "predeploy": [
+      "node scripts/build-currency-site.js"
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
