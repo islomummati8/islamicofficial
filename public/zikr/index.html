@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#12352b">
+  <meta name="description" content="Zikr hisoblagichi, kundalik zikr matnlari va hijriy taqvim. Tanlovlar faqat qurilmangizda saqlanadi.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="zikr.css?v=1">
+  <title>Zikr va hijriy taqvim | Islamic Official</title>
+</head>
+<body data-site-locale="zikr">
+  <header class="topbar">
+    <a class="brand" href="https://islamicofficial.com/"><span class="brand-symbol">☾</span><span><strong>Islamic Official</strong><small>SMART ZIKR · TAQVIM</small></span></a>
+    <nav><a href="#tasbih">Tasbeh</a><a href="#adhkar">Zikrlar</a><a href="#calendar">Hijriy taqvim</a></nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Tungi rejimni yoqish" aria-pressed="false">◐</button>
+  </header>
+  <main>
+    <section class="hero">
+      <div><span class="eyebrow"><span class="glow-dot"></span> KUNLIK ZIKR VA TAQVIM</span><h1>Qalbni zikr bilan<br><em>osoyishta qiling.</em></h1><p>Zikrlaringizni qulay sanang, foydali iboralarni tanlang va bugungi hijriy sanani ko‘ring. Ma’lumotlar shu qurilmada qoladi.</p><a class="hero-link" href="#tasbih">Zikrni boshlash <span>↓</span></a></div>
+      <div class="hero-date-card"><span class="date-moon">☾</span><span class="date-kicker">BUGUNGI SANA</span><strong id="gregorian-date">—</strong><span id="hijri-date">—</span><small>Hijriy sana hisoblash usuliga ko‘ra 1 kungacha farq qilishi mumkin.</small></div>
+    </section>
+    <section class="main-grid">
+      <section class="tasbih-card" id="tasbih" aria-labelledby="tasbih-title">
+        <div class="card-heading"><div><span class="eyebrow dark">SHAXSIY HISOBLAGICH</span><h2 id="tasbih-title">Tasbeh sanagichi</h2></div><button id="reset-counter" class="quiet-button" type="button">↻ Qayta boshlash</button></div>
+        <label class="field-label" for="zikr-select">Zikrni tanlang</label>
+        <select class="wide-select" id="zikr-select"></select>
+        <div class="selected-zikr"><span id="selected-arabic" lang="ar" dir="rtl">سُبْحَانَ اللهِ</span><strong id="selected-transliteration">Subhanalloh</strong><p id="selected-meaning">Alloh barcha nuqsonlardan pokdir.</p></div>
+        <div class="counter-wrap"><div class="counter-ring" id="counter-ring" role="progressbar" aria-label="Zikr hisoblagichi" aria-valuemin="0" aria-valuenow="0" aria-valuemax="0"><span class="count" id="count">0</span><small>marta</small></div></div>
+        <div class="counter-tools">
+          <label for="target-select">Shaxsiy maqsad <select id="target-select"><option value="0">Maqsadsiz sanash</option><option value="33">33 marta</option><option value="99">99 marta</option><option value="custom">O‘zim kiritaman</option></select></label>
+          <input id="custom-target" type="number" min="1" max="99999" inputmode="numeric" placeholder="Miqdor" aria-label="Shaxsiy zikr maqsadi" hidden>
+        </div>
+        <div class="counter-actions"><button id="undo-count" class="undo-button" type="button" aria-label="Bitta sanog‘ni bekor qilish">−</button><button id="count-button" class="count-button" type="button" aria-label="Zikrni sanash"><span>+</span><small>SANASH</small></button><div class="feedback-toggles"><button id="haptic-toggle" class="haptic-button" type="button" aria-pressed="true">⌁ Tebranish</button><button id="sound-toggle" class="haptic-button" type="button" aria-pressed="false">♪ Ovoz</button></div></div>
+        <p class="counter-status" id="counter-status" role="status" aria-live="polite">Har bir bosish qurilmangizda saqlanadi.</p>
+      </section>
+      <aside class="side-column">
+        <section class="panel today-panel">
+          <span class="eyebrow dark">BUGUNGI FAOLLIGINGIZ</span><h2>Kichik qadam ham qadrli</h2>
+          <div class="stat-line"><span>Bugun sanalgan zikrlar</span><strong id="today-total">0</strong></div>
+          <div class="stat-line"><span>Tanlangan zikr</span><strong id="today-selected">0</strong></div>
+          <p>Hisoblar shaxsiy bo‘lib, ushbu brauzerdan tashqariga yuborilmaydi.</p>
+        </section>
+        <section class="panel reminder-panel">
+          <span class="eyebrow dark">MULOYIM ESLATMA</span><h2>O‘zingizga eslatma qo‘ying</h2>
+          <label class="reminder-time" for="reminder-time">Mahalliy vaqt <input id="reminder-time" type="time" value="08:00"></label>
+          <div class="reminder-actions"><button class="outline-button" id="reminder-toggle" type="button">Eslatmani yoqish</button><button class="text-button" id="reminder-off" type="button" hidden>O‘chirish</button></div>
+          <p class="reminder-status" id="reminder-status" role="status" aria-live="polite">Eslatma faqat sahifa ochiq turganda ishlaydi. Push xabari uchun ruxsat so‘raladi.</p>
+        </section>
+      </aside>
+    </section>
+    <section class="section-block" id="adhkar">
+      <div class="section-heading"><div><span class="eyebrow dark">ZIKR TANLOVLARI</span><h2>Yodga olish uchun iboralar</h2><p>Quyidagilardan birini tanlang yoki shaxsiy zikringizni qo‘shing.</p></div></div>
+      <form class="custom-dhikr-form panel" id="custom-dhikr-form">
+        <h3>Shaxsiy zikr qo‘shish</h3>
+        <label>Arabcha matn <input name="arabic" lang="ar" dir="rtl" maxlength="500" required></label>
+        <label>O‘qilishi <input name="latin" maxlength="100" required></label>
+        <label>Ma’nosi <input name="meaning" maxlength="240" required></label>
+        <button class="outline-button" type="submit">Zikrni ro‘yxatga qo‘shish</button>
+        <p class="counter-status" id="custom-dhikr-status" role="status" aria-live="polite"></p>
+      </form>
+      <details class="zikr-agent panel">
+        <summary>AI agent bilan ertangi zikr rejasini tuzish</summary>
+        <p>Agent faqat saytdagi zikr iboralaridan shaxsiy vaqt va sanoq rejasini tuzadi. Bu diniy hukm yoki manba tekshiruvi emas. So‘rovingiz xavfsiz AI serveriga yuboriladi; maxfiy API kaliti brauzerga berilmaydi.</p>
+        <label for="zikr-agent-request">Agentga topshiriq</label>
+        <textarea id="zikr-agent-request" maxlength="500" rows="2" placeholder="Masalan: ertangi tong va kechki zikrlarimni 33 martadan rejalashtir"></textarea>
+        <div class="zikr-agent-controls">
+          <span class="ai-provider-label">Gemini · server orqali</span>
+          <button class="outline-button" id="zikr-agent-run" type="button">Rejani tuzish</button>
+        </div>
+        <p id="zikr-agent-status" class="counter-status" role="status" aria-live="polite"></p>
+        <div id="zikr-agent-results" class="zikr-agent-results"></div>
+      </details>
+      <div class="adhkar-grid" id="adhkar-list"></div>
+    </section>
+    <section class="section-block calendar-block" id="calendar">
+      <div class="section-heading"><div><span class="eyebrow dark">HIJRIY VA MILODIY</span><h2>Islomiy taqvim</h2><p>Kelgusi muhim sanalar astronomik taqvim asosida taxmin qilinadi.</p></div></div>
+      <div class="calendar-card"><div class="calendar-intro"><span class="calendar-icon">✧</span><div><strong>Yaqinlashayotgan sanalar</strong><small>Mahalliy hilol kuzatuviga qarab sana farq qilishi mumkin.</small></div></div><div class="upcoming-dates" id="upcoming-dates"><p>Hijriy taqvim ma’lumoti tayyorlanmoqda…</p></div></div>
+    </section>
+    <p class="privacy-note"><strong>Maxfiylik:</strong> zikr hisobi va shaxsiy zikrlar qurilmangizda saqlanadi; Google hisobiga kirsangiz, zikr ma’lumotlari shu hisobga ham sinxronlanadi. AI rejalash so‘rovi maxfiy kalit brauzerga uzatilmaydigan server orqali Gemini’ga yuboriladi. Zikr matnlari diniy hukm yoki maxsus fazilat da’vosi emas. <a href="https://islamicofficial-ibadat.web.app/">Shaxsiy ibodat rejasiga o‘tish ↗</a></p>
+  </main>
+  <footer><a href="https://islamicofficial.com/">Islamic Official</a><span>Oddiy va shaxsiy zikr vositasi.</span><a href="https://islamicofficial-quran.web.app/">Qur’on o‘qish ↗</a></footer>
+  <script src="ai-config.js?v=1"></script>
+  <script src="site-locale.js?v=4" defer></script>
+  <script src="zikr.js?v=5" defer></script>
+</body>
+</html>

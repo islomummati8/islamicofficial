@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123d34">
+  <meta name="description" content="A calm, private worship planner with a daily checklist and a flexible personal make-up prayer and fasting plan.">
+  <meta name="keywords" content="ibodat reja, qazo namoz reja, qazo ro‘za hisoblagich, ibodat odatlari, worship planner, qada prayer tracker, fasting planner">
+  <link rel="canonical" href="https://islamicofficial-ibadat.web.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ibodat Path — a calmer way to stay consistent">
+  <meta property="og:description" content="Plan today's worship and make steady progress on personal make-up prayers and fasts. Private by design.">
+  <meta property="og:url" content="https://islamicofficial-ibadat.web.app/">
+  <title>Ibodat Path — a calmer way to stay consistent | Islamic Official</title>
+  <link rel="icon" href="https://islamicofficial.com/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ibodat.css?v=2">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Ibodat Path",
+      "url": "https://islamicofficial-ibadat.web.app/",
+      "description": "A private, device-based worship checklist and personal make-up prayer and fasting planner.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any",
+      "isAccessibleForFree": true
+    }
+  </script>
+  <script defer src="site-locale.js?v=4"></script>
+  <script type="module" src="ibodat.js?v=3"></script>
+</head>
+<body data-site-locale="ibodat">
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="https://islamicofficial.com/" aria-label="Islamic Official">
+      <span class="brand-icon" aria-hidden="true">☾</span>
+      <span><strong>Islamic Official</strong><small data-i18n="brandCaption">IBADAT PATH</small></span>
+    </a>
+    <nav class="top-links" aria-label="Main navigation">
+      <a href="#today" data-i18n="navToday">Today</a>
+      <a href="#plan" data-i18n="navPlan">My plan</a>
+      <a href="#privacy" data-i18n="navPrivacy">Privacy</a>
+    </nav>
+    <div class="preferences">
+      <label class="visually-hidden" for="language" data-i18n="languageLabel">Language</label>
+      <select id="language" aria-label="Language">
+        <option value="en">English</option>
+        <option value="uz">O‘zbekcha</option>
+        <option value="ru">Русский</option>
+      </select>
+      <button class="icon-button" id="theme" type="button" aria-pressed="false" data-i18n-aria="themeToggleAria">◐</button>
+      <a class="home-link" href="https://islamicofficial.com/" data-i18n="mainSite">Main site ↗</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span><span data-i18n="heroEyebrow">A gentle plan, made personal</span></p>
+        <h1><span data-i18n="heroTitle">Make room for</span><br><em data-i18n="heroAccent">what matters.</em></h1>
+        <p class="hero-description" data-i18n="heroDescription">A calm place to keep up with today's worship and make steady progress on prayers or fasts you want to make up.</p>
+        <a class="hero-cta" href="#today"><span data-i18n="startToday">Start with today</span><span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="moon-glow"></div><span class="hero-star star-a">✦</span><span class="hero-star star-b">✧</span>
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="moon">☾</div>
+        <div class="hero-date"><span data-i18n="todayLabel">TODAY</span><strong id="hero-day">—</strong><small id="hero-month">—</small></div>
+      </div>
+    </section>
+
+    <section class="welcome-row" aria-label="Today's overview">
+      <div class="welcome-copy"><p class="eyebrow eyebrow-green" data-i18n="yourDay">YOUR DAY</p><h2 id="date-heading">—</h2><p id="hijri-date" class="subtle">—</p></div>
+      <div class="overview-stats">
+        <article class="stat-card"><span class="stat-icon">✦</span><span data-i18n="statCompleted">Completed today</span><strong id="stat-completed">0 / 9</strong></article>
+        <article class="stat-card"><span class="stat-icon">◷</span><span data-i18n="statStreak">Gentle streak</span><strong id="stat-streak">0 days</strong></article>
+        <article class="stat-card"><span class="stat-icon">↗</span><span data-i18n="statNext">Prayer plan left</span><strong id="stat-remaining">—</strong></article>
+      </div>
+    </section>
+
+    <section class="section-block" id="today">
+      <div class="section-heading"><div><p class="eyebrow eyebrow-green" data-i18n="todayLabel">TODAY</p><h2 data-i18n="todayTitle">Small steps count.</h2></div><p data-i18n="todayIntro">Choose what belongs in your day. Your checklist is yours alone.</p></div>
+      <div class="dashboard-grid">
+        <article class="panel daily-panel">
+          <div class="panel-heading"><div class="panel-icon green-icon">✓</div><div><h3 data-i18n="dailyTitle">Daily rhythm</h3><p data-i18n="dailyDescription">A gentle checklist, reset for each new day.</p></div><span class="panel-count" id="daily-count">0 / 9</span></div>
+          <div class="progress-track" role="progressbar" id="daily-progress" aria-label="Daily progress" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0"><span id="daily-progress-bar"></span></div>
+          <div class="checklist" id="checklist"></div>
+          <form class="custom-habit-form" id="custom-habit-form">
+            <label class="visually-hidden" for="custom-habit-input" data-i18n="customHabitLabel">Add a personal habit</label>
+            <input id="custom-habit-input" type="text" maxlength="60" autocomplete="off" data-i18n-placeholder="customHabitPlaceholder" placeholder="Add a personal intention">
+            <button type="submit" class="outline-button" data-i18n="addHabit">Add</button>
+          </form>
+          <div class="custom-habit-list" id="custom-habit-list"></div>
+          <p class="status-message custom-habit-status" id="custom-habit-status" role="status" aria-live="polite"></p>
+          <div class="week-summary">
+            <div class="week-heading"><strong data-i18n="weeklyTitle">Your last seven days</strong><span data-i18n="weeklyHint">One bar per day</span></div>
+            <div class="week-chart" id="week-chart" role="group" aria-label="Your last seven days"></div>
+          </div>
+          <p class="status-message" id="daily-status" role="status" aria-live="polite"></p>
+        </article>
+
+        <article class="panel focus-panel">
+          <div class="focus-decoration" aria-hidden="true">✳</div>
+          <p class="eyebrow eyebrow-light" data-i18n="focusKicker">ONE KIND STEP</p>
+          <h3 data-i18n="focusTitle">Consistency over perfection.</h3>
+          <p data-i18n="focusDescription">Your plan can be small, flexible, and fully your own. A missed day is simply a chance to begin again.</p>
+          <a href="#plan" class="text-link" data-i18n="focusLink">Shape a plan that fits ↗</a>
+          <div class="focus-quote"><span>“</span><p data-i18n="gentleReminder">Take the next good step at a pace you can sustain.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block plan-section" id="plan">
+      <div class="section-heading"><div><p class="eyebrow eyebrow-green" data-i18n="planKicker">YOUR PERSONAL PLAN</p><h2 data-i18n="planTitle">Progress, at your pace.</h2></div><p data-i18n="planIntro">Set your own estimates and daily goals. Nothing is uploaded or shared.</p></div>
+      <div class="plan-grid">
+        <article class="panel plan-panel">
+          <div class="panel-heading"><div class="panel-icon amber-icon">◷</div><div><h3 data-i18n="prayerPlanTitle">Make-up prayer plan</h3><p data-i18n="prayerPlanDescription">Use your own estimate of prayers to make up.</p></div></div>
+          <label class="field-label" for="prayers-remaining" data-i18n="prayersRemaining">Prayers remaining (your estimate)</label>
+          <div class="input-row"><input id="prayers-remaining" type="number" min="0" max="1000000" step="1" inputmode="numeric" value="0"><span data-i18n="prayerUnits">prayer units</span></div>
+          <label class="field-label" for="prayers-daily" data-i18n="prayersDaily">Your daily goal</label>
+          <div class="input-row"><input id="prayers-daily" type="number" min="1" max="100" step="1" inputmode="numeric" value="1"><span data-i18n="prayerUnitsPerDay">prayers per day</span></div>
+          <div class="plan-progress-label"><span data-i18n="estimatedTime">At this pace</span><strong id="prayer-days">0 days</strong></div>
+          <div class="plan-progress"><span id="prayer-progress-bar"></span></div>
+          <button class="action-button" id="complete-prayer-plan" type="button" data-i18n="completePrayerGoal">Mark today's goal complete</button>
+          <p class="status-message" id="prayer-status" role="status" aria-live="polite"></p>
+        </article>
+        <article class="panel plan-panel">
+          <div class="panel-heading"><div class="panel-icon purple-icon">☾</div><div><h3 data-i18n="fastPlanTitle">Make-up fasting plan</h3><p data-i18n="fastPlanDescription">Track the days you personally want to make up.</p></div></div>
+          <label class="field-label" for="fasts-remaining" data-i18n="fastsRemaining">Fasting days remaining (your estimate)</label>
+          <div class="input-row"><input id="fasts-remaining" type="number" min="0" max="100000" step="1" inputmode="numeric" value="0"><span data-i18n="fastDays">days to fast</span></div>
+          <label class="field-label" for="fasts-weekly" data-i18n="fastsWeekly">Your weekly goal</label>
+          <div class="input-row"><input id="fasts-weekly" type="number" min="1" max="7" step="1" inputmode="numeric" value="1"><span data-i18n="fastsPerWeek">fast days per week</span></div>
+          <div class="plan-progress-label"><span data-i18n="estimatedTime">At this pace</span><strong id="fast-weeks">0 weeks</strong></div>
+          <div class="plan-progress purple-progress"><span id="fast-progress-bar"></span></div>
+          <button class="action-button purple-action" id="complete-fast-plan" type="button" data-i18n="completeFastGoal">Mark one fast complete</button>
+          <p class="status-message" id="fast-status" role="status" aria-live="polite"></p>
+        </article>
+      </div>
+      <aside class="guidance-note"><span aria-hidden="true">ⓘ</span><p><strong data-i18n="importantNote">A personal planning aid, not a religious ruling.</strong> <span data-i18n="guidanceText">Estimates and practice can vary by circumstance and school of thought. For personal religious guidance, please consult a trusted scholar. Adjust your goals whenever you need.</span></p></aside>
+    </section>
+
+    <section class="section-block privacy-section" id="privacy">
+      <div class="privacy-card"><div class="privacy-symbol" aria-hidden="true">⌑</div><div class="privacy-copy"><p class="eyebrow eyebrow-green" data-i18n="privacyKicker">PRIVATE BY DESIGN</p><h2 data-i18n="privacyTitle">Your plan stays with you.</h2><p data-i18n="privacyDescription">Your checklist and progress are saved only in this browser on this device. No account, location, or server sync is used.</p><p class="privacy-status" id="save-status" role="status" aria-live="polite"></p></div><div class="privacy-actions"><button class="outline-button" id="export-data" type="button" data-i18n="exportPlan">Export backup</button><button class="outline-button" id="import-trigger" type="button" data-i18n="importPlan">Import backup</button><input id="import-file" class="visually-hidden" type="file" accept="application/json,.json"></div></div>
+    </section>
+
+    <footer class="footer">
+      <a class="brand footer-brand" href="https://islamicofficial.com/"><span class="brand-icon" aria-hidden="true">☾</span><span><strong>Islamic Official</strong><small data-i18n="brandCaption">IBADAT PATH</small></span></a>
+      <p data-i18n="footerNote">A gentle reminder: small, steady steps matter.</p>
+      <a href="https://islamicofficial.com/" data-i18n="mainSite">Main site ↗</a>
+    </footer>
+  </main>
+</body>
+</html>

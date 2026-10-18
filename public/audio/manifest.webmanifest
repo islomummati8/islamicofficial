@@ -1,0 +1,16 @@
+{
+  "name": "Islamic Official Audio",
+  "short_name": "Qur’on audio",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#10251f",
+  "theme_color": "#10251f",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

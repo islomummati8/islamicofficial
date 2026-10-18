@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://islamicofficial-quran.web.app/sitemap.xml

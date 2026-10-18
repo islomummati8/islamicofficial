@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Valyuta kurslari sahifasi uchun alohida maxfiylik siyosati: Markaziy bank API’si, joylashuv ruxsati, saqlanadigan sozlamalar va Google AdSense.">
+  <meta name="robots" content="index, follow">
+  <title>Valyuta sahifasi maxfiylik siyosati</title>
+  <link rel="canonical" href="https://islamicofficial.com/currency-privacy.html">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/currency.css?v=2026101203" rel="stylesheet">
+</head>
+<body class="currency-policy-page">
+  <header class="currency-header">
+    <a class="currency-brand" href="currency.html">
+      <span class="currency-brand-mark"><i class="bi bi-shield-lock" aria-hidden="true"></i></span>
+      <span><strong>Valyuta</strong><small>Kurslar · maxfiylik</small></span>
+    </a>
+    <div class="currency-header-tools">
+      <label for="policy-language" class="visually-hidden">Til</label>
+      <select id="policy-language" class="form-select form-select-sm" aria-label="Til">
+        <option value="uz">O‘zbekcha</option><option value="ru">Русский</option><option value="en">English</option><option value="ar">العربية</option>
+      </select>
+      <a class="currency-home-link" href="currency.html"><i class="bi bi-arrow-left" aria-hidden="true"></i><span data-policy-label="back">Kurslarga qaytish</span></a>
+    </div>
+  </header>
+  <main class="currency-main currency-policy-main">
+    <section class="currency-policy-hero">
+      <span class="currency-overline" data-policy-label="eyebrow">Faqat valyuta kurslari sahifasi</span>
+      <h1 data-policy-label="title">Maxfiylik siyosati</h1>
+      <p data-policy-label="intro">Ushbu siyosat valyuta kurslari va konvertor sahifasida qanday ma’lumot ishlatilishini tushuntiradi. U Islamic Official saytining boshqa xizmatlari uchun alohida siyosatlarni almashtirmaydi.</p>
+      <small><span data-policy-label="updated">Oxirgi yangilanish:</span> 12-oktabr, 2026</small>
+    </section>
+    <nav class="currency-policy-toc" aria-label="Siyosat bo‘limlari">
+      <a href="#policy-uz-data" data-policy-target="data" data-policy-label="navData">Ma’lumotlar</a><a href="#policy-uz-location" data-policy-target="location" data-policy-label="navLocation">Joylashuv</a><a href="#policy-uz-storage" data-policy-target="storage" data-policy-label="navStorage">Qurilmada saqlash</a><a href="#policy-uz-ads" data-policy-target="ads" data-policy-label="navAds">Reklama</a><a href="#policy-uz-rights" data-policy-target="rights" data-policy-label="navRights">Huquqlaringiz</a>
+    </nav>
+    <article class="currency-policy-card" data-policy-lang="uz" lang="uz">
+      <section data-policy-section="data"><h2>1. Qanday ma’lumotlar uzatiladi?</h2><p>Valyuta jadvalini yangilaganda brauzeringiz O‘zbekiston Respublikasi Markaziy bankining <a href="https://cbu.uz/uz/arkhiv-kursov-valyut/json/" rel="noopener noreferrer">ochiq kurslar API’si</a>ga so‘rov yuboradi. So‘rov paytida xizmat odatiy texnik ma’lumotlarni, masalan IP-manzil, vaqt va brauzer ma’lumotlarini qayd qilishi mumkin. Google hisobi bilan kirish ixtiyoriy. Google/Firebase Authentication hisob nomi, elektron pochta manzili va foydalanuvchi identifikatorini qayta ishlashi mumkin; parolingiz bizga uzatilmaydi. Bank hisobi yoki karta ma’lumotini so‘ramaymiz.</p></section>
+      <section data-policy-section="location"><h2>2. Ixtiyoriy joylashuv</h2><p>Brauzer mamlakatni til yoki vaqt mintaqasidan qurilmangizda taxminan aniqlaydi. Agar avval geolokatsiyaga ruxsat bergan bo‘lsangiz, aniq mamlakatni aniqlash uchun koordinatalar avtomatik so‘ralishi mumkin; aks holda joylashuv tugmasini bosib ruxsat berishingiz mumkin. Brauzer koordinatalarni OpenStreetMap Nominatim xizmatiga yuboradi. Joylashuv xotirada vaqtincha qayta ishlanadi, hisobda yoki sayt serverida saqlanmaydi. Ruxsatni brauzer sozlamalarida bekor qilishingiz yoki valyutani qo‘lda tanlashingiz mumkin.</p></section>
+      <section data-policy-section="storage"><h2>3. Brauzer xotirasi</h2><p>Sahifa tanlangan til, rang rejimi, oxirgi olingan kurslar va sevimli valyuta kodlarini qurilmangizdagi localStorage’da saqlashi mumkin. Mehmon holatida ular serverga yuborilmaydi; hisobga kirganingizda sevimli valyutalar, konvertor juftligi, til va rang rejimi qurilmalar orasida sinxronlash uchun saqlanadi. Kurs keshi faqat oxirgi rasmiy qiymat va uning sanasini oflayn ko‘rsatish uchun ishlatiladi.</p></section>
+      <section data-policy-section="ads"><h2>4. Google AdSense reklamasi</h2><p>Ushbu sahifada Google AdSense reklamasi ko‘rsatilishi mumkin. Google va uning hamkorlari reklama ko‘rsatish, chastotasini cheklash, firibgarlikni aniqlash va (mintaqangiz hamda rozilik sozlamalaringizga qarab) moslashtirish uchun cookie yoki o‘xshash texnologiyalardan foydalanishi mumkin. Reklama ma’lumotlari Google tomonidan qayta ishlanadi; batafsil ma’lumot: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google reklamasi va maxfiylik</a> hamda <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google maxfiylik siyosati</a>. Reklama sozlamalarini Google hisobingizdan boshqarishingiz mumkin.</p></section>
+      <section id="accuracy"><h2>5. Kurslarning mazmuni</h2><p>Rasmiy kurslar Markaziy bank API’sidan olinadi. Ko‘rsatilgan sana va kurs qiymati e’lon qilingan manba ma’lumotiga bog‘liq; bank yoki ayirboshlash shoxobchasining amaldagi sotish/sotib olish narxi va komissiyasi boshqacha bo‘lishi mumkin. Xizmat moliyaviy maslahat yoki bitim taklifi emas.</p></section>
+      <section data-policy-section="rights"><h2>6. Uchinchi tomon xizmatlari va savollar</h2><p>Ushbu sahifa Firebase Hosting orqali xizmat qiladi. Hisobga kirganda sevimli valyutalar, konvertor juftligi, til va rang rejimi Firebase Firestore’da saqlanadi va qurilmalar orasida sinxronlanadi; konvertatsiya summalari yoki qidiruv tarixi saqlanmaydi. Markaziy bank, OpenStreetMap, Google AdSense, Google/Firebase va hosting provayderi o‘z maxfiylik shartlariga ega. Savol yoki maxfiylik so‘rovi uchun <a href="mailto:islomummati8@gmail.com">islomummati8@gmail.com</a> manziliga “Valyuta sahifasi maxfiyligi” mavzusi bilan yozing.</p></section>
+    </article>
+    <article class="currency-policy-card" data-policy-lang="en" lang="en" hidden>
+      <section id="data"><h2>1. Data processed</h2><p>When rates are refreshed, your browser requests data from the Central Bank of the Republic of Uzbekistan’s <a href="https://cbu.uz/uz/arkhiv-kursov-valyut/json/" rel="noopener noreferrer">public exchange-rate API</a>. The service may log ordinary technical information such as IP address, request time, and browser details. Signing in with a Google account is optional. Google/Firebase Authentication may process your account name, email address, and user identifier; your password is not shared with us. We do not ask for bank account or payment card details.</p></section>
+      <section id="location"><h2>2. Optional location</h2><p>The page first estimates a country from your browser language or time zone locally. If you previously granted location permission, it may request coordinates automatically for a more accurate country lookup; otherwise, you can press the location button and grant permission. The browser sends coordinates to OpenStreetMap Nominatim for a one-time country lookup. Location is processed temporarily and is not stored by us on an account or server. You can revoke permission in browser settings or select a currency manually.</p></section>
+      <section id="storage"><h2>3. Browser storage</h2><p>The page may store your language, color theme, latest downloaded exchange rates, and favorite currency codes in localStorage on your device. While signed out, these preferences stay on your device; when signed in, favorites, the converter pair, language, and theme are saved for syncing across your devices. The rate cache is used only to display the last official values during an outage, with their publication date.</p></section>
+      <section id="ads"><h2>4. Google AdSense</h2><p>Google AdSense advertisements may appear on this page. Google and its partners may use cookies or similar technologies to serve ads, limit frequency, prevent fraud, and (depending on your region and consent settings) personalize advertising. See <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google ads and privacy</a> and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google’s Privacy Policy</a>. Manage ad settings in your Google account.</p></section>
+      <section id="accuracy"><h2>5. Rate information</h2><p>Official rates are retrieved from the Central Bank API. Dates and values depend on the source’s publication. They may differ from a bank’s or exchange office’s cash buy/sell rates and fees. This service is not financial advice or an offer to transact.</p></section>
+      <section id="rights"><h2>6. Third parties and contact</h2><p>This page is hosted by Firebase Hosting. When signed in, favorite currencies, the converter pair, language, and theme are stored in Firebase Firestore and synced across devices; conversion amounts and search history are not saved. The Central Bank, OpenStreetMap, Google AdSense, Google/Firebase, and the hosting provider have their own privacy terms. For questions or privacy requests, email <a href="mailto:islomummati8@gmail.com">islomummati8@gmail.com</a> with the subject “Currency page privacy”.</p></section>
+    </article>
+    <article class="currency-policy-card" data-policy-lang="ru" lang="ru" hidden>
+      <section id="data"><h2>1. Какие данные обрабатываются?</h2><p>При обновлении курсов браузер отправляет запрос в <a href="https://cbu.uz/uz/arkhiv-kursov-valyut/json/" rel="noopener noreferrer">открытый API курсов Центрального банка Республики Узбекистан</a>. Сервис может регистрировать обычные технические данные: IP-адрес, время запроса и сведения о браузере. Вход через аккаунт Google необязателен. Google/Firebase Authentication может обрабатывать имя аккаунта, адрес электронной почты и идентификатор пользователя; пароль нам не передаётся. Мы не запрашиваем данные банковского счёта или карты.</p></section>
+      <section id="location"><h2>2. Необязательная геолокация</h2><p>Сначала страница определяет примерную страну по языку или часовому поясу браузера на вашем устройстве. Если вы ранее разрешили геолокацию, координаты могут быть запрошены автоматически для более точного определения страны; иначе нажмите кнопку геолокации и разрешите доступ. Браузер передаёт координаты OpenStreetMap Nominatim для однократного определения страны. Мы обрабатываем местоположение временно и не храним его в аккаунте или на сервере. Разрешение можно отозвать в настройках браузера; валюту также можно выбрать вручную.</p></section>
+      <section id="storage"><h2>3. Хранилище браузера</h2><p>Страница может сохранять язык, тему, последние курсы и избранные валюты в localStorage на вашем устройстве. Без входа настройки остаются только на устройстве; после входа избранные валюты, пара конвертера, язык и тема сохраняются для синхронизации между вашими устройствами. Кэш курсов показывает последние официальные значения при сбое связи с датой публикации.</p></section>
+      <section id="ads"><h2>4. Google AdSense</h2><p>На странице могут показываться объявления Google AdSense. Google и его партнёры могут использовать cookie и аналогичные технологии для показа рекламы, ограничения частоты, предотвращения мошенничества и, в зависимости от региона и настроек согласия, персонализации рекламы. Подробнее: <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">реклама и конфиденциальность Google</a> и <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">политика конфиденциальности Google</a>. Настройки рекламы доступны в аккаунте Google.</p></section>
+      <section id="accuracy"><h2>5. Информация о курсах</h2><p>Официальные курсы получены из API Центрального банка. Дата и значения зависят от публикации источника. Они могут отличаться от наличных курсов покупки и продажи, комиссий банка или обменного пункта. Сервис не является финансовой рекомендацией или предложением сделки.</p></section>
+      <section id="rights"><h2>6. Сторонние сервисы и связь</h2><p>Страница размещена на Firebase Hosting. После входа избранные валюты, пара конвертера, язык и тема сохраняются в Firebase Firestore и синхронизируются между устройствами; суммы конвертации и история поиска не сохраняются. Центральный банк, OpenStreetMap, Google AdSense, Google/Firebase и хостинг-провайдер имеют собственные правила конфиденциальности. По вопросам и запросам о конфиденциальности напишите на <a href="mailto:islomummati8@gmail.com">islomummati8@gmail.com</a> с темой «Конфиденциальность страницы курсов валют».</p></section>
+    </article>
+    <article class="currency-policy-card" data-policy-lang="ar" lang="ar" dir="rtl" hidden>
+      <section id="data"><h2>١. البيانات التي تتم معالجتها</h2><p>عند تحديث الأسعار، يطلب المتصفح البيانات من <a href="https://cbu.uz/uz/arkhiv-kursov-valyut/json/" rel="noopener noreferrer">واجهة الأسعار العامة للبنك المركزي لجمهورية أوزبكستان</a>. قد تسجل الخدمة معلومات تقنية عادية مثل عنوان IP ووقت الطلب وتفاصيل المتصفح. تسجيل الدخول باستخدام حساب Google اختياري. قد تعالج Google/Firebase Authentication اسم الحساب والبريد الإلكتروني ومعرّف المستخدم؛ ولا تُرسل كلمة المرور إلينا. لا نطلب بيانات الحساب المصرفي أو البطاقة.</p></section>
+      <section id="location"><h2>٢. الموقع الاختياري</h2><p>تقدّر الصفحة البلد أولاً من لغة المتصفح أو منطقته الزمنية على جهازك. إذا كنت قد منحت إذن الموقع مسبقًا، فقد تُطلب الإحداثيات تلقائيًا لتحديد البلد بدقة أكبر؛ وإلا يمكنك الضغط على زر الموقع ومنح الإذن. يرسل المتصفح الإحداثيات إلى OpenStreetMap Nominatim لطلب واحد لتحديد البلد. نعالج الموقع مؤقتًا ولا نحفظه في حساب أو خادم تابع لنا. يمكنك إلغاء الإذن من إعدادات المتصفح أو اختيار العملة يدويًا.</p></section>
+      <section id="storage"><h2>٣. تخزين المتصفح</h2><p>قد تحفظ الصفحة اللغة والمظهر والأسعار الأخيرة والعملات المفضلة في localStorage على جهازك. أثناء عدم تسجيل الدخول تبقى التفضيلات على جهازك؛ وعند تسجيل الدخول تُحفظ العملات المفضلة وزوج التحويل واللغة والمظهر لمزامنتها بين أجهزتك. يُستخدم تخزين الأسعار لعرض آخر القيم الرسمية أثناء انقطاع الخدمة مع تاريخ نشرها.</p></section>
+      <section id="ads"><h2>٤. إعلانات Google AdSense</h2><p>قد تظهر إعلانات Google AdSense على هذه الصفحة. قد تستخدم Google وشركاؤها ملفات تعريف الارتباط أو تقنيات مشابهة لعرض الإعلانات وتحديد تكرارها ومنع الاحتيال وتخصيصها حسب منطقتك وإعدادات الموافقة. راجع <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">إعلانات Google والخصوصية</a> و<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">سياسة خصوصية Google</a>. يمكنك إدارة إعدادات الإعلانات في حساب Google.</p></section>
+      <section id="accuracy"><h2>٥. معلومات الأسعار</h2><p>تُجلب الأسعار الرسمية من واجهة البنك المركزي، وتعتمد التواريخ والقيم على ما ينشره المصدر. قد تختلف عن أسعار البيع والشراء النقدية والرسوم لدى البنوك ومكاتب الصرافة. هذه الخدمة ليست نصيحة مالية أو عرضًا لإجراء معاملة.</p></section>
+      <section id="rights"><h2>٦. الخدمات الخارجية والتواصل</h2><p>تُستضاف هذه الصفحة عبر Firebase Hosting. عند تسجيل الدخول، تُحفظ العملات المفضلة وزوج التحويل واللغة والمظهر في Firebase Firestore وتُزامن بين الأجهزة؛ ولا تُحفظ مبالغ التحويل أو سجل البحث. للبنك المركزي وOpenStreetMap وGoogle AdSense وGoogle/Firebase ومزود الاستضافة سياسات خصوصية خاصة. للأسئلة أو طلبات الخصوصية، راسل <a href="mailto:islomummati8@gmail.com">islomummati8@gmail.com</a> بعنوان «خصوصية صفحة أسعار العملات».</p></section>
+    </article>
+  </main>
+  <footer class="currency-footer"><span>© <span id="policy-year"></span> Valyuta kurslari</span><span data-policy-label="footer">Alohida valyuta ma’lumot sahifasi</span><a href="currency.html" data-policy-label="back">Kurslarga qaytish</a></footer>
+  <script>
+    const select = document.getElementById('policy-language');
+    const labels = {
+      uz: { back: 'Kurslarga qaytish', eyebrow: 'Faqat valyuta kurslari sahifasi', title: 'Maxfiylik siyosati', intro: 'Ushbu siyosat valyuta kurslari va konvertor sahifasida qanday ma’lumot ishlatilishini tushuntiradi. U Islamic Official saytining boshqa xizmatlari uchun alohida siyosatlarni almashtirmaydi.', updated: 'Oxirgi yangilanish:', navData: 'Ma’lumotlar', navLocation: 'Joylashuv', navStorage: 'Qurilmada saqlash', navAds: 'Reklama', navRights: 'Huquqlaringiz', footer: 'Alohida valyuta ma’lumot sahifasi' },
+      en: { back: 'Back to rates', eyebrow: 'For the currency rates page only', title: 'Privacy policy', intro: 'This policy explains how information is used on the currency rates and converter page. It does not replace separate policies for other Islamic Official services.', updated: 'Last updated:', navData: 'Data', navLocation: 'Location', navStorage: 'Device storage', navAds: 'Advertising', navRights: 'Your rights', footer: 'Separate currency information page' },
+      ru: { back: 'Вернуться к курсам', eyebrow: 'Только для страницы курсов валют', title: 'Политика конфиденциальности', intro: 'Эта политика объясняет, как используются данные на странице курсов валют и конвертера. Она не заменяет отдельные политики других сервисов Islamic Official.', updated: 'Дата обновления:', navData: 'Данные', navLocation: 'Местоположение', navStorage: 'Хранение на устройстве', navAds: 'Реклама', navRights: 'Ваши права', footer: 'Отдельная информационная страница о валютах' },
+      ar: { back: 'العودة إلى الأسعار', eyebrow: 'خاصة بصفحة أسعار العملات فقط', title: 'سياسة الخصوصية', intro: 'توضح هذه السياسة كيفية استخدام المعلومات في صفحة أسعار العملات والمحول. ولا تحل محل السياسات المنفصلة لخدمات Islamic Official الأخرى.', updated: 'آخر تحديث:', navData: 'البيانات', navLocation: 'الموقع', navStorage: 'تخزين الجهاز', navAds: 'الإعلانات', navRights: 'حقوقك', footer: 'صفحة معلومات مستقلة عن العملات' }
+    };
+    const sectionKeys = ['data', 'location', 'storage', 'ads', 'accuracy', 'rights'];
+    function applyPolicyLanguage(language) {
+      const current = labels[language] ? language : 'uz';
+      document.documentElement.lang = current;
+      document.documentElement.dir = current === 'ar' ? 'rtl' : 'ltr';
+      document.querySelectorAll('[data-policy-lang]').forEach((article) => {
+        article.hidden = article.dataset.policyLang !== current;
+        article.querySelectorAll('section').forEach((section, index) => {
+          const key = section.dataset.policySection || sectionKeys[index];
+          section.id = `policy-${current}-${key}`;
+        });
+      });
+      document.querySelectorAll('[data-policy-target]').forEach((link) => {
+        link.href = `#policy-${current}-${link.dataset.policyTarget}`;
+      });
+      document.querySelectorAll('[data-policy-label]').forEach((element) => { element.textContent = labels[current][element.dataset.policyLabel]; });
+      select.value = current;
+      try { localStorage.setItem('site-language', current); } catch (error) { console.warn('Policy language preference could not be saved:', error); }
+      document.title = `${labels[current].title} | ${labels[current].eyebrow}`;
+    }
+    document.getElementById('policy-year').textContent = String(new Date().getFullYear());
+    select.addEventListener('change', () => applyPolicyLanguage(select.value));
+    let initialLanguage = 'uz';
+    try {
+      const storedLanguage = localStorage.getItem('site-language');
+      if (labels[storedLanguage]) initialLanguage = storedLanguage;
+    } catch (error) { console.warn('Policy language preference could not be read:', error); }
+    try {
+      const theme = localStorage.getItem('currency-rates-theme-v1');
+      document.body.classList.toggle('currency-dark', theme === 'dark' || (theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches));
+    } catch (error) {
+      document.body.classList.toggle('currency-dark', matchMedia('(prefers-color-scheme: dark)').matches);
+      console.warn('Policy theme preference could not be read:', error);
+    }
+    applyPolicyLanguage(initialLanguage);
+  </script>
+</body>
+</html>

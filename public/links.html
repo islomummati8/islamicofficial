@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web xizmatlar, ilovalar va kanallar | Islamic Official</title>
+  <meta name="description" content="Islamic Official web xizmatlari: kundalik islomiy vositalar, PDF kitoblar kutubxonasi, valyuta kurslari, mobil ilovalar va rasmiy kanallar.">
+  <meta name="google-adsense-account" content="ca-pub-5307580552409207">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5307580552409207" crossorigin="anonymous"></script>
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css?v=2026101118" rel="stylesheet">
+  <style>
+    .links-hero { padding: clamp(3rem, 7vw, 5rem) 0; }
+    .links-hero .badge { padding: .55rem .8rem; border-radius: 999px; font-weight: 750; }
+    .links-hero .lead { max-width: 680px; }
+    .app-launch-card { position: relative; display: flex; min-height: 100%; flex-direction: column; overflow: hidden; padding: clamp(1.2rem, 3vw, 1.8rem); border: 1px solid #e1ebe3; border-radius: 22px; background: #fff; box-shadow: 0 14px 38px rgba(21,61,43,.08); transition: transform .2s ease, box-shadow .2s ease; }
+    .app-launch-card:hover { transform: translateY(-4px); box-shadow: 0 22px 46px rgba(21,61,43,.14); }
+    .app-launch-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; }
+    .app-launch-icon { display: grid; width: 58px; height: 58px; flex: 0 0 auto; place-items: center; border-radius: 18px; background: linear-gradient(145deg,#e2f4e7,#f3f8e9); color: #087447; font-size: 1.65rem; }
+    .app-launch-status { padding: .4rem .65rem; border-radius: 999px; background: #fff4d8; color: #76530b; font-size: .68rem; font-weight: 800; letter-spacing: .04em; }
+    .app-launch-card h2 { margin: 1.25rem 0 .4rem; color: #173f2c; font-size: 1.35rem; font-weight: 800; }
+    .app-launch-card p { color: #65756b; line-height: 1.65; }
+    .app-launch-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: auto; padding-top: .7rem; }
+    .app-launch-actions .btn { min-height: 44px; border-radius: 12px; font-weight: 700; }
+    .app-test-guide { height: 100%; padding: clamp(1.25rem, 3vw, 1.8rem); border: 1px solid #dce9df; border-radius: 22px; background: linear-gradient(145deg,#f2f9f3,#f8f7ef); }
+    .app-test-guide h2 { color: #173f2c; font-size: 1.2rem; font-weight: 800; }
+    .app-test-steps { display: grid; gap: .9rem; margin: 1.1rem 0 0; padding: 0; list-style: none; counter-reset: test-step; }
+    .app-test-steps li { display: grid; grid-template-columns: 34px minmax(0,1fr); align-items: start; gap: .7rem; color: #506458; line-height: 1.55; counter-increment: test-step; }
+    .app-test-steps li::before { content: counter(test-step); display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px; background: #0b7048; color: #fff; font-size: .8rem; font-weight: 800; }
+    .app-contact-card { display: flex; height: 100%; align-items: center; gap: .9rem; padding: 1rem 1.15rem; border: 1px solid #e5ece6; border-radius: 16px; background: #fff; color: #214632; text-decoration: none; transition: border-color .2s ease, transform .2s ease; }
+    .app-contact-card:hover { transform: translateY(-2px); border-color: #9cc8a9; color: #087447; }
+    .app-contact-card > i { font-size: 1.5rem; }
+    .app-contact-card span { display: grid; gap: .15rem; }
+    .app-contact-card small { color: #718078; }
+    .service-browser { display: grid; gap: 1rem; margin: 0 0 1.6rem; }
+    .service-browser-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 1rem; }
+    .service-search { display: flex; min-height: 50px; align-items: center; gap: .65rem; padding: .35rem .9rem; border: 1px solid #dce8de; border-radius: 14px; background: #fff; color: #66766c; }
+    .service-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #173f2c; }
+    .service-count { color: #66766c; font-size: .82rem; font-weight: 750; white-space: nowrap; }
+    .service-categories { display: flex; gap: .55rem; overflow-x: auto; padding: .2rem .1rem .5rem; scrollbar-width: thin; }
+    .service-category { flex: 0 0 auto; min-height: 42px; padding: .55rem .9rem; border: 1px solid #dce8de; border-radius: 999px; background: #fff; color: #385849; font-size: .85rem; font-weight: 750; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+    .service-category:hover, .service-category[aria-pressed="true"] { border-color: #087447; background: #087447; color: #fff; }
+    .service-empty { grid-column: 1 / -1; padding: 2rem; border: 1px dashed #b7cdbd; border-radius: 18px; color: #65756b; text-align: center; }
+    body.dark-theme .service-search, body.dark-theme .service-category { border-color: #334b42; background: #202f3b; color: #d8f4e1; }
+    body.dark-theme .service-search input { color: #d8f4e1; }
+    body.dark-theme .service-category[aria-pressed="true"] { border-color: #59a779; background: #28734b; color: #fff; }
+    body.dark-theme .service-count, body.dark-theme .service-empty { color: #c2cdd5; }
+    @media (max-width: 640px) { .service-browser-tools { grid-template-columns: 1fr; gap: .45rem; } .service-count { text-align: end; } }
+    @media (prefers-reduced-motion: reduce) { .app-launch-card, .app-contact-card { transition: none; } }
+    body.dark-theme .app-launch-card, body.dark-theme .app-contact-card { border-color: #334b42; background: #202f3b; color: #d8f4e1; }
+    body.dark-theme .app-launch-card h2, body.dark-theme .app-test-guide h2 { color: #d8f4e1; }
+    body.dark-theme .app-launch-card p, body.dark-theme .app-test-steps li { color: #c2cdd5; }
+    body.dark-theme .app-launch-icon { background: #244634; color: #c4efd4; }
+    body.dark-theme .app-test-guide { border-color: #334b42; background: linear-gradient(145deg,#192932,#282a24); }
+    body.dark-theme .app-contact-card small { color: #aabbb1; }
+  </style>
+</head>
+<body data-site-locale="catalog">
+  <header class="portal-header">
+    <nav class="portal-navbar container" aria-label="Asosiy navigatsiya">
+      <a href="index.html" class="portal-brand-link text-decoration-none">Islamic Official</a>
+      <button class="portal-menu-toggle" type="button" data-portal-menu-toggle aria-controls="portal-nav-links" aria-expanded="false" aria-label="Menyuni ochish">
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
+      <div class="portal-nav-links" id="portal-nav-links">
+        <a href="index.html">Bosh sahifa</a>
+        <a href="blog.html">Maqolalar</a>
+        <a href="media.html">Media</a>
+        <a href="links.html" aria-current="page">Ilova va web</a>
+        <a href="index.html#services">Yo‘nalishlar</a>
+        <a href="index.html#prayer-times">Qo‘llanmalar</a>
+        <a class="portal-contact-link" href="index.html#contact">Aloqa</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section class="portal-page-hero links-hero">
+      <div class="container">
+        <span class="badge bg-warning text-dark mb-3">Rasmiy web va ilovalar</span>
+        <h1>Web xizmatlarimiz, ilovalar va kanallar</h1>
+        <p class="lead mb-0">Kundalik islomiy vositalar, elektron PDF kutubxonasi, valyuta kurslari xizmati va mobil ilovalarimizga shu sahifadan tez o‘ting.</p>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container">
+        <h2 class="h3 mb-3">Web xizmatlar</h2>
+        <div class="service-browser" aria-label="Web xizmatlarini qidirish va guruhlash">
+          <div class="service-browser-tools">
+            <label class="service-search"><i class="bi bi-search" aria-hidden="true"></i><input id="service-search" type="search" placeholder="Kerakli xizmatni qidiring…" aria-label="Web xizmatlarini qidiring"></label>
+            <span class="service-count" id="service-count" role="status" aria-live="polite"></span>
+          </div>
+          <div class="service-categories" id="service-categories" role="group" aria-label="Xizmat turi">
+            <button class="service-category" type="button" data-category="all" aria-pressed="true">Barchasi</button>
+            <button class="service-category" type="button" data-category="audio" aria-pressed="false">Audio</button>
+            <button class="service-category" type="button" data-category="quran" aria-pressed="false">Qur’on</button>
+            <button class="service-category" type="button" data-category="tajweed" aria-pressed="false">Tajvid</button>
+            <button class="service-category" type="button" data-category="kids" aria-pressed="false">Bolalar</button>
+            <button class="service-category" type="button" data-category="zakat" aria-pressed="false">Zakot va moliya</button>
+            <button class="service-category" type="button" data-category="meros" aria-pressed="false">Meros</button>
+            <button class="service-category" type="button" data-category="zikr" aria-pressed="false">Zikr va ibodat</button>
+            <button class="service-category" type="button" data-category="pdf" aria-pressed="false">PDF kitoblar</button>
+            <button class="service-category" type="button" data-category="valyuta" aria-pressed="false">Valyuta</button>
+            <button class="service-category" type="button" data-category="tools" aria-pressed="false">Vositalar</button>
+            <button class="service-category" type="button" data-category="apps" aria-pressed="false">Ilovalar</button>
+          </div>
+        </div>
+        <div class="row g-4 mb-5" id="web-services-grid">
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-journal-bookmark" aria-hidden="true"></i></span><span class="app-launch-status">Web</span></div>
+              <h2>PDF kitoblar kutubxonasi</h2>
+              <p>Nurul Yaqin, Faroiz va boshqa PDF kitoblarni nomi yoki tegi bo‘yicha qidiring, brauzerda o‘qing va keyin davom ettirish uchun saqlang.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://books.islamicofficial.com/"><i class="bi bi-book-half me-2" aria-hidden="true"></i>Kutubxonani ochish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-currency-exchange" aria-hidden="true"></i></span><span class="app-launch-status">Web</span></div>
+              <h2>Valyuta kurslari va konvertor</h2>
+              <p>Rasmiy manbalarda e’lon qilingan kurslarni ko‘ring, valyutalarni hisoblang va mavjud valyutalar bo‘yicha tarixiy grafiklarni kuzating.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://valyuta.islamicofficial.com/"><i class="bi bi-graph-up-arrow me-2" aria-hidden="true"></i>Valyuta sahifasini ochish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-moon-stars" aria-hidden="true"></i></span><span class="app-launch-status">Web</span></div>
+              <h2>Kundalik islomiy vositalar</h2>
+              <p>Namoz vaqtlarini va qibla yo‘nalishini toping, zikrni sanang, zakotni taxminan hisoblang va hijriy sanani tekshiring.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://tools.islamicofficial.com/"><i class="bi bi-arrow-up-right-circle me-2" aria-hidden="true"></i>Vositalarni ochish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-calendar2-check" aria-hidden="true"></i></span><span class="app-launch-status">Web</span></div>
+              <h2>Shaxsiy ibodat va qazo rejasi</h2>
+              <p>Kunlik ibodatlarni belgilang, qazo namoz va ro‘zalarni o‘zingiz belgilagan maqsad bilan kuzating. Reja maxfiy tarzda qurilmangizda saqlanadi.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-ibadat.web.app/"><i class="bi bi-arrow-up-right-circle me-2" aria-hidden="true"></i>Ibodat rejasini ochish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-book-half" aria-hidden="true"></i></span><span class="app-launch-status">Web · 30 juz</span></div>
+              <h2>Qur’oni Karim o‘quvchisi</h2>
+              <p>To‘liq 114 sura va 30 juzni sura, juz yoki mushaf sahifasi bo‘yicha o‘qing. Ko‘zga qulay ranglar, matn o‘lchami va saqlangan oyatlar mavjud.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-quran.web.app/"><i class="bi bi-book-half me-2" aria-hidden="true"></i>Qur’onni o‘qish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-palette" aria-hidden="true"></i></span><span class="app-launch-status">Web · tajvid</span></div>
+              <h2>Qur’on tajvid mashqi</h2>
+              <p>Tajvid qoidalarini tinglab, talaffuzingizni mashq qiling. Natijalar ustoz bilan tekshirish uchun mo‘ljallangan.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-tajweed.web.app/"><i class="bi bi-mic me-2" aria-hidden="true"></i>Tajvidni mashq qilish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-calculator" aria-hidden="true"></i></span><span class="app-launch-status">Web · Taxminiy hisob</span></div>
+              <h2>Zakot va islomiy moliya</h2>
+              <p>O‘zingiz kiritgan mol-mulk, qarz va nisob qiymati asosida zakotni taxminan hisoblang. Metall narxi avtomatik olinmaydi.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-finance.web.app/"><i class="bi bi-calculator me-2" aria-hidden="true"></i>Zakotni hisoblash</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></span><span class="app-launch-status">Web · Soddalashtirilgan</span></div>
+              <h2>Meros ulushi hisoblagichi</h2>
+              <p>Asosiy qarindoshlar bo‘yicha namunaviy ulushlarni ko‘ring. Murakkab vaziyatlarda hisoblashni to‘xtatib, meros mutaxassisiga yo‘naltiradi.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-meros.web.app/"><i class="bi bi-diagram-3 me-2" aria-hidden="true"></i>Ulushlarni ko‘rish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-music-note-beamed" aria-hidden="true"></i></span><span class="app-launch-status">Web · Oflayn audio</span></div>
+              <h2>Qur’on audio kutubxonasi</h2>
+              <p>Mashhur qorilar qiroatini tinglang, suralarni tanlang va tanlangan audioni qurilmangizda oflayn saqlang.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-audio.web.app/"><i class="bi bi-headphones me-2" aria-hidden="true"></i>Audio tinglash</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-stars" aria-hidden="true"></i></span><span class="app-launch-status">Web · Bolalar uchun</span></div>
+              <h2>Mehrli bilimlar va o‘yinlar</h2>
+              <p>Bolalar uchun odob va islomiy bilimlar bo‘yicha yengil viktorina va qisqa eslatmalar. Profil yoki chat yo‘q.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-kids.web.app/"><i class="bi bi-controller me-2" aria-hidden="true"></i>O‘yinni boshlash</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-moon-stars" aria-hidden="true"></i></span><span class="app-launch-status">Web · PWA</span></div>
+              <h2>Smart zikr va hijriy taqvim</h2>
+              <p>Tebranish yoki ovozli tasbeh sanagichi, shaxsiy eslatma va Umm al-Qura hijriy taqvimini sinab ko‘ring.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://islamicofficial-zikr.web.app/"><i class="bi bi-arrow-up-right-circle me-2" aria-hidden="true"></i>Zikr vositasini ochish</a></div>
+            </article>
+          </div>
+        </div>
+
+        <h2 class="h3 mb-3">Mobil ilovalar</h2>
+        <div class="row g-4 mb-5">
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-egg-fried" aria-hidden="true"></i></span><span class="app-launch-status">Google Play</span></div>
+              <h2>Mealprep AI</h2>
+              <p>Ovqatlanish rejalari va kundalik taomlarni rejalashtirish uchun Mealprep ilovamizni sinab ko‘ring.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://play.google.com/store/apps/details?id=com.mealprep.ai" target="_blank" rel="noopener noreferrer"><i class="bi bi-google-play me-2" aria-hidden="true"></i>Google Play’da ochish</a><a class="btn btn-outline-success" href="https://groups.google.com/g/safemdiaofficiall/members" target="_blank" rel="noopener noreferrer">Test guruhiga qo‘shilish</a></div>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article class="app-launch-card">
+              <div class="app-launch-top"><span class="app-launch-icon"><i class="bi bi-moon-stars" aria-hidden="true"></i></span><span class="app-launch-status">Google Play</span></div>
+              <h2>Zikr</h2>
+              <p>Kundalik zikr va ibodatlarda foydalanish uchun Zikr ilovasini o‘rnating yoki test dasturida qatnashing.</p>
+              <div class="app-launch-actions"><a class="btn btn-success" href="https://play.google.com/store/apps/details?id=com.zikr.zkr" target="_blank" rel="noopener noreferrer"><i class="bi bi-google-play me-2" aria-hidden="true"></i>Google Play’da ochish</a><a class="btn btn-outline-success" href="https://groups.google.com/g/safemdiaofficiall/members" target="_blank" rel="noopener noreferrer">Test guruhiga qo‘shilish</a></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="row g-4 align-items-stretch mb-5">
+          <div class="col-lg-7">
+            <section class="app-test-guide" aria-labelledby="app-test-title">
+              <h2 id="app-test-title"><i class="bi bi-clipboard2-check me-2 text-success" aria-hidden="true"></i>Ilovani test qilish tartibi</h2>
+              <ol class="app-test-steps">
+                <li><span><strong>Google guruhiga qo‘shiling.</strong> Play Store’da ishlatadigan Gmail akkauntingiz bilan kiring, so‘ng <a href="https://groups.google.com/g/safemdiaofficiall/members" target="_blank" rel="noopener noreferrer">test guruhiga a’zo bo‘ling</a>.</span></li>
+                <li><span><strong>Test dasturiga qo‘shiling.</strong> Kerakli ilovaning yuqoridagi Google Play havolasini ochib, “Become a tester / Стать тестером” tugmasini bosing.</span></li>
+                <li><span><strong>O‘rnating va fikr bildiring.</strong> Ilovani Play Store’dan o‘rnating, 14 kun davomida qurilmada saqlab, vaqti-vaqti bilan foydalaning. Muammo topsangiz, bizga yozing.</span></li>
+              </ol>
+              <p class="small text-muted mt-3 mb-0">Testga qo‘shilish Google Play akkauntingiz va test dasturining mavjudligiga bog‘liq.</p>
+            </section>
+          </div>
+          <div class="col-lg-5">
+            <div class="d-flex h-100 flex-column gap-3">
+              <a class="app-contact-card" href="https://t.me/safemediaofficial" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram text-primary" aria-hidden="true"></i><span><strong>Mealprep AI bo‘yicha aloqa</strong><small>Telegram · @safemediaofficial</small></span><i class="bi bi-arrow-up-right ms-auto" aria-hidden="true"></i></a>
+              <a class="app-contact-card" href="https://t.me/zikrappstore" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram text-primary" aria-hidden="true"></i><span><strong>Zikr ilovasi bo‘yicha aloqa</strong><small>Telegram · @zikrappstore</small></span><i class="bi bi-arrow-up-right ms-auto" aria-hidden="true"></i></a>
+              <a class="app-contact-card" href="https://siraj-41a69.web.app/" target="_blank" rel="noopener noreferrer"><i class="bi bi-globe2 text-success" aria-hidden="true"></i><span><strong>Siraj</strong><small>Veb-sayt</small></span><i class="bi bi-arrow-up-right ms-auto" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="h3 mb-3">Rasmiy ijtimoiy tarmoqlar</h2>
+        <div class="row g-3">
+          <div class="col-sm-6 col-lg-4"><a class="card official-link-card border-0 shadow-sm p-4 text-center text-decoration-none" href="https://t.me/safemediaofficial" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram display-5 text-primary"></i><strong class="mt-2">Safe Media Official</strong><span class="text-muted">Telegram · @safemediaofficial</span></a></div>
+          <div class="col-sm-6 col-lg-4"><a class="card official-link-card border-0 shadow-sm p-4 text-center text-decoration-none" href="https://t.me/zikrappstore" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram display-5 text-primary"></i><strong class="mt-2">Zikr App Store</strong><span class="text-muted">Telegram · @zikrappstore</span></a></div>
+          <div class="col-sm-6 col-lg-4"><a class="card official-link-card border-0 shadow-sm p-4 text-center text-decoration-none" href="https://t.me/islamrasmiy" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram display-5 text-primary"></i><strong class="mt-2">Islam Rasmiy</strong><span class="text-muted">Telegram</span></a></div>
+          <div class="col-sm-6 col-lg-4"><a class="card official-link-card border-0 shadow-sm p-4 text-center text-decoration-none" href="https://www.instagram.com/islamicummah_/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram display-5 text-danger"></i><strong class="mt-2">Islamic Ummah</strong><span class="text-muted">Instagram</span></a></div>
+          <div class="col-sm-6 col-lg-4"><a class="card official-link-card border-0 shadow-sm p-4 text-center text-decoration-none" href="https://www.youtube.com/@islamrasmiy" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube display-5 text-danger"></i><strong class="mt-2">Islam Rasmiy</strong><span class="text-muted">YouTube</span></a></div>
+          <div class="col-sm-6 col-lg-4"><a class="card official-link-card border-0 shadow-sm p-4 text-center text-decoration-none" href="https://www.youtube.com/@IslamicUmmah571" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube display-5 text-danger"></i><strong class="mt-2">Islamic Ummah</strong><span class="text-muted">YouTube</span></a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5">
+          <h2 class="h5">Islamic Official</h2>
+          <p class="portal-footer-copy mb-0">O‘zbek tilidagi islomiy-ma’rifiy maqolalar, videolar va kundalik foydali resurslar.</p>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h3 class="h6">Foydali sahifalar</h3>
+          <div class="portal-footer-links">
+            <a href="index.html">Bosh sahifa</a><a href="blog.html">Maqolalar</a><a href="media.html">Media</a><a href="links.html">Ilovalar va kanallar</a><a href="privacy.html">Maxfiylik siyosati</a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-4">
+          <h3 class="h6">Aloqa va rasmiy kanallar</h3>
+          <div class="portal-footer-links">
+            <a href="mailto:islomummati8@gmail.com"><i class="bi bi-envelope me-2"></i>islomummati8@gmail.com</a>
+            <a href="https://t.me/islamrasmiy" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>Telegram</a>
+            <a href="https://www.youtube.com/@IslamicUmmah571" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube me-2"></i>YouTube</a>
+            <a href="https://www.instagram.com/islamicummah_/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram me-2"></i>Instagram</a>
+          </div>
+        </div>
+      </div>
+      <div class="portal-footer-bottom">© 2026 Islamic Official. Barcha huquqlar himoyalangan.</div>
+    </div>
+  </footer>
+  <script src="assets/js/site-nav.js" defer></script>
+  <script src="shared/site-locale.js?v=3" defer></script>
+  <script src="assets/js/links-catalog.js?v=2026101818" defer></script>
+</body>
+</html>

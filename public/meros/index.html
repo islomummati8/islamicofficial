@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123c32">
+  <meta name="description" content="Asosiy merosxo‘rlar uchun soddalashtirilgan meros ulushi hisoblagichi. Natijani mustaqil tekshiring va murakkab holatda olimga murojaat qiling.">
+  <link rel="canonical" href="https://islamicofficial-meros.web.app/">
+  <title>Meros ulushi hisoblagichi | Islamic Official</title>
+  <link rel="icon" href="https://islamicofficial.com/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+  <style>[hidden]{display:none!important}</style>
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Meros ulushi hisoblagichi","url":"https://islamicofficial-meros.web.app/","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true}
+  </script>
+  <script defer src="site-locale.js?v=4"></script>
+  <script defer src="app.js?v=2"></script>
+</head>
+<body data-site-locale="meros">
+  <header class="topbar">
+    <a class="brand" href="https://islamicofficial.com/"><span class="brand-mark">☾</span><span><strong>Islamic Official</strong><small>MEROS HISOBI</small></span></a>
+    <nav aria-label="Asosiy navigatsiya"><a href="#hisob">Hisoblash</a><a href="#natija">Natija</a><a href="#muhim">Muhim ma’lumot</a></nav>
+    <div class="top-actions"><button id="theme-toggle" class="icon-button" type="button" aria-label="Tungi rejim">◐</button><a class="home-link" href="https://islamicofficial.com/">Asosiy sayt ↗</a></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> Tushunarli · ehtiyotkor · shaxsiy</p>
+        <h1>Meros masalasini <em>tartib bilan ko‘ring.</em></h1>
+        <p>Qarzlar va vasiyatni hisobga olgandan keyingi sof qoldiqni kiriting. Asosiy yaqin qarindoshlar bo‘yicha namunaviy ulushlarni ko‘ring.</p>
+        <a class="primary-link" href="#hisob">Hisoblashni boshlash <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="family-icon"><span>♙</span><span>♙</span><span>♙</span></div><div class="hero-caption">Adolat va maslahat bilan</div></div>
+    </section>
+    <section class="section" id="hisob">
+      <div class="section-title"><div><p class="eyebrow dark-eyebrow">SODDALASHTIRILGAN HISOB</p><h2>Vaziyatni kiriting</h2></div><p>Hisoblashdan oldin mol-mulkdan dafn xarajati, qarzlar va sahih vasiyatni ajrating.</p></div>
+      <div class="calculator-grid">
+        <form id="inheritance-form" class="panel calculator">
+          <label class="field-label" for="estate">Taqsimlanadigan sof meros summasi</label>
+          <div class="amount-row"><input id="estate" type="number" min="0" step="any" inputmode="decimal" placeholder="Masalan: 100000000" required><select id="currency" aria-label="Valyuta"><option value="UZS">UZS</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="KZT">KZT</option><option value="KGS">KGS</option><option value="RUB">RUB</option></select></div>
+          <div class="form-grid">
+            <label>Vafot etgan kishining tirik turmush o‘rtog‘i<select id="spouse"><option value="none">Yo‘q</option><option value="husband">Eri (vafot etgan ayol)</option><option value="wife">Xotini/xotinlari (vafot etgan erkak)</option></select></label>
+            <label id="wives-wrap" hidden>Tirik xotinlar soni<input id="wives" type="number" min="1" max="4" step="1" value="1"></label>
+            <label>Tirik otasi<input id="father" type="checkbox"></label>
+            <label>Tirik onasi<input id="mother" type="checkbox"></label>
+            <label>O‘g‘illari soni<input id="sons" type="number" min="0" max="50" step="1" value="0"></label>
+            <label>Qizlari soni<input id="daughters" type="number" min="0" max="50" step="1" value="0"></label>
+            <label>Aka-uka va opa-singillar soni<input id="siblings" type="number" min="0" max="50" step="1" value="0"></label>
+          </div>
+          <label class="check-row"><input id="other-heirs" type="checkbox"><span>Boshqa merosxo‘rlar ham bor (masalan: bobosi/buvisi yoki nabira)</span></label>
+          <label class="check-row"><input id="confirm-core-heirs" type="checkbox" required><span>Tasdiqlayman: yuqorida sanalganlardan tashqari merosxo‘r yo‘q</span></label>
+          <button class="button button-primary" type="submit">Namunaviy ulushlarni hisoblash</button>
+          <p id="form-error" class="form-error" role="alert"></p>
+        </form>
+        <aside class="panel result-panel" id="natija" aria-live="polite">
+          <span class="panel-icon" aria-hidden="true">◈</span><p class="eyebrow dark-eyebrow">TAXMINIY NATIJA</p><h2>Ulushlar taqsimoti</h2>
+          <p id="result-summary" class="result-message">Meros summasi va tirik merosxo‘rlarni kiriting.</p>
+          <div id="share-list" class="share-list"><p class="muted">Natijalar shu yerda ko‘rinadi.</p></div>
+          <p class="unallocated" id="unallocated"></p>
+          <button class="button button-secondary print-button" id="print-button" type="button" disabled>Natijani chop etish / PDF</button>
+        </aside>
+      </div>
+    </section>
+    <section class="notice-section" id="muhim">
+      <div class="notice-icon" aria-hidden="true">!</div><div><h2>Bu shar’iy fatvo yoki yakuniy taqsimot emas</h2><p>Kalkulyator asosiy qarindoshlar uchun soddalashtirilgan, umumiy Sunniy faraiz qoidalariga asoslangan namunaviy hisobni ko‘rsatadi. Unda vasiyatning haqiqiyligi, mol-mulkka egalik nizosi, maxsus qarindoshlik, mazhab tafsilotlari va barcha murakkab holatlar qamrab olinmagan. Aka-uka yoki opa-singillar ota mavjud bo‘lganda, soddalashtirilgan holatda hisobdan chiqariladi; ota bo‘lmasa, hisob to‘xtatilib, mutaxassisga yo‘naltiriladi. Natijani mustaqil olim yoki meros huquqi mutaxassisi bilan tasdiqlang. Barcha hisob shu qurilmada ishlaydi.</p></div>
+    </section>
+  </main>
+  <footer><a href="https://islamicofficial.com/">Islamic Official</a><span>Shaxsiy ma’lumotlar serverga yuborilmaydi.</span><a href="https://islamicofficial-finance.web.app/">Zakot kalkulyatori ↗</a></footer>
+</body>
+</html>

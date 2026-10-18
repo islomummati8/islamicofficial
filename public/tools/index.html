@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b3c30">
+  <meta name="description" content="Namoz vaqtlarini ko‘ring, qibla yo‘nalishini toping, zikrlarni sanang, zakotni hisoblang va hijriy sanani tekshiring. Bepul, mobilga mos kundalik islomiy vositalar.">
+  <meta name="keywords" content="namoz vaqti, qibla, qibla kompas, tasbeh, zikr hisoblagich, zakot kalkulyator, zakat calculator, hijriy sana, hijri date, Islamic tools">
+  <link rel="canonical" href="https://tools.islamicofficial.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kundalik islomiy vositalar | Islamic Official">
+  <meta property="og:description" content="Namoz vaqti, qibla, tasbeh, zakot kalkulyatori va hijriy sana — bepul va qulay.">
+  <meta property="og:url" content="https://tools.islamicofficial.com/">
+  <title>Kundalik islomiy vositalar: namoz, qibla, zakot | Islamic Official</title>
+  <link rel="icon" href="https://islamicofficial.com/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tools.css?v=2">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Islamic Official — Kundalik vositalar",
+      "url": "https://tools.islamicofficial.com/",
+      "description": "Namoz vaqtlarini, qibla yo‘nalishini, zikr hisoblagichini, zakot kalkulyatorini va hijriy sanani bir joyda taqdim etuvchi bepul vositalar.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any"
+    }
+  </script>
+  <script defer src="site-locale.js?v=4"></script>
+  <script type="module" src="tools.js?v=5"></script>
+</head>
+<body data-site-locale="tools">
+  <header class="site-header">
+    <a class="brand" href="https://islamicofficial.com/" aria-label="Islamic Official bosh sahifasi">
+      <span class="brand-mark" aria-hidden="true">☾</span>
+      <span><strong>Islamic Official</strong><small data-i18n="dailyTools">Daily tools</small></span>
+    </a>
+    <nav aria-label="Asosiy navigatsiya">
+      <a href="#namoz" data-i18n="prayerTimes">Prayer times</a>
+      <a href="#qibla" data-i18n="qibla">Qibla</a>
+      <a href="#zikr" data-i18n="tasbih">Tasbih</a>
+      <a href="#zakot" data-i18n="zakat">Zakat</a>
+      <a href="#sana" data-i18n="hijriDate">Hijri date</a>
+      <a href="https://islamicofficial-ibadat.web.app/" data-i18n="ibadatPlan">Worship plan</a>
+    </nav>
+    <div class="header-account">
+      <button class="google-button" id="google-sign-in" type="button"><span class="google-mark" aria-hidden="true">G</span><span data-i18n="googleSync">Continue with Google</span></button>
+      <button class="email-button" id="email-sign-in" type="button" data-i18n="emailLogin">Email bilan kirish</button>
+      <span class="account-user" id="account-user" hidden></span>
+      <button class="signout-button" id="google-sign-out" type="button" hidden data-i18n="signOut">Sign out</button>
+    </div>
+    <div class="site-preferences">
+      <label class="language-control" for="language-select"><span class="visually-hidden" data-i18n="language">Language</span>
+        <select id="language-select" aria-label="Language">
+          <option value="en">English</option><option value="uz">O‘zbekcha</option><option value="ru">Русский</option>
+        </select>
+      </label>
+      <button class="theme-button" id="theme-toggle" type="button" aria-pressed="false" data-i18n="darkMode">Dark mode</button>
+    </div>
+    <a class="main-site-link" href="https://islamicofficial.com/"><span data-i18n="mainSite">Main site</span> <span aria-hidden="true">↗</span></a>
+  </header>
+  <p class="account-status" id="account-status" role="status" aria-live="polite" hidden></p>
+
+  <dialog class="email-dialog" id="email-dialog" aria-labelledby="email-dialog-title">
+    <form id="email-auth-form">
+      <button class="dialog-close" type="button" id="email-dialog-close" aria-label="Close">×</button>
+      <p class="section-kicker" data-i18n="privateSync">PRIVATE SYNC</p>
+      <h2 id="email-dialog-title" data-i18n="emailLogin">Sign in with email</h2>
+      <p class="muted" data-i18n="emailSyncNote">Use your email and password to sync your personal tools on your devices.</p>
+      <label for="email-address" data-i18n="emailAddress">Email address</label>
+      <input id="email-address" type="email" autocomplete="email" required maxlength="254">
+      <label for="email-password" data-i18n="password">Password</label>
+      <input id="email-password" type="password" autocomplete="current-password" required minlength="6" maxlength="128">
+      <p class="email-auth-message" id="email-auth-message" role="status" aria-live="polite" hidden></p>
+      <button class="primary-button email-submit" id="email-submit" type="submit" data-i18n="signIn">Sign in</button>
+      <button class="text-button" id="email-mode-toggle" type="button" data-i18n="createAccount">Create an account</button>
+      <button class="text-button" id="password-reset" type="button" data-i18n="forgotPassword">Forgot password?</button>
+    </form>
+  </dialog>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow"><span class="status-dot"></span> <span data-i18n="heroEyebrow">Free · private · mobile-friendly</span></span>
+        <h1><span data-i18n="heroTitle">Helpful tools for</span> <span data-i18n="heroTitleAccent">daily worship</span></h1>
+        <p data-i18n="heroDescription">Check prayer times, find the Qibla, count dhikr and estimate zakat — all in one place.</p>
+        <a class="hero-button" href="#vositalar"><span data-i18n="exploreTools">Explore the tools</span> <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="art-moon">☾</div><span class="art-star star-one">✦</span><span class="art-star star-two">✧</span>
+        <div class="art-caption"><span data-i18n="allInOne">All in one place</span><strong data-i18n="toolsCount">5 useful tools</strong></div>
+      </div>
+    </section>
+
+    <section class="date-banner" id="sana" aria-labelledby="date-title">
+      <div class="date-icon" aria-hidden="true">☪</div>
+      <div><p class="section-kicker" data-i18n="todaysDate">TODAY</p><h2 id="date-title" data-i18n="hijriDate">Hijri date</h2><p class="muted" data-i18n="hijriCalendarView">Today's date in the Hijri calendar</p></div>
+      <div class="date-value"><strong id="hijri-date" data-i18n="dateLoading">Loading date…</strong><span id="gregorian-date"></span><small data-i18n="moonSightingNote">Hijri dates may vary with local moon sighting.</small></div>
+    </section>
+
+    <section class="tools-section" id="vositalar">
+      <div class="section-heading">
+        <div><p class="section-kicker" data-i18n="forYou">FOR YOU</p><h2 data-i18n="usefulTools">Useful tools</h2></div>
+        <p data-i18n="privacyLocation">Your location is requested only when you ask for it. Your data is not used for advertising or tracking.</p>
+      </div>
+
+      <div class="tools-grid">
+        <article class="tool-card prayer-card" id="namoz">
+          <div class="card-heading">
+            <span class="tool-icon green-icon" aria-hidden="true">◷</span>
+            <span class="card-tag" data-i18n="locationBased">LOCATION BASED</span>
+          </div>
+          <h3 data-i18n="prayerTimes">Prayer times</h3>
+          <p class="card-description" data-i18n="prayerDescription">Get today's prayer schedule based on your GPS location.</p>
+          <div class="location-row">
+            <button class="primary-button" id="location-button" type="button" data-i18n="findLocation">Use my location</button>
+            <span id="location-status" class="inline-status" role="status" data-i18n="locationPermission">Location is used only with your permission.</span>
+          </div>
+          <div class="prayer-times" id="prayer-times" aria-live="polite">
+            <div><span>Bomdod</span><strong data-prayer="Fajr">—</strong></div>
+            <div><span>Quyosh</span><strong data-prayer="Sunrise">—</strong></div>
+            <div><span>Peshin</span><strong data-prayer="Dhuhr">—</strong></div>
+            <div><span>Asr</span><strong data-prayer="Asr">—</strong></div>
+            <div><span>Shom</span><strong data-prayer="Maghrib">—</strong></div>
+            <div><span>Xufton</span><strong data-prayer="Isha">—</strong></div>
+          </div>
+          <p class="tool-note" data-i18n="prayerMethodNote">Calculation: Muslim World League. Times may differ slightly from your local mosque.</p>
+        </article>
+
+        <article class="tool-card qibla-card" id="qibla">
+          <div class="card-heading">
+            <span class="tool-icon blue-icon" aria-hidden="true">⌖</span>
+            <span class="card-tag" data-i18n="directionCard">DIRECTION</span>
+          </div>
+          <h3 data-i18n="qiblaDirection">Qibla direction</h3>
+          <p class="card-description" data-i18n="qiblaDescription">Find the direction from your location to the Kaaba.</p>
+          <div class="compass" id="qibla-compass" role="img" aria-label="Qibla compass">
+            <div class="compass-face" id="compass-face" aria-hidden="true">
+              <span class="compass-north">N</span><span class="compass-east">E</span><span class="compass-south">S</span><span class="compass-west">W</span>
+            </div>
+            <span class="compass-needle" id="qibla-needle" aria-hidden="true"><span></span></span>
+            <span class="compass-center" aria-hidden="true">✦</span>
+          </div>
+          <div class="qibla-readout">
+            <p class="qibla-result" id="qibla-result" role="status" data-i18n="qiblaPrompt">Allow location above to calculate direction.</p>
+            <p class="qibla-distance" id="qibla-distance"></p>
+          </div>
+          <div class="qibla-action">
+            <button class="primary-button qibla-button" id="qibla-button" type="button" data-i18n="findQibla">Find Qibla</button>
+            <span class="inline-status qibla-status" id="qibla-status" role="status" data-i18n="qiblaCompassPrompt">Allow location and compass access for live direction.</span>
+          </div>
+          <p class="tool-note" data-i18n="qiblaNote">The arrow follows your phone compass when available; otherwise it points relative to north.</p>
+        </article>
+
+        <article class="tool-card tasbih-card" id="zikr">
+          <div class="card-heading">
+            <span class="tool-icon amber-icon" aria-hidden="true">✧</span>
+            <span class="card-tag" data-i18n="savedOnDevice">SAVED ON DEVICE</span>
+          </div>
+          <h3 data-i18n="tasbih">Tasbih</h3>
+          <p class="card-description" data-i18n="tasbihDescription">Count your dhikr. Counts are saved on this device.</p>
+          <div class="dhikr-choices" role="group" aria-label="Zikr tanlash">
+            <button type="button" class="dhikr-choice is-selected" data-dhikr="Subhanalloh">Subhanalloh</button>
+            <button type="button" class="dhikr-choice" data-dhikr="Alhamdulillah">Alhamdulillah</button>
+            <button type="button" class="dhikr-choice" data-dhikr="Allohu akbar">Allohu akbar</button>
+            <button type="button" class="dhikr-choice" data-dhikr="Istigfor">Istig‘for</button>
+          </div>
+          <div class="counter-display"><span id="selected-dhikr">Subhanalloh</span><strong id="dhikr-count" aria-live="polite">0</strong><span id="target-progress">Maqsad: 33</span></div>
+          <div class="counter-actions">
+            <button class="count-button" id="count-button" type="button" aria-label="Add one dhikr" data-i18n="addDhikr">+ Dhikr</button>
+            <button class="secondary-button" id="reset-count" type="button" data-i18n="reset">Reset</button>
+          </div>
+          <label class="target-control" for="dhikr-target"><span data-i18n="target">Target</span> <input id="dhikr-target" type="number" min="1" max="10000" value="33" inputmode="numeric"></label>
+          <p class="tool-note" id="counter-status" role="status" data-i18n="localCounts">Dhikr counts are saved on this device.</p>
+        </article>
+
+        <article class="tool-card zakat-card" id="zakot">
+          <div class="card-heading">
+            <span class="tool-icon purple-icon" aria-hidden="true">◈</span>
+            <span class="card-tag" data-i18n="yourEstimate">YOUR ESTIMATE</span>
+          </div>
+          <h3 data-i18n="zakatCalculator">Zakat calculator</h3>
+          <p class="card-description" data-i18n="zakatDescription">Enter nisab from a trusted local source, then estimate your zakatable assets.</p>
+          <div class="zakat-form">
+            <label><span data-i18n="currency">Currency</span>
+              <select id="zakat-currency">
+                <option value="UZS">UZS — so‘m</option><option value="USD">USD — dollar</option><option value="EUR">EUR — yevro</option><option value="KGS">KGS — som</option><option value="KZT">KZT — tenge</option><option value="RUB">RUB — rubl</option><option value="TRY">TRY — lira</option>
+              </select>
+            </label>
+            <label><span data-i18n="nisabMethod">Nisab basis</span>
+              <select id="zakat-method">
+                <option value="manual" data-i18n="manualNisab">Enter nisab manually</option>
+                <option value="gold" data-i18n="goldNisab">Gold — 85 grams</option>
+                <option value="silver" data-i18n="silverNisab">Silver — 595 grams</option>
+              </select>
+            </label>
+            <label id="metal-price-field" hidden><span data-i18n="metalPrice">Current metal price per gram</span><input id="zakat-metal-price" type="number" min="0" step="any" inputmode="decimal" placeholder="0"></label>
+            <label id="metal-grams-field" hidden><span data-i18n="metalWeight">Nisab weight (grams)</span><input id="zakat-metal-grams" type="number" min="0" step="any" inputmode="decimal"></label>
+            <label><span data-i18n="nisabValue">Nisab value</span> <span class="field-hint" data-i18n="selectedCurrency">in selected currency</span><input id="zakat-nisab" type="number" min="0" step="any" inputmode="decimal" placeholder="e.g. 10000000"></label>
+            <p class="nisab-explanation" data-i18n="nisabInfo">Nisab is commonly estimated as the value of 85 g of gold or 595 g of silver. Choose a basis and enter its current local price per gram, or enter the threshold manually. No live metal price is assumed.</p>
+            <p class="nisab-formula" id="nisab-formula" aria-live="polite"></p>
+            <div class="asset-fields">
+              <label><span data-i18n="cashBank">Cash and bank balances</span><input id="zakat-cash" type="number" min="0" step="any" inputmode="decimal" placeholder="0"></label>
+              <label><span data-i18n="assetsLabel">Value of zakatable gold, silver and trade goods</span><input id="zakat-assets" type="number" min="0" step="any" inputmode="decimal" placeholder="0"></label>
+              <label><span data-i18n="receivables">Recoverable receivables</span><input id="zakat-receivable" type="number" min="0" step="any" inputmode="decimal" placeholder="0"></label>
+              <label><span data-i18n="debts">Debts due soon</span><input id="zakat-debt" type="number" min="0" step="any" inputmode="decimal" placeholder="0"></label>
+            </div>
+            <label class="rate-control"><span data-i18n="zakatRate">Zakat rate (%)</span><input id="zakat-rate" type="number" min="0.01" max="100" step="0.01" inputmode="decimal" value="2.5"></label>
+            <details class="zakat-guide">
+              <summary data-i18n="howCalculated">How is this estimate calculated?</summary>
+              <p data-i18n="calculationDetails">Net zakatable assets = cash and bank balances + zakatable metals/trade goods + eligible receivables − debts due soon (not below zero). If this reaches the selected nisab and the applicable lunar-year conditions are met, the default estimate is 2.5% of net assets. You can change the rate above. This is a calculator, not a fatwa; asset and debt rulings may vary by school and circumstance.</p>
+            </details>
+          </div>
+          <div class="zakat-result" aria-live="polite">
+            <div><span data-i18n="netAssets">Net zakatable assets</span><strong id="zakat-net">—</strong></div>
+            <div><span><span data-i18n="estimatedZakat">Estimated zakat</span> (<span id="zakat-rate-label">2.5</span>%)</span><strong id="zakat-due" data-i18n="enterNisab">Enter nisab</strong></div>
+          </div>
+          <p class="tool-note" data-i18n="zakatDisclaimer">This is an estimate, not a fatwa. Nisab, eligible assets, debts and zakat timing can vary; consult a trusted scholar. Metal prices must be entered by you.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="privacy-strip">
+      <span aria-hidden="true">◎</span><p><strong data-i18n="privacyMatters">Your privacy matters.</strong> <span data-i18n="privacySummary">Tasbih and zakat data sync to your private account when you sign in; otherwise they stay on this device. GPS is used only when you request prayer times or Qibla.</span></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="https://islamicofficial.com/"><span class="brand-mark" aria-hidden="true">☾</span><span><strong>Islamic Official</strong><small data-i18n="dailyTools">Daily tools</small></span></a>
+    <div><a href="https://islamicofficial.com/" data-i18n="mainSite">Main site</a><a href="https://books.islamicofficial.com/" data-i18n="pdfLibrary">PDF library</a><a href="https://valyuta.islamicofficial.com/" data-i18n="currency">Currency</a><a href="https://islamicofficial-ibadat.web.app/" data-i18n="ibadatPlan">Worship plan</a><a href="https://islamicofficial-quran.web.app/">Qur’oni Karim</a><a href="https://islamicofficial-finance.web.app/">Zakot va moliya</a><a href="https://islamicofficial-meros.web.app/">Meros hisobi</a><a href="https://islamicofficial.com/privacy.html" data-i18n="privacy">Privacy</a></div>
+    <small>© 2026 Islamic Official</small>
+  </footer>
+</body>
+</html>

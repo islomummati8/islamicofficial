@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10251f">
+  <meta name="description" content="Mashhur qorilarning Qur’on qiroatlarini tinglang va xohlagan suralarni qurilmangizda oflayn saqlang.">
+  <meta name="google-adsense-account" content="ca-pub-5307580552409207">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="audio.css?v=1">
+  <title>Qur’on audio kutubxonasi | Islamic Official</title>
+</head>
+<body data-site-locale="audio">
+  <header class="topbar">
+    <a class="brand" href="https://islamicofficial.com/"><span class="brand-mark">☾</span><span><strong>Islamic Official</strong><small>QUR’ON AUDIO</small></span></a>
+    <nav aria-label="Asosiy navigatsiya"><a href="#reciters">Qorilar</a><a href="#player">Pleyer</a><a href="https://islamicofficial-quran.web.app/">Qur’onni o‘qish ↗</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="live-dot"></span> QUR’ON QIROATLARI</span>
+        <h1>Qiroatni tinglang.<br><em>Qalbingizga taskin.</em></h1>
+        <p>Mashhur qorilar ijrosidagi suralarni toping, tinglang va internet bo‘lmaganda eshitish uchun qurilmangizda saqlang.</p>
+        <a class="primary-link" href="#reciters">Qorilarni ko‘rish <span>↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="crescent">☾</span><span class="star star-one">✦</span><span class="star star-two">✧</span><span class="wave wave-one"></span><span class="wave wave-two"></span></div>
+    </section>
+    <section class="content-section" id="reciters">
+      <div class="section-heading"><div><span class="eyebrow dark-eyebrow">QIROAT KUTUBXONASI</span><h2>O‘zingizga yoqqan qorini tanlang</h2></div><label class="search-box"><span aria-hidden="true">⌕</span><input id="reciter-search" type="search" placeholder="Qori nomidan izlash" aria-label="Qori nomidan izlash"></label></div>
+      <div class="library-grid">
+        <section class="reciter-panel" aria-label="Qorilar">
+          <div class="panel-heading"><strong>Mashhur qorilar</strong><span id="reciter-count">Yuklanmoqda…</span></div>
+          <div id="reciter-list" class="reciter-list" aria-live="polite"><p class="loading">Qori ro‘yxati yuklanmoqda…</p></div>
+          <p class="source-note">Qorilar va audio manbalari Quran.com Audio API’dan olinadi.</p>
+        </section>
+        <section class="player-panel" id="player" aria-label="Qiroat pleyeri">
+          <div class="player-art"><span>الْقُرْآنُ الْكَرِيمُ</span><i>✦</i></div>
+          <span class="eyebrow dark-eyebrow">HOZIR TINGLANMOQDA</span>
+          <h3 id="track-title">Surani tanlang</h3>
+          <p class="player-byline" id="track-byline">Qori tanlang, so‘ng surani ijro eting.</p>
+          <div class="player-selects">
+            <label for="reciter-select">Qori<select id="reciter-select"><option value="7">Mishari Rashid al-Afasi</option></select></label>
+            <label for="surah-select">Sura<select id="surah-select"><option value="1">Al-Fatiha</option></select></label>
+          </div>
+          <audio id="audio-player" controls preload="none" aria-label="Qur’on qiroati pleyeri"></audio>
+          <div class="player-actions">
+            <button class="button button-soft" id="previous-track" type="button" aria-label="Oldingi sura">← Oldingi</button>
+            <button class="button button-primary" id="play-track" type="button">▶ Tinglash</button>
+            <button class="button button-soft" id="next-track" type="button" aria-label="Keyingi sura">Keyingi →</button>
+          </div>
+          <div class="offline-row"><button class="button button-outline" id="offline-save" type="button">⇩ Oflayn saqlash</button><button class="text-button" id="offline-remove" type="button" hidden>Saqlangan audioni o‘chirish</button></div>
+          <p class="offline-status" id="audio-status" role="status" aria-live="polite">Tanlangan sura ushbu qurilmada saqlanadi; serverga yuklanmaydi.</p>
+          <p class="size-note" id="audio-size"></p>
+        </section>
+      </div>
+    </section>
+    <section class="content-section categories">
+      <div class="section-heading"><div><span class="eyebrow dark-eyebrow">BOSHQA TINGLOVLAR</span><h2>Foydali audio va darslar</h2></div></div>
+      <div class="category-grid">
+        <article class="category-card"><span>◖</span><div><h3>Qur’on qiroatlari</h3><p>Surani, qorini va qiroat uslubini tanlab tinglang.</p><a href="#player">Pleyerga o‘tish ↗</a></div></article>
+        <article class="category-card"><span>▶</span><div><h3>O‘zbekcha ma’ruzalar</h3><p>Rasmiy IslamicUmmah571 kanalidagi darslarni ko‘ring.</p><a href="https://www.youtube.com/@IslamicUmmah571" target="_blank" rel="noopener noreferrer">YouTube kanalini ochish ↗</a></div></article>
+        <article class="category-card"><span>♫</span><div><h3>Audiokitoblar</h3><p>Mualliflik huquqi va tarqatish ruxsati tekshirilgan kitoblar keyingi bosqichlarda qo‘shiladi.</p><span class="soon-label">Ruxsatli manbalar tayyorlanmoqda</span></div></article>
+      </div>
+      <p class="disclosure">Eslatma: ekran o‘chiq paytda ijro qurilma va brauzerga bog‘liq. Oflayn saqlash faqat o‘zingiz tanlagan qiroatni shu qurilmaning brauzer xotirasiga yozadi; yuklash uchun internet kerak bo‘ladi.</p>
+    </section>
+  </main>
+  <footer><a href="https://islamicofficial.com/">Islamic Official</a><span>Qiroat va audio ma’lumotlari uchun manbalarga havola berilgan.</span><a href="https://islamicofficial-quran.web.app/">Qur’on o‘quvchisi ↗</a></footer>
+  <script src="site-locale.js?v=4" defer></script>
+  <script src="audio.js?v=2" defer></script>
+</body>
+</html>

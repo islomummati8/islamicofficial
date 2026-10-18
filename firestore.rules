@@ -28,14 +28,227 @@ service cloud.firestore {
     match /books/{book} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
+
+      match /fileChunks/{chunk} {
+        allow read: if true;
+        allow create: if isAdmin()
+          && request.resource.data.keys().hasAll(['index', 'data'])
+          && request.resource.data.keys().hasOnly(['index', 'data'])
+          && request.resource.data.index is int
+          && request.resource.data.index >= 0
+          && request.resource.data.index < 80
+          && request.resource.data.data is string
+          && request.resource.data.data.size() <= 350000;
+        allow update, delete: if isAdmin();
+      }
+    }
+    match /mediaVideos/{video} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasAll(['title', 'kind', 'mediaId', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['title', 'kind', 'mediaId', 'createdAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 120
+        && request.resource.data.kind in ['video', 'playlist']
+        && request.resource.data.mediaId is string
+        && (request.resource.data.kind == 'video'
+          ? request.resource.data.mediaId.matches('^[A-Za-z0-9_-]{11}$')
+          : request.resource.data.mediaId.matches('^[A-Za-z0-9_-]{10,64}$'))
+        && request.resource.data.createdAt is timestamp;
+      allow delete: if isAdmin();
+
+      match /likes/{userId} {
+        allow read: if true;
+        allow create: if request.auth != null
+          && request.auth.uid == userId
+          && request.resource.data.keys().hasAll(['userId', 'createdAt'])
+          && request.resource.data.keys().hasOnly(['userId', 'createdAt'])
+          && request.resource.data.userId == request.auth.uid
+          && request.resource.data.createdAt is timestamp;
+        allow delete: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if request.auth != null
+          && request.resource.data.keys().hasAll(['userId', 'displayName', 'text', 'createdAt'])
+          && request.resource.data.keys().hasOnly(['userId', 'displayName', 'text', 'createdAt', 'photoURL'])
+          && request.resource.data.userId == request.auth.uid
+          && request.resource.data.displayName is string
+          && request.resource.data.displayName.size() > 0
+          && request.resource.data.displayName.size() <= 40
+          && (!('photoURL' in request.resource.data)
+            || (request.resource.data.photoURL is string
+              && request.resource.data.photoURL.size() <= 2048
+              && request.resource.data.photoURL.matches('^https://.*$')))
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0
+          && request.resource.data.text.size() <= 1000
+          && request.resource.data.createdAt is timestamp;
+        allow delete: if isAdmin()
+          || (request.auth != null && resource.data.userId == request.auth.uid);
+      }
+    }
+    match /userMedia/{userId}/library/{libraryId} {
+      allow read: if request.auth != null
+        && request.auth.uid == userId
+        && libraryId == 'main';
+      allow create, update: if request.auth != null
+        && request.auth.uid == userId
+        && libraryId == 'main'
+        && request.resource.data.keys().hasAll(['queue', 'saved', 'playlists', 'updatedAt'])
+        && request.resource.data.keys().hasOnly(['queue', 'saved', 'playlists', 'updatedAt'])
+        && request.resource.data.queue is list
+        && request.resource.data.queue.size() <= 100
+        && request.resource.data.saved is list
+        && request.resource.data.saved.size() <= 500
+        && request.resource.data.playlists is list
+        && request.resource.data.playlists.size() <= 50
+        && request.resource.data.updatedAt is timestamp;
+      allow delete: if false;
     }
     match /duas/{dua} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
     }
+    match /hadiths/{hadith} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasAll(['title', 'source', 'reference', 'grade', 'arabic', 'translation', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['title', 'source', 'reference', 'grade', 'arabic', 'translation', 'createdAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 160
+        && request.resource.data.source is string
+        && request.resource.data.source.size() > 0
+        && request.resource.data.source.size() <= 120
+        && request.resource.data.reference is string
+        && request.resource.data.reference.size() > 0
+        && request.resource.data.reference.size() <= 80
+        && request.resource.data.grade is string
+        && request.resource.data.grade.size() > 0
+        && request.resource.data.grade.size() <= 80
+        && request.resource.data.arabic is string
+        && request.resource.data.arabic.size() <= 5000
+        && request.resource.data.translation is string
+        && request.resource.data.translation.size() > 0
+        && request.resource.data.translation.size() <= 10000
+        && request.resource.data.createdAt is timestamp;
+      allow delete: if isAdmin();
+    }
     match /userStats/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+    match /userTools/{userId} {
+      function ownsToolsData() {
+        return request.auth != null && request.auth.uid == userId;
+      }
+
+      function validNonNegativeAmount(value) {
+        return value == null
+          || (value is number && value >= 0 && value <= 1000000000000000);
+      }
+
+      function validCounter(counts, name) {
+        return !(name in counts)
+          || (counts[name] is int && counts[name] >= 0 && counts[name] <= 10000000);
+      }
+
+      function validZakatDraft(draft) {
+        return draft is map
+          && draft.keys().hasAll(['currency', 'nisab', 'cash', 'assets', 'receivable', 'debt'])
+          && draft.keys().hasOnly(['currency', 'nisab', 'cash', 'assets', 'receivable', 'debt', 'method', 'metalPrice', 'metalGrams', 'rate'])
+          && draft.currency in ['UZS', 'USD', 'EUR', 'KGS', 'KZT', 'RUB', 'TRY']
+          && validNonNegativeAmount(draft.nisab)
+          && validNonNegativeAmount(draft.cash)
+          && validNonNegativeAmount(draft.assets)
+          && validNonNegativeAmount(draft.receivable)
+          && validNonNegativeAmount(draft.debt)
+          && (!('method' in draft) || draft.method in ['manual', 'gold', 'silver'])
+          && (!('metalPrice' in draft) || validNonNegativeAmount(draft.metalPrice))
+          && (!('metalGrams' in draft) || validNonNegativeAmount(draft.metalGrams))
+          && (!('rate' in draft) || (draft.rate is number && draft.rate >= 0.01 && draft.rate <= 100));
+      }
+
+      function validToolsData() {
+        let counts = request.resource.data.tasbihCounts;
+        return request.resource.data.keys().hasAll(['tasbihCounts', 'selectedDhikr', 'tasbihTarget', 'zakatDraft', 'updatedAt'])
+          && request.resource.data.keys().hasOnly(['tasbihCounts', 'selectedDhikr', 'tasbihTarget', 'zakatDraft', 'updatedAt'])
+          && counts is map
+          && counts.keys().hasOnly(['Subhanalloh', 'Alhamdulillah', 'Allohu akbar', 'Istigfor'])
+          && validCounter(counts, 'Subhanalloh')
+          && validCounter(counts, 'Alhamdulillah')
+          && validCounter(counts, 'Allohu akbar')
+          && validCounter(counts, 'Istigfor')
+          && request.resource.data.selectedDhikr in ['Subhanalloh', 'Alhamdulillah', 'Allohu akbar', 'Istigfor']
+          && request.resource.data.tasbihTarget is int
+          && request.resource.data.tasbihTarget >= 1
+          && request.resource.data.tasbihTarget <= 10000
+          && validZakatDraft(request.resource.data.zakatDraft)
+          && request.resource.data.updatedAt is timestamp;
+      }
+
+      allow read: if ownsToolsData();
+      allow create, update: if ownsToolsData() && validToolsData();
+      allow delete: if false;
+    }
+    match /userAppData/{userId}/apps/{appId} {
+      function ownsAppData() {
+        return request.auth != null && request.auth.uid == userId;
+      }
+
+      function validPrivateAppData() {
+        let data = request.resource.data.data;
+        return request.resource.data.keys().hasOnly(['data', 'updatedAt'])
+          && request.resource.data.updatedAt is timestamp
+          && data is map
+          && (appId == 'zikr'
+            ? data.keys().hasOnly(['counts', 'customDhikr', 'active', 'target', 'vibration', 'sound', 'theme', 'reminder', 'remindedOn', 'day'])
+              && data.keys().hasAll(['counts', 'customDhikr', 'active', 'target', 'day'])
+              && data.counts is map
+              && data.counts.keys().size() <= 100
+              && data.customDhikr is list
+              && data.customDhikr.size() <= 100
+              && data.active is string
+              && data.target is int
+              && data.target >= 0
+              && data.target <= 99999
+              && data.day is string
+            : appId == 'kids'
+              ? data.keys().hasOnly(['bestScores'])
+                && data.bestScores is map
+                && data.bestScores.keys().hasOnly(['easy', 'medium'])
+                && data.bestScores.keys().hasAll(['easy', 'medium'])
+                && data.bestScores.easy is int
+                && data.bestScores.easy >= 0
+                && data.bestScores.easy <= 10
+                && data.bestScores.medium is int
+                && data.bestScores.medium >= 0
+                && data.bestScores.medium <= 10
+              : appId == 'quran'
+                ? data.keys().hasOnly(['bookmarks', 'lastRead'])
+                  && data.keys().hasAll(['bookmarks', 'lastRead'])
+                  && data.bookmarks is list
+                  && data.bookmarks.size() <= 1000
+                  && (data.lastRead == null
+                    || (data.lastRead is map
+                      && data.lastRead.keys().hasOnly(['surah', 'ayah'])
+                      && data.lastRead.keys().hasAll(['surah', 'ayah'])
+                      && data.lastRead.surah is int
+                      && data.lastRead.surah >= 1
+                      && data.lastRead.surah <= 114
+                      && data.lastRead.ayah is int
+                      && data.lastRead.ayah >= 1
+                      && data.lastRead.ayah <= 286))
+                : false);
+      }
+
+      allow read: if ownsAppData();
+      allow create, update: if ownsAppData() && validPrivateAppData();
+      allow delete: if ownsAppData();
+    }
+
     match /newsletterSubscribers/{subscriber} {
       allow create: if request.resource.data.email is string
         && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$');

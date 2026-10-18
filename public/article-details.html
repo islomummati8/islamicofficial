@@ -3,27 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Maqola | Islamic Official</title>
+  <title>Islomiy-ma’rifiy maqolalar | Islamic Official</title>
+  <meta name="description" content="Islamic Official saytidagi islomiy-ma’rifiy maqolalarni o‘qing, manbalarini ko‘ring va boshqalar bilan ulashing.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Islomiy-ma’rifiy maqolalar | Islamic Official">
+  <meta property="og:description" content="Islamic Official saytidagi islomiy-ma’rifiy maqola.">
+  <meta property="og:url" content="https://islamicofficial.com/article-details.html">
+  <meta property="og:image" content="https://islamicofficial.com/assets/img/hero-img.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://islamicofficial.com/article-details.html">
+  <meta name="google-adsense-account" content="ca-pub-5307580552409207">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5307580552409207" crossorigin="anonymous"></script>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/css/main.css" rel="stylesheet">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5307580552409207"
-     crossorigin="anonymous"></script>
+  <link href="assets/css/main.css?v=2026101209" rel="stylesheet">
   <style>
     body { background: #eaf3f7; }
-    .article-detail { max-width: 1180px; margin: 108px auto 70px; }
-    .portal-topbar { background:#087f3f; color:#fff; font-size:.82rem; }
-    .portal-brand { background:#fff; border-radius:14px; padding:18px 24px; box-shadow:0 8px 24px rgba(34,76,99,.08); }
-    .portal-brand .brand-nav { display:flex; flex-wrap:wrap; gap:1.1rem; margin-top:18px; }
-    .portal-brand .brand-nav a { color:#087f3f; font-size:.84rem; font-weight:700; }
+    .article-detail { max-width: 1180px; margin: 42px auto 70px; }
     .portal-layout { display:grid; grid-template-columns:220px minmax(0, 1fr) 220px; gap:16px; align-items:start; }
     .portal-sidebar { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(34,76,99,.08); }
     .portal-sidebar h3 { font-size:.86rem; letter-spacing:.04em; margin:0; padding:18px; border-bottom:1px solid #edf1f3; color:#087f3f; }
     .portal-sidebar a { display:block; padding:13px 16px; color:#294454; border-bottom:1px solid #edf1f3; font-size:.86rem; font-weight:600; }
     .portal-sidebar a:hover { background:#eef8f2; color:#087f3f; }
     .article-column { min-width:0; }
-    .article-header { background: #087f3f !important; }
-    .article-header a, .article-header select { color: #fff !important; }
     .article-shell { background: #fff; border-radius: 14px; box-shadow: 0 12px 32px rgba(34, 76, 99, .10); overflow: hidden; }
     .article-hero { width: 100%; max-height: 520px; object-fit: contain; background: #f3f7f5; }
     .article-copy { padding: clamp(24px, 5vw, 58px); }
@@ -31,7 +33,7 @@
     .article-body { white-space: pre-wrap; font-size: 1.08rem; line-height: 2; color: #344054; }
     .article-back { color: #087f5b; font-weight: 700; }
     .article-footer { background: #087f3f; color: #e7fff0; border-top: 1px solid #087f3f; }
-    .article-footer h3 { color: #37517e; }
+    .article-footer h3 { color: #fff; }
     .article-tools { display:flex; gap:.35rem; align-items:center; }
     .article-tools button { border:0; border-radius:8px; padding:.35rem .55rem; background:#eaf2ef; color:#087f5b; font-weight:700; }
     body.detail-dark { background:#101820; color:#e6edf3; }
@@ -57,41 +59,24 @@
   </style>
 </head>
 <body>
-  <div class="portal-topbar fixed-top">
-    <div class="container d-flex justify-content-between py-2">
-      <span><i class="bi bi-calendar3"></i> Islamic Official · Ilm va ma’rifat</span>
-      <span><i class="bi bi-shield-check"></i> Ishonchli manbalar</span>
-    </div>
-  </div>
-  <header class="article-header shadow-sm" style="margin-top:34px; position:relative;">
-    <nav class="container d-flex align-items-center justify-content-between py-3">
-      <a href="index.html" class="fw-bold fs-4 text-decoration-none">Islamic Official</a>
-      <div class="d-flex flex-wrap gap-3 align-items-center">
-        <a href="index.html" class="text-decoration-none">Bosh sahifa</a>
-        <a href="index.html#about" class="text-decoration-none">Maqolalar</a>
-        <a href="media.html" class="text-decoration-none">Media</a>
-        <a href="privacy.html" class="text-decoration-none">Privacy</a>
-        <select id="detail-language-select" class="form-select form-select-sm" aria-label="Language">
-          <option value="uz">UZ</option><option value="en">EN</option><option value="ru">RU</option>
-        </select>
-        <div class="article-tools" aria-label="Article display settings">
-          <button type="button" data-font-size="1">A</button><button type="button" data-font-size="2">A+</button><button type="button" data-font-size="3">A++</button><button type="button" data-font-size="4">A+++</button><button type="button" data-font-size="5">A++++</button>
-          <button type="button" id="detail-theme-toggle"><i class="bi bi-moon-stars"></i></button>
-        </div>
+  <header class="portal-header">
+    <nav class="portal-navbar container" aria-label="Asosiy navigatsiya">
+      <a href="index.html" class="portal-brand-link text-decoration-none">Islamic Official</a>
+      <button class="portal-menu-toggle" type="button" data-portal-menu-toggle aria-controls="portal-nav-links" aria-expanded="false" aria-label="Menyuni ochish"><i class="bi bi-list" aria-hidden="true"></i></button>
+      <div class="portal-nav-links" id="portal-nav-links">
+        <a href="index.html">Bosh sahifa</a><a href="blog.html" aria-current="page">Maqolalar</a><a href="media.html">Media</a><a href="links.html">Ilovalar</a><a href="index.html#services">Yo‘nalishlar</a><a href="index.html#prayer-times">Qo‘llanmalar</a><a class="portal-contact-link" href="index.html#contact">Aloqa</a>
       </div>
     </nav>
   </header>
   <main class="container article-detail">
-    <div class="portal-brand mb-3">
-      <div class="d-flex align-items-center justify-content-between gap-3">
-        <div><strong class="text-success fs-4">ISLAMIC OFFICIAL</strong><div class="small text-muted">Ma’rifat, maqolalar va foydali media</div></div>
-        <div class="small text-muted d-none d-md-block">Ahli sunna val-jamoa manbalari asosida</div>
-      </div>
-      <div class="brand-nav">
-        <a href="index.html#about"><i class="bi bi-journal-text"></i> Maqolalar</a>
-        <a href="media.html"><i class="bi bi-play-btn"></i> Media</a>
-        <a href="index.html#services"><i class="bi bi-grid"></i> Yo‘nalishlar</a>
-        <a href="privacy.html"><i class="bi bi-lock"></i> Maxfiylik</a>
+    <div class="portal-surface d-flex flex-wrap align-items-center justify-content-between gap-3 p-3 mb-4">
+      <span class="small fw-semibold text-success">Maqola ko‘rinishi</span>
+      <select id="detail-language-select" class="form-select form-select-sm" style="width:auto" aria-label="Tilni tanlash">
+        <option value="uz">O‘zbekcha</option><option value="en">English</option><option value="ru">Русский</option><option value="ar">العربية</option>
+      </select>
+      <div class="article-tools" aria-label="Maqola ko‘rinishi sozlamalari">
+        <button type="button" data-font-size="1" aria-label="Odatiy shrift">A</button><button type="button" data-font-size="2" aria-label="Kattaroq shrift">A+</button><button type="button" data-font-size="3" aria-label="Yana kattaroq shrift">A++</button><button type="button" data-font-size="4" aria-label="Juda katta shrift">A+++</button><button type="button" data-font-size="5" aria-label="Eng katta shrift">A++++</button>
+        <button type="button" id="detail-theme-toggle" aria-label="Tungi rejimni almashtirish"><i class="bi bi-moon-stars"></i></button>
       </div>
     </div>
     <div class="portal-layout">
@@ -112,6 +97,10 @@
     </div>
     <section class="article-engagement mt-4">
       <button id="article-like-btn" class="btn btn-outline-danger"><i class="bi bi-heart"></i> <span>Like</span> <strong id="article-like-count">0</strong></button>
+      <button id="article-save-btn" type="button" class="btn btn-outline-success ms-2" aria-pressed="false"><i class="bi bi-bookmark-plus" aria-hidden="true"></i> <span>Keyin o‘qish uchun saqlash</span></button>
+      <button id="article-share-btn" type="button" class="btn btn-outline-primary ms-2"><i class="bi bi-share" aria-hidden="true"></i> <span>Ulashish</span></button>
+      <button id="article-download-image-btn" type="button" class="btn btn-outline-secondary ms-2" hidden><i class="bi bi-download" aria-hidden="true"></i> <span>Suratni yuklab olish</span></button>
+      <small id="article-action-status" class="d-block mt-2" role="status" aria-live="polite"></small>
       <h2 class="h4 mt-4">Izohlar</h2>
       <form id="article-comment-form" class="mb-3">
         <textarea id="article-comment-text" class="form-control mb-2" rows="3" maxlength="2000" placeholder="Izohingizni yozing..." required></textarea>
@@ -138,15 +127,17 @@
       </aside>
     </div>
   </main>
-  <footer class="article-footer mt-5 py-5">
+  <footer class="portal-footer article-footer mt-5 py-5">
     <div class="container">
       <div class="row gy-4">
-        <div class="col-lg-4"><h3 class="h5">ISLAMIC OFFICIAL</h3><p id="detail-footer-text">Ilm va ma’rifat manzili.</p><div class="small">© 2026 Islamic Official. Barcha huquqlar himoyalangan.</div></div>
-        <div class="col-lg-4"><h4 class="h6 text-white">Foydali havolalar</h4><a href="index.html" class="d-block text-white-50">Bosh sahifa</a><a href="media.html" class="d-block text-white-50">Media</a><a href="privacy.html" class="d-block text-white-50">Privacy policy</a></div>
-        <div class="col-lg-4"><h4 class="h6 text-white">Biz bilan bog‘laning</h4><div class="small">contact@islamicofficial.com</div><div class="social-links d-flex mt-3"><a href="https://t.me/islamrasmiy" target="_blank"><i class="bi bi-telegram"></i></a><a href="https://www.youtube.com/@IslamicUmmah571" target="_blank"><i class="bi bi-youtube"></i></a><a href="https://www.instagram.com/islamicummah_" target="_blank"><i class="bi bi-instagram"></i></a></div></div>
+        <div class="col-lg-5"><h3 class="h5">ISLAMIC OFFICIAL</h3><p id="detail-footer-text" class="portal-footer-copy">Ilm va ma’rifat manzili.</p></div>
+        <div class="col-6 col-lg-3"><h4 class="h6 text-white">Foydali sahifalar</h4><div class="portal-footer-links"><a href="index.html">Bosh sahifa</a><a href="blog.html">Maqolalar</a><a href="media.html">Media</a><a href="links.html">Ilovalar va kanallar</a><a href="privacy.html">Maxfiylik siyosati</a></div></div>
+        <div class="col-6 col-lg-4"><h4 class="h6 text-white">Aloqa va rasmiy kanallar</h4><div class="portal-footer-links"><a href="mailto:islomummati8@gmail.com"><i class="bi bi-envelope me-2"></i>islomummati8@gmail.com</a><a href="https://t.me/islamrasmiy" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>Telegram</a><a href="https://www.youtube.com/@IslamicUmmah571" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube me-2"></i>YouTube</a><a href="https://www.instagram.com/islamicummah_/" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram me-2"></i>Instagram</a></div></div>
       </div>
+      <div class="portal-footer-bottom">© 2026 Islamic Official. Barcha huquqlar himoyalangan.</div>
     </div>
   </footer>
+  <script src="assets/js/site-nav.js" defer></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -163,24 +154,113 @@
     const container = document.getElementById('article-detail-content');
     const relatedContainer = document.getElementById('related-articles');
     const articleId = new URLSearchParams(location.search).get('id');
+    let currentDetailLanguage = localStorage.getItem('site-language') || 'uz';
+    let relatedArticlesSnapshot = null;
+    let articleRecord = null;
+    const savedArticlesKey = 'islamic-saved-articles-v1';
+    const detailTranslations = {
+      uz: { back: 'Maqolalarga qaytish', related: 'Boshqa maqolalar', all: "Barchasini ko'rish", read: "Davomini o'qish", footer: "Ilm va ma'rifat manzili.", save: 'Keyin o‘qish uchun saqlash', saved: 'Saqlangan', removeSaved: 'Saqlanganlardan olib tashlash', saveError: 'Maqolani qurilmada saqlab bo‘lmadi.', share: 'Ulashish', shareDone: 'Maqola havolasi nusxalandi.', shareError: 'Havolani nusxalab bo‘lmadi. Quyidagi havolani qo‘lda nusxalang:', download: 'Suratni yuklab olish', downloadError: 'Suratni yuklab bo‘lmadi. Uni yangi oynada ochib saqlang:' },
+      en: { back: 'Back to articles', related: 'Related articles', all: 'View all', read: 'Read more', footer: 'A place of knowledge and enlightenment.', save: 'Save for later', saved: 'Saved', removeSaved: 'Remove from saved', saveError: 'This article could not be saved on this device.', share: 'Share', shareDone: 'Article link copied.', shareError: 'Could not copy the link. Copy it manually:', download: 'Download image', downloadError: 'Could not download the image. Open it in a new tab to save:' },
+      ru: { back: 'Вернуться к статьям', related: 'Другие статьи', all: 'Смотреть все', read: 'Читать далее', footer: 'Место знаний и просвещения.', save: 'Сохранить на потом', saved: 'Сохранено', removeSaved: 'Убрать из сохраненных', saveError: 'Не удалось сохранить статью на этом устройстве.', share: 'Поделиться', shareDone: 'Ссылка на статью скопирована.', shareError: 'Не удалось скопировать ссылку. Скопируйте ее вручную:', download: 'Скачать изображение', downloadError: 'Не удалось скачать изображение. Откройте его в новой вкладке:' },
+      ar: { back: 'العودة إلى المقالات', related: 'مقالات أخرى', all: 'عرض الكل', read: 'اقرأ المزيد', footer: 'مكان للعلم والتنوير.', save: 'حفظ للقراءة لاحقًا', saved: 'تم الحفظ', removeSaved: 'إزالة من المحفوظات', saveError: 'تعذر حفظ المقال على هذا الجهاز.', share: 'مشاركة', shareDone: 'تم نسخ رابط المقال.', shareError: 'تعذر نسخ الرابط. انسخه يدويًا:', download: 'تنزيل الصورة', downloadError: 'تعذر تنزيل الصورة. افتحها في علامة تبويب جديدة لحفظها:' }
+    };
+    const readSavedArticleIds = () => {
+      try {
+        const value = JSON.parse(localStorage.getItem(savedArticlesKey) || '[]');
+        return Array.isArray(value) ? value.filter((id) => typeof id === 'string') : [];
+      } catch (error) {
+        console.warn('Saved articles could not be read:', error);
+        return [];
+      }
+    };
+    const updateDetailSaveButton = () => {
+      const button = document.getElementById('article-save-btn');
+      const saved = readSavedArticleIds().includes(articleId);
+      const text = detailTranslations[currentDetailLanguage] || detailTranslations.uz;
+      button.setAttribute('aria-pressed', String(saved));
+      button.setAttribute('aria-label', saved ? text.removeSaved : text.save);
+      button.innerHTML = `<i class="bi ${saved ? 'bi-bookmark-check-fill' : 'bi-bookmark-plus'}" aria-hidden="true"></i> <span>${saved ? text.saved : text.save}</span>`;
+    };
+    const localizedField = (article, field, language = currentDetailLanguage) => {
+      const value = article?.translations?.[language]?.[field];
+      return typeof value === 'string' && value.trim() ? value : article?.[field] || '';
+    };
     const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (character) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
     }[character]));
+    const setMetaContent = (selector, value) => {
+      const element = document.querySelector(selector);
+      if (element) element.content = value;
+    };
+    const updateArticleMetadata = (article, language) => {
+      const title = localizedField(article, 'title') || 'Maqola';
+      const body = localizedField(article, 'summary') || localizedField(article, 'content');
+      const description = body.replace(/\s+/g, ' ').trim().slice(0, 300) || title;
+      const canonicalUrl = new URL(location.href);
+      canonicalUrl.hash = '';
+      canonicalUrl.search = '';
+      canonicalUrl.searchParams.set('id', articleId);
+      const image = article.imageUrl || article.image || '';
+      document.title = `${title} | Islamic Official`;
+      const descriptionMeta = document.querySelector('meta[name="description"]');
+      if (descriptionMeta) descriptionMeta.content = description;
+      setMetaContent('meta[property="og:title"]', document.title);
+      setMetaContent('meta[property="og:description"]', description);
+      setMetaContent('meta[property="og:url"]', canonicalUrl.href);
+      setMetaContent('meta[property="og:image"]', /^https?:\/\//i.test(image) ? image : 'https://islamicofficial.com/assets/img/hero-img.jpg');
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.href = canonicalUrl.href;
+      const published = article.createdAt?.toDate?.();
+      const structuredArticle = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description,
+        inLanguage: language,
+        mainEntityOfPage: canonicalUrl.href,
+        image: /^https?:\/\//i.test(image) ? [image] : undefined,
+        datePublished: published instanceof Date && !Number.isNaN(published.getTime()) ? published.toISOString() : undefined,
+        author: { '@type': 'Person', name: article.author || 'Islamic Official' },
+        publisher: { '@type': 'Organization', name: 'Islamic Official', url: 'https://islamicofficial.com/' }
+      };
+      let structuredData = document.getElementById('article-structured-data');
+      if (!structuredData) {
+        structuredData = document.createElement('script');
+        structuredData.id = 'article-structured-data';
+        structuredData.type = 'application/ld+json';
+        document.head.appendChild(structuredData);
+      }
+      structuredData.textContent = JSON.stringify(structuredArticle);
+    };
+    const showActionMessage = (message, linkUrl = '') => {
+      const status = document.getElementById('article-action-status');
+      status.textContent = message;
+      if (linkUrl) {
+        const link = document.createElement('a');
+        link.href = linkUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.className = 'ms-1';
+        link.textContent = linkUrl;
+        status.appendChild(link);
+      }
+    };
     const renderRelated = (snapshot) => {
       const related = snapshot.docs.filter((item) => item.id !== articleId).slice(0, 3);
       relatedContainer.innerHTML = related.map((item) => {
         const article = item.data();
         const image = escapeHtml(article.imageUrl || article.image || 'assets/img/blog/blog-post-1.webp');
+        const title = localizedField(article, 'title');
         return `<div class="col-md-4"><a class="text-decoration-none" href="article-details.html?id=${encodeURIComponent(item.id)}">
-          <div class="card h-100 border-0 shadow-sm overflow-hidden"><img src="${image}" class="card-img-top" style="height:150px;object-fit:contain;background:#f3f7f5" alt="${escapeHtml(article.title)}">
-          <div class="card-body"><h3 class="h6 text-dark">${escapeHtml(article.title)}</h3><span class="small text-success related-read">Davomini o'qish →</span></div></div>
+          <div class="card h-100 border-0 shadow-sm overflow-hidden"><img src="${image}" class="card-img-top" style="height:150px;object-fit:contain;background:#f3f7f5" alt="${escapeHtml(title)}">
+          <div class="card-body"><h3 class="h6 text-dark">${escapeHtml(title)}</h3><span class="small text-success related-read">Davomini o'qish →</span></div></div>
         </a></div>`;
       }).join('');
       const sidebar = document.getElementById('sidebar-related-articles');
       if (sidebar) {
         sidebar.innerHTML = related.slice(0, 3).map((item) => {
           const article = item.data();
-          return `<a href="article-details.html?id=${encodeURIComponent(item.id)}" class="small"><i class="bi bi-chevron-right text-success"></i> ${escapeHtml(article.title || 'Maqola')}</a>`;
+          return `<a href="article-details.html?id=${encodeURIComponent(item.id)}" class="small"><i class="bi bi-chevron-right text-success"></i> ${escapeHtml(localizedField(article, 'title') || 'Maqola')}</a>`;
         }).join('');
       }
     };
@@ -194,6 +274,7 @@
           container.innerHTML = '<div class="alert alert-warning">Maqola topilmadi.</div>';
         } else {
           const article = snapshot.data();
+          articleRecord = article;
           const likesRef = collection(getFirestore(app), 'articles', articleId, 'likes');
           onSnapshot(likesRef, (likes) => {
             document.getElementById('article-like-count').textContent = String(likes.size);
@@ -223,36 +304,115 @@
             document.getElementById('article-comment-status').textContent = 'Izoh saqlandi.';
           });
           const image = article.imageUrl || article.image || '';
+          const downloadableImageUrl = /^https?:\/\//i.test(image) || /^data:image\/[a-z0-9.+-]+;base64,/i.test(image)
+            ? image
+            : '';
+          document.getElementById('article-download-image-btn').hidden = !downloadableImageUrl;
+          updateArticleMetadata(article, currentDetailLanguage);
           container.innerHTML = `
             ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(article.title)}" class="article-hero">` : ''}
             <div class="article-copy">
               <span class="badge bg-success mb-3">${escapeHtml(article.category || 'Maqola')}</span>
-              <h1 class="display-5 article-title mb-3">${escapeHtml(article.title)}</h1>
+              <h1 id="localized-article-title" class="display-5 article-title mb-3">${escapeHtml(localizedField(article, 'title'))}</h1>
               <p class="text-muted mb-4"><i class="bi bi-person"></i> ${escapeHtml(article.author || 'Admin')}</p>
-              <div class="article-body">${escapeHtml(article.content || article.summary)}</div>
+              <div id="localized-article-body" class="article-body">${escapeHtml(localizedField(article, 'content') || localizedField(article, 'summary'))}</div>
               ${/^https?:\/\//i.test(article.sourceUrl || '') ? `<a class="btn btn-outline-success mt-4" href="${escapeHtml(article.sourceUrl)}" target="_blank" rel="noopener noreferrer"><i class="bi bi-link-45deg"></i> Manbani ochish</a>` : ''}
             </div>`;
-          document.title = `${article.title || 'Maqola'} | Islamic Official`;
           const relatedSnapshot = await getDocs(collection(getFirestore(app), 'articles'));
-          renderRelated(relatedSnapshot);
+          relatedArticlesSnapshot = relatedSnapshot;
+          renderRelated(relatedArticlesSnapshot);
         }
-        const detailTranslations = {
-          uz: { back: 'Maqolalarga qaytish', related: 'Boshqa maqolalar', all: "Barchasini ko'rish", read: "Davomini o'qish", footer: "Ilm va ma'rifat manzili." },
-          en: { back: 'Back to articles', related: 'Related articles', all: 'View all', read: 'Read more', footer: 'A place of knowledge and enlightenment.' },
-          ru: { back: 'Вернуться к статьям', related: 'Другие статьи', all: 'Смотреть все', read: 'Читать далее', footer: 'Место знаний и просвещения.' }
-        };
         const applyDetailLanguage = (language) => {
           const text = detailTranslations[language] || detailTranslations.uz;
+          currentDetailLanguage = language;
           document.querySelector('.article-back').lastChild.textContent = ` ${text.back}`;
           document.getElementById('related-articles-title').textContent = text.related;
           document.getElementById('related-articles-all').textContent = text.all;
-          document.querySelectorAll('.related-read').forEach((element) => { element.textContent = `${text.read} →`; });
           document.getElementById('detail-footer-text').textContent = text.footer;
+          updateDetailSaveButton();
+          if (articleRecord) {
+            const title = localizedField(articleRecord, 'title') || 'Maqola';
+            document.getElementById('localized-article-title').textContent = title;
+            document.getElementById('localized-article-body').textContent =
+              localizedField(articleRecord, 'content') || localizedField(articleRecord, 'summary');
+            document.getElementById('localized-article-title').dir = language === 'ar' ? 'rtl' : 'auto';
+            document.getElementById('localized-article-body').dir = language === 'ar' ? 'rtl' : 'auto';
+            updateArticleMetadata(articleRecord, language);
+          }
+          if (relatedArticlesSnapshot) renderRelated(relatedArticlesSnapshot);
+          document.querySelectorAll('.related-read').forEach((element) => { element.textContent = `${text.read} →`; });
           document.documentElement.lang = language;
+          document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
           localStorage.setItem('site-language', language);
         };
+        document.getElementById('article-save-btn').addEventListener('click', () => {
+          const savedIds = readSavedArticleIds();
+          const isSaved = savedIds.includes(articleId);
+          const nextSavedIds = isSaved
+            ? savedIds.filter((id) => id !== articleId)
+            : [...savedIds, articleId];
+          try {
+            localStorage.setItem(savedArticlesKey, JSON.stringify(nextSavedIds));
+            updateDetailSaveButton();
+          } catch (error) {
+            console.error('Article save error:', error);
+            const text = detailTranslations[currentDetailLanguage] || detailTranslations.uz;
+            document.getElementById('article-comment-status').textContent = text.saveError;
+          }
+        });
+        document.getElementById('article-share-btn').addEventListener('click', async () => {
+          const text = detailTranslations[currentDetailLanguage] || detailTranslations.uz;
+          const title = localizedField(articleRecord, 'title') || 'Islamic Official';
+          const description = localizedField(articleRecord, 'summary') || localizedField(articleRecord, 'content') || '';
+          const shareUrl = document.querySelector('link[rel="canonical"]')?.href || location.href;
+          const shareData = { title, text: description.slice(0, 240), url: shareUrl };
+          try {
+            if (navigator.share) {
+              await navigator.share(shareData);
+              return;
+            }
+            if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable');
+            await navigator.clipboard.writeText(shareData.url);
+            showActionMessage(text.shareDone);
+          } catch (error) {
+            if (error.name === 'AbortError') return;
+            console.warn('Article sharing fallback:', error);
+            showActionMessage(text.shareError, shareData.url);
+          }
+        });
+        document.getElementById('article-download-image-btn').addEventListener('click', async (event) => {
+          const button = event.currentTarget;
+          const imageUrl = articleRecord.imageUrl || articleRecord.image || '';
+          const text = detailTranslations[currentDetailLanguage] || detailTranslations.uz;
+          button.disabled = true;
+          try {
+            const response = await fetch(imageUrl, { mode: 'cors', credentials: 'omit' });
+            if (!response.ok) throw new Error(`Image request failed with status ${response.status}`);
+            const imageBlob = await response.blob();
+            if (!imageBlob.type.startsWith('image/')) throw new Error('The response is not an image');
+            const objectUrl = URL.createObjectURL(imageBlob);
+            const anchor = document.createElement('a');
+            const baseName = (localizedField(articleRecord, 'title') || 'islamic-article')
+              .normalize('NFKD').replace(/[^\w.-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'islamic-article';
+            const extension = imageBlob.type.split('/')[1]?.replace('jpeg', 'jpg').replace(/[^a-z0-9]/gi, '') || 'jpg';
+            anchor.href = objectUrl;
+            anchor.download = `${baseName}.${extension}`;
+            document.body.appendChild(anchor);
+            anchor.click();
+            anchor.remove();
+            window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+            showActionMessage('');
+          } catch (error) {
+            console.error('Article image download error:', error);
+            showActionMessage(text.downloadError, imageUrl);
+          } finally {
+            button.disabled = false;
+          }
+        });
         const languageSelect = document.getElementById('detail-language-select');
-        languageSelect.value = localStorage.getItem('site-language') || 'uz';
+        languageSelect.value = ['uz', 'en', 'ru', 'ar'].includes(localStorage.getItem('site-language'))
+          ? localStorage.getItem('site-language')
+          : 'uz';
         languageSelect.addEventListener('change', () => applyDetailLanguage(languageSelect.value));
         applyDetailLanguage(languageSelect.value);
         document.querySelectorAll('[data-font-size]').forEach((button) => {
@@ -268,12 +428,5 @@
       }
     }
   </script>
-<div id="google_translate_element" class="google-translate-widget google-translate-floating"></div>
-<script>
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({ pageLanguage: 'uz', includedLanguages: 'en,ar,ru,uz', autoDisplay: false }, 'google_translate_element');
-}
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

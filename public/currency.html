@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Official exchange rates from supported central banks. Search major currencies, compare published rates, and convert amounts using the latest available data.">
+  <meta name="keywords" content="currency exchange rates, live currency converter, central bank exchange rates, USD EUR CAD UZS, valyuta kursi, dollar kursi, курсы валют">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#f3f7f4">
+  <meta name="google-adsense-account" content="ca-pub-5307580552409207">
+  <title>Currency exchange rates today | Currency converter</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Currency exchange rates | Official rates and converter">
+  <meta property="og:description" content="Official exchange rates from supported central banks, with currency search and an exchange-rate converter.">
+  <meta property="og:url" content="https://islamicofficial.com/currency.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://islamicofficial.com/currency.html">
+  <link rel="icon" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/currency.css?v=2026101618" rel="stylesheet">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5307580552409207" crossorigin="anonymous"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Valyuta kurslari va konvertor",
+      "alternateName": ["Currency rates", "Курсы валют", "Курс валюты"],
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "url": "https://valyuta.islamicofficial.com/",
+      "description": "Official exchange rates from supported central banks, with currency search and a converter.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "UZS" }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Kerakli valyutani qanday topaman?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Qidiruvga valyuta nomi, xalqaro kodi yoki nomining boshqa tildagi shaklini yozing. Masalan: dollar, USD, евро, рубль yoki tenge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Valyuta kurslari qayerdan olinadi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Official rates come from the supported central bank data source shown on this page; the observation date is displayed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Bu ayirboshlash shoxobchasidagi narxmi?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yo‘q. Rasmiy hisob-kitob kursi bank yoki ayirboshlash shoxobchasining sotib olish/sotish narxi, spredi yoki komissiyasidan farq qilishi mumkin."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="currency-header">
+    <a class="currency-brand" href="currency.html" aria-label="Valyuta kurslari bosh sahifasi">
+      <span class="currency-brand-mark"><i class="bi bi-currency-exchange" aria-hidden="true"></i></span>
+      <span><strong>Valyuta</strong><small>kurslari va konvertor</small></span>
+    </a>
+    <div class="currency-header-tools">
+      <span class="currency-source-chip"><i class="bi bi-shield-check" aria-hidden="true"></i><span id="currency-source-chip-label">Official source</span></span>
+      <label class="visually-hidden" for="currency-language" data-i18n="language">Til</label>
+      <select id="currency-language" class="form-select form-select-sm" aria-label="Til">
+        <option value="en">English</option><option value="uz">O‘zbekcha</option><option value="ru">Русский</option><option value="ar">العربية</option>
+      </select>
+      <button id="currency-theme-toggle" class="currency-icon-button" type="button" aria-label="Tungi rejimni yoqish" title="Tungi rejimni yoqish"><i class="bi bi-moon-stars" aria-hidden="true"></i></button>
+      <a class="currency-home-link" href="index.html"><i class="bi bi-arrow-left" aria-hidden="true"></i><span data-i18n="home">Asosiy sayt</span></a>
+    </div>
+  </header>
+
+  <main class="currency-main">
+    <section class="currency-hero">
+      <div class="currency-hero-copy">
+        <span class="currency-eyebrow"><span class="currency-live-dot"></span><span id="currency-source-label">Central bank rates</span></span>
+        <h1 data-i18n="heroTitle">Valyuta kurslari</h1>
+        <p data-i18n="heroText">Rasmiy kurslarni kuzating, valyutalarni taqqoslang va hisob-kitobni tez bajaring.</p>
+        <div class="currency-updated"><i class="bi bi-clock-history" aria-hidden="true"></i><span data-i18n="published">Kurs sanasi:</span><strong id="published-date" data-i18n="loading">Yuklanmoqda…</strong></div>
+      </div>
+      <div class="currency-hero-art" aria-hidden="true">
+        <span class="currency-orbit orbit-one"></span><span class="currency-orbit orbit-two"></span>
+        <span class="currency-coin coin-usd">$</span><span class="currency-coin coin-eur">€</span><span id="hero-default-coin" class="currency-coin coin-uzs">UZS</span>
+        <i class="bi bi-arrow-left-right"></i>
+      </div>
+    </section>
+
+    <div id="currency-alert" class="currency-alert d-none" role="status" aria-live="polite"></div>
+
+    <section class="currency-account-card" aria-labelledby="currency-account-title">
+      <div class="currency-account-copy">
+        <span class="currency-overline" data-i18n="accountEyebrow">Siz uchun qulayliklar</span>
+        <h2 id="currency-account-title" data-i18n="accountTitle">Google bilan kiring</h2>
+        <p data-i18n="accountBenefits">Sevimli valyutalar, konvertor juftligi, til va rang sozlamalarini qurilmalar orasida saqlang.</p>
+        <small id="currency-account-status" role="status" aria-live="polite"></small>
+      </div>
+      <div class="currency-account-actions">
+        <button id="currency-sign-in" type="button" class="currency-sign-in"><i class="bi bi-google" aria-hidden="true"></i><span data-i18n="signInGoogle">Google bilan kirish</span></button>
+        <button id="currency-email-toggle" type="button" class="currency-sign-in currency-email-toggle"><i class="bi bi-envelope" aria-hidden="true"></i><span data-i18n="signInEmail">Email orqali kirish</span></button>
+        <button id="currency-sign-out" type="button" class="currency-sign-out" hidden data-i18n="signOut">Chiqish</button>
+      </div>
+      <form id="currency-email-form" class="currency-email-form" hidden>
+        <label><span data-i18n="emailLabel">Email</span><input id="currency-email" type="email" autocomplete="email" required></label>
+        <label><span data-i18n="passwordLabel">Parol</span><input id="currency-password" type="password" autocomplete="current-password" minlength="6" required></label>
+        <div class="currency-email-actions">
+          <button id="currency-email-login" class="currency-sign-in" type="submit" data-i18n="emailLogin">Email bilan kirish</button>
+          <button id="currency-email-register" class="currency-sign-out" type="button" data-i18n="emailRegister">Hisob yaratish</button>
+        </div>
+      </form>
+      <p id="currency-email-status" class="currency-email-status" role="status" aria-live="polite"></p>
+      <div id="currency-profile" class="currency-profile" hidden>
+        <div class="currency-profile-identity"><span class="currency-profile-avatar"><i class="bi bi-person-circle" aria-hidden="true"></i></span><span><strong id="currency-profile-name"></strong><small id="currency-profile-email"></small></span></div>
+        <div class="currency-profile-stats">
+          <span><small data-i18n="profileHomeCurrency">Local currency</small><strong id="currency-profile-home">—</strong></span>
+          <span><small data-i18n="profileFavorites">Saved currencies</small><strong id="currency-profile-favorites">0</strong></span>
+          <span><small data-i18n="profilePair">Converter pair</small><strong id="currency-profile-pair">—</strong></span>
+        </div>
+        <p class="currency-profile-source"><span data-i18n="profileSource">Rate source</span><strong id="currency-profile-source">—</strong></p>
+      </div>
+    </section>
+
+    <section class="currency-converter-card" aria-labelledby="converter-title">
+      <div class="currency-section-heading">
+        <div><span class="currency-overline" data-i18n="toolLabel">Qulay hisob-kitob</span><h2 id="converter-title" data-i18n="converterTitle">Valyuta konvertori</h2></div>
+        <div class="currency-heading-actions">
+          <button id="location-currency" type="button" class="currency-location-button"><i class="bi bi-geo-alt" aria-hidden="true"></i><span data-i18n="locationButton">Joylashuvim bo‘yicha</span></button>
+          <button id="refresh-rates" type="button" class="currency-refresh"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i><span data-i18n="refresh">Kursni yangilash</span></button>
+        </div>
+      </div>
+      <div class="currency-converter-grid">
+        <label class="currency-input-group"><span data-i18n="amountLabel">Miqdor</span><input id="convert-amount" type="number" min="0" step="any" value="1" inputmode="decimal" autocomplete="off"></label>
+        <div class="currency-input-group"><label for="convert-from" data-i18n="fromLabel">Dan</label><input id="convert-from-search" class="form-control currency-select-search" type="search" data-i18n-placeholder="fromSearchPlaceholder" data-i18n-aria-label="fromSearchPlaceholder" placeholder="Valyutani izlash…" autocomplete="off"><select id="convert-from" class="form-select" data-i18n-aria-label="fromLabel"></select></div>
+        <button id="swap-currencies" class="currency-swap" type="button" aria-label="Valyutalarni almashtirish" title="Valyutalarni almashtirish"><i class="bi bi-arrow-left-right" aria-hidden="true"></i></button>
+        <div class="currency-input-group"><label for="convert-to" data-i18n="toLabel">Ga</label><input id="convert-to-search" class="form-control currency-select-search" type="search" data-i18n-placeholder="toSearchPlaceholder" data-i18n-aria-label="toSearchPlaceholder" placeholder="Valyutani izlash…" autocomplete="off"><select id="convert-to" class="form-select" data-i18n-aria-label="toLabel"></select></div>
+      </div>
+      <div class="currency-conversion-result">
+        <div><span data-i18n="resultLabel">Hisoblangan qiymat</span><strong id="conversion-result">—</strong></div>
+        <button id="copy-result" type="button" class="currency-copy" disabled><i class="bi bi-copy" aria-hidden="true"></i><span data-i18n="copy">Nusxalash</span></button>
+      </div>
+      <p class="currency-converter-note"><i class="bi bi-info-circle" aria-hidden="true"></i><span data-i18n="converterNote">Calculations use the selected central bank’s published reference rates. Cash exchange rates and fees may differ.</span></p>
+      <p id="currency-location-status" class="currency-location-status" role="status" aria-live="polite"></p>
+      <small class="currency-location-privacy" data-i18n="locationPrivacy">Joylashuv faqat tugmani bosib ruxsat berganingizda olinadi. Koordinatalar OpenStreetMap’ga bir martalik teskari manzil so‘rovi uchun yuboriladi va saqlanmaydi.</small>
+      <small class="currency-auto-refresh-note" data-i18n="autoRefreshNote">Rates are checked every minute; values update when the selected source publishes them.</small>
+    </section>
+
+    <section class="currency-rates-section" aria-labelledby="rates-title">
+      <div class="currency-section-heading rates-heading">
+        <div><span class="currency-overline" data-i18n="dailyRates">Kunlik ma’lumotlar</span><h2 id="rates-title" data-i18n="tableTitle">Rasmiy kurslar</h2></div>
+        <label class="currency-table-search"><i class="bi bi-search" aria-hidden="true"></i><span class="visually-hidden" data-i18n="searchLabel">Valyuta qidirish</span><input id="currency-search" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Valyuta yoki kodni qidiring…" autocomplete="off"></label>
+      </div>
+      <div class="currency-filter-row">
+        <button type="button" class="currency-filter" data-filter="all" data-i18n="allCurrencies">Barcha valyutalar</button>
+        <button type="button" class="currency-filter active" data-filter="popular" data-i18n="popular">Ommabop</button>
+        <button type="button" class="currency-filter" data-filter="favorites"><i class="bi bi-star" aria-hidden="true"></i><span data-i18n="favorites">Saqlanganlar</span><span id="favorite-count" class="favorite-count">0</span></button>
+        <span id="rates-count" class="currency-count" aria-live="polite"></span>
+      </div>
+      <div class="currency-table-wrap">
+        <table class="currency-table">
+          <thead><tr><th data-i18n="currencyHead">Currency</th><th data-i18n="codeHead">Code</th><th class="text-end" data-i18n="unitHead">Unit</th><th id="currency-rate-heading" class="text-end">Rate</th><th data-i18n="changeHead">Change</th><th><span class="visually-hidden" data-i18n="actions">Actions</span></th></tr></thead>
+          <tbody id="currency-rows"><tr><td colspan="6" class="currency-table-message" data-i18n="loading">Kurslar yuklanmoqda…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="currency-source-note"><i class="bi bi-link-45deg" aria-hidden="true"></i><span data-i18n="sourcePrefix">Data source:</span> <a id="currency-source-link" href="https://cbu.uz/en/arkhiv-kursov-valyut/json/" target="_blank" rel="noopener noreferrer">Selected central bank</a>. <span data-i18n="sourceNote">These are official reference rates, not bank or exchange-office buy/sell prices.</span></p>
+    </section>
+
+    <section id="currency-history" class="currency-history-card" aria-labelledby="currency-history-title">
+      <div class="currency-section-heading">
+        <div><span class="currency-overline" data-i18n="historyEyebrow">Official daily data</span><h2 id="currency-history-title" data-i18n="historyTitle">Exchange-rate history</h2></div>
+        <div class="currency-history-controls">
+          <label for="history-currency" data-i18n="historyCurrency">Currency</label>
+          <select id="history-currency" class="form-select" aria-label="Currency"></select>
+          <div class="currency-history-ranges" role="group" aria-label="History period">
+            <button type="button" class="currency-history-range active" data-history-days="30" aria-pressed="true" data-i18n="history30">30 days</button>
+            <button type="button" class="currency-history-range" data-history-days="90" aria-pressed="false" data-i18n="history90">90 days</button>
+            <button type="button" class="currency-history-range" data-history-days="365" aria-pressed="false" data-i18n="history365">1 year</button>
+            <button id="history-refresh" type="button" class="currency-history-action" data-i18n-title="historyRefresh" data-i18n-aria-label="historyRefresh" aria-label="Refresh chart" title="Refresh chart"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i><span data-i18n="historyRefresh">Refresh chart</span></button>
+            <button id="history-download" type="button" class="currency-history-action" data-i18n-title="historyDownload" data-i18n-aria-label="historyDownload" aria-label="Download chart image" title="Download chart image" disabled><i class="bi bi-download" aria-hidden="true"></i><span data-i18n="historyDownload">Download image</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="currency-history-summary">
+        <span id="history-rate-label" data-i18n="historyLoading">Loading official history…</span>
+        <strong id="history-change">—</strong>
+      </div>
+      <div id="history-chart-wrap" class="currency-history-chart-wrap">
+        <p id="history-status" data-i18n="historyLoading">Loading official history…</p>
+        <svg id="history-chart" class="currency-history-chart" viewBox="0 0 800 300" role="img" aria-label="Exchange rate history"></svg>
+      </div>
+      <p class="currency-history-source"><i class="bi bi-shield-check" aria-hidden="true"></i><span data-i18n="historySourceNote">Historical points come from the official source shown above. Holidays may have no new rate.</span></p>
+    </section>
+
+    <section class="currency-info-grid" aria-label="Valyuta kurslari haqida">
+      <article class="currency-info-card"><span class="info-icon"><i class="bi bi-patch-check" aria-hidden="true"></i></span><div><h3 data-i18n="infoOfficialTitle">Rasmiy manba</h3><p data-i18n="infoOfficialText">Kurslar Markaziy bank ochiq ma’lumotlar xizmatidan olinadi.</p></div></article>
+      <article class="currency-info-card"><span class="info-icon"><i class="bi bi-calendar2-check" aria-hidden="true"></i></span><div><h3 data-i18n="infoDateTitle">E’lon qilingan sana</h3><p data-i18n="infoDateText">Dam olish va bayram kunlari yangi kurs e’lon qilinmasligi mumkin. Har doim kurs sanasini tekshiring.</p></div></article>
+      <article class="currency-info-card"><span class="info-icon"><i class="bi bi-calculator" aria-hidden="true"></i></span><div><h3 data-i18n="infoCalcTitle">Hisob-kitob uchun</h3><p data-i18n="infoCalcText">Konvertor taxminiy natija beradi; amaliy ayirboshlashda moliya tashkilotining kursi qo‘llanadi.</p></div></article>
+    </section>
+    <section class="currency-faq" aria-labelledby="currency-faq-title">
+      <span class="currency-overline" data-i18n="helpLabel">Valyuta kurslari haqida</span>
+      <h2 id="currency-faq-title" data-i18n="faqTitle">Kursni izlash va tushunish</h2>
+      <div class="currency-faq-grid">
+        <article><h3 data-i18n="faqSearchTitle">Kerakli valyutani qanday topaman?</h3><p data-i18n="faqSearchText">Qidiruvga valyuta nomi, xalqaro kodi yoki nomining boshqa tildagi shaklini yozing. Masalan: dollar, USD, евро, рубль yoki tenge.</p></article>
+        <article><h3 data-i18n="faqOfficialTitle">Kurs qayerdan olinadi?</h3><p><span data-i18n="faqOfficialPrefix">Rates come from the official open-data service of</span> <strong id="faq-source-label">the selected central bank</strong>; <span data-i18n="faqOfficialSuffix">the observation date is shown.</span></p></article>
+        <article><h3 data-i18n="faqExchangeTitle">Bu ayirboshlash shoxobchasidagi narxmi?</h3><p data-i18n="faqExchangeText">Yo‘q. Rasmiy hisob-kitob kursi bank yoki ayirboshlash shoxobchasining sotib olish/sotish narxi, spredi yoki komissiyasidan farq qilishi mumkin.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="currency-footer">
+    <span>© <span id="current-year"></span> <span data-i18n="footerTitle">Valyuta kurslari</span></span>
+    <span data-i18n="footerDisclaimer">Mustaqil ma’lumot sahifasi · rasmiy kurslar manbaga bog‘liq holda yangilanadi</span>
+    <a href="currency-privacy.html" data-i18n="privacy">Valyuta sahifasi maxfiyligi</a>
+  </footer>
+  <script src="assets/js/currency.js?v=2026101618" defer></script>
+</body>
+</html>

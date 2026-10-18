@@ -1,6 +1,31 @@
 {
   "hosting": {
     "public": "public",
+    "predeploy": [
+      "node scripts/build-article-sitemap.js"
+    ],
+    "redirects": [
+      {
+        "source": "/blog-details.html",
+        "destination": "/blog.html",
+        "type": 301
+      },
+      {
+        "source": "/portfolio-details.html",
+        "destination": "/index.html#services",
+        "type": 301
+      },
+      {
+        "source": "/service-details.html",
+        "destination": "/index.html#services",
+        "type": 301
+      },
+      {
+        "source": "/starter-page.html",
+        "destination": "/index.html",
+        "type": 301
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",

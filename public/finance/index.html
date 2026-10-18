@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123c32">
+  <meta name="description" content="Pul, oltin, savdo tovarlari va qarzlar bo‘yicha zakot miqdorini qo‘lda kiritilgan nisob asosida taxminiy hisoblang.">
+  <link rel="canonical" href="https://islamicofficial-finance.web.app/">
+  <title>Zakot va islomiy moliya vositalari | Islamic Official</title>
+  <link rel="icon" href="https://islamicofficial.com/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+  <style>[hidden]{display:none!important}</style>
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Zakot va islomiy moliya vositalari","url":"https://islamicofficial-finance.web.app/","applicationCategory":"FinanceApplication","operatingSystem":"Any","isAccessibleForFree":true}
+  </script>
+  <script defer src="site-locale.js?v=4"></script>
+  <script defer src="app.js?v=2"></script>
+</head>
+<body data-site-locale="finance">
+  <header class="topbar">
+    <a class="brand" href="https://islamicofficial.com/"><span class="brand-mark">☾</span><span><strong>Islamic Official</strong><small>HALOL MOLIYA</small></span></a>
+    <nav aria-label="Asosiy navigatsiya"><a href="#zakot">Zakot kalkulyatori</a><a href="#tekshiruv">Kompaniya haqida</a><a href="#cheklov">Cheklovlar</a></nav>
+    <div class="top-actions"><button id="theme-toggle" class="icon-button" type="button" aria-label="Tungi rejim">◐</button><a class="home-link" href="https://islamicofficial.com/">Asosiy sayt ↗</a></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> Ochiq · qulay · siz kiritgan ma’lumot</p>
+        <h1>Moliyaviy ibodatni <em>aniqroq rejalang.</em></h1>
+        <p>Zakotga tegishli mol-mulkni jamlang, nisob bilan solishtiring va taxminiy miqdorni ko‘ring. Hisob-kitob ma’lumotlari qurilmangizdan chiqmaydi.</p>
+        <a class="primary-link" href="#zakot">Zakotni hisoblash <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="coin coin-one">ز</div><div class="coin coin-two">٪</div><div class="hero-stat"><span>Yillik reja</span><strong>2.5%</strong></div></div>
+    </section>
+    <section class="section" id="zakot">
+      <div class="section-title"><div><p class="eyebrow dark-eyebrow">ZAKOT HISOBI</p><h2>O‘z ma’lumotlaringizni kiriting</h2></div><p>Nisob qiymati va mol-mulk narxlarini ishonchli mahalliy manbadan o‘zingiz yangilang.</p></div>
+      <div class="calculator-grid">
+        <form class="panel calculator" id="zakat-form">
+          <div class="form-grid">
+            <label>Hisob valyutasi<select id="currency"><option value="UZS">UZS — so‘m</option><option value="USD">USD — dollar</option><option value="EUR">EUR — yevro</option><option value="KGS">KGS — som</option><option value="KZT">KZT — tenge</option><option value="RUB">RUB — rubl</option></select></label>
+            <label>Nisob usuli<select id="nisab-method"><option value="gold">Oltin — 85 g</option><option value="silver">Kumush — 595 g</option><option value="manual">Qiymatni o‘zim kiritaman</option></select></label>
+            <label id="gram-price-wrap">Metallning 1 grammi narxi<input id="gram-price" type="number" min="0" step="any" inputmode="decimal" placeholder="Masalan: 900000"></label>
+            <label id="nisab-wrap" class="wide">Nisob qiymati (<span class="currency-label">UZS</span>)<input id="nisab" type="number" min="0" step="any" inputmode="decimal" placeholder="Mahalliy narx asosida kiriting"></label>
+          </div>
+          <p class="field-help">Barcha summalarni tanlangan bitta valyutada kiriting. Valyutani tanlash summalarni konvertatsiya qilmaydi.</p>
+          <p class="field-help" id="nisab-help">Oltin yoki kumushning amaldagi gram narxini kiriting. Nisob bahosi shu qiymatdan hisoblanadi.</p>
+          <div class="form-grid asset-grid">
+            <label>Naqd pul va bankdagi mablag‘<input name="cash" type="number" min="0" step="any" inputmode="decimal" value="0"></label>
+            <label>Zakotga tortiladigan oltin-kumush qiymati<input name="metals" type="number" min="0" step="any" inputmode="decimal" value="0"></label>
+            <label>Savdo uchun mo‘ljallangan tovarlar qiymati<input name="trade" type="number" min="0" step="any" inputmode="decimal" value="0"></label>
+            <label>Qaytishi kutilayotgan qarzlar<input name="receivables" type="number" min="0" step="any" inputmode="decimal" value="0"></label>
+            <label>Yaqin muddatda to‘lanadigan qarzlar<input name="debts" type="number" min="0" step="any" inputmode="decimal" value="0"></label>
+            <label>Zakot stavkasi (%)<input id="rate" type="number" min="0.01" max="100" step="0.01" value="2.5"></label>
+          </div>
+          <label class="check-row"><input id="haul" type="checkbox"><span>Mulk nisobga yetganidan keyin zakot yili (qamariy yil) to‘ldi</span></label>
+          <button class="button button-primary" type="submit">Hisoblash</button>
+          <p class="form-error" id="form-error" role="alert"></p>
+        </form>
+        <aside class="panel result-panel" aria-live="polite">
+          <span class="panel-icon" aria-hidden="true">◈</span><p class="eyebrow dark-eyebrow">TAXMINIY NATIJA</p><h2>Zakot xulosasi</h2>
+          <div class="result-line"><span>Jami hisobga olingan mol-mulk</span><strong id="net-assets">—</strong></div>
+          <div class="result-line"><span>Nisob qiymati</span><strong id="nisab-result">—</strong></div>
+          <div class="zakat-due"><span>Taxminiy zakot</span><strong id="zakat-due">Ma’lumot kiriting</strong></div>
+          <p id="result-message" class="result-message">Qiymatlarni kiriting va “Hisoblash” tugmasini bosing.</p>
+          <p class="small-note">Hisob buxgalteriya yoki fatvo emas. Oltin taqinchog‘i, qarzlar, aksiyalar, nisob va zakot vaqti mazhab hamda holatga qarab farq qilishi mumkin.</p>
+        </aside>
+      </div>
+    </section>
+    <section class="section screening-section" id="tekshiruv">
+      <div class="section-title"><div><p class="eyebrow dark-eyebrow">HALOLLIKNI O‘RGANISH</p><h2>Kompaniya uchun tekshiruv ro‘yxati</h2></div><p>Aksiya yoki kriptoaktivga “halol” degan avtomatik yorliq bermaymiz. Ma’lumotlar va fatvo uchun mutaxassisga murojaat qiling.</p></div>
+      <div class="panel checklist-panel">
+        <p class="muted">Kompaniya va investitsiyani o‘rganishda quyidagilarni tekshiring. Belgilaringiz faqat shu brauzer oynasida, qaror o‘rnida emas.</p>
+        <label class="check-row"><input type="checkbox"> Asosiy faoliyat va daromad manbalari halol mezonlar bo‘yicha o‘rganildi</label>
+        <label class="check-row"><input type="checkbox"> Foizli qarzlar va foizdan olinadigan daromad bo‘yicha moliyaviy hisobot tekshirildi</label>
+        <label class="check-row"><input type="checkbox"> Saralash standarti, moliyaviy ma’lumot sanasi va mutaxassis xulosasi tekshirildi</label>
+        <div class="notice"><strong>Bu servis kompaniya yoki token ma’lumotlar bazasiga ulanmagan.</strong> Belgilar halollikni tasdiqlamaydi. Shariatga muvofiqlik mezonlari standartlar, moliyaviy ko‘rsatkichlar va olimlar yondashuviga qarab farq qiladi.</div>
+      </div>
+    </section>
+    <section class="notice-section" id="cheklov">
+      <div class="notice-icon" aria-hidden="true">!</div><div><h2>Hisobni mutaxassis bilan tekshiring</h2><p>Nisobga yetish, qamariy yil, qaysi qarz va mol-mulk kiritilishi mazhab va shaxsiy vaziyatga qarab farq qilishi mumkin. Chorva, kon mahsulotlari, murakkab biznes aktivlari va investitsiyalar uchun ishonchli olim yoki zakot mutaxassisidan so‘rang. Metall va valyuta kurslari avtomatik olinmaydi; bu sahifaga kiritgan raqamlaringizga javobgarsiz.</p></div>
+    </section>
+  </main>
+  <footer><a href="https://islamicofficial.com/">Islamic Official</a><span>Hisoblar faqat ushbu qurilmada bajariladi.</span><a href="https://islamicofficial-meros.web.app/">Meros kalkulyatori ↗</a></footer>
+</body>
+</html>

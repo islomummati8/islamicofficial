@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "islamicofficial-valyuta",
+    "public": "dist/currency",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

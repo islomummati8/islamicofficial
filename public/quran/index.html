@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4efe4">
+  <meta name="description" content="Qur’oni Karimning barcha 114 surasi va 30 juzini ko‘p ko‘rinishlarda, ko‘zga qulay rang va matn o‘lchamlarida o‘qing.">
+  <link rel="canonical" href="https://islamicofficial-quran.web.app/">
+  <title>Qur’oni Karim — 30 juz va 114 sura | Islamic Official</title>
+  <link rel="icon" href="https://islamicofficial.com/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css?v=2026101820">
+  <script defer src="site-locale.js?v=4"></script>
+  <script defer src="app.js?v=2026101820"></script>
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Qur’oni Karim o‘quvchisi","url":"https://islamicofficial-quran.web.app/","applicationCategory":"BooksApplication","operatingSystem":"Any","isAccessibleForFree":true}
+  </script>
+</head>
+<body data-theme="cream" data-mode="scroll" data-site-locale="quran">
+  <header class="topbar">
+    <a class="brand" href="https://islamicofficial.com/">
+      <span class="brand-mark" aria-hidden="true">☾</span>
+      <span><strong>Islamic Official</strong><small>QUR’ONI KARIM</small></span>
+    </a>
+    <nav aria-label="Asosiy navigatsiya"><a href="#reader">Qur’onni o‘qish</a><a href="#bookmarks">Saqlangan oyatlar</a></nav>
+    <a class="home-link" href="https://islamicofficial.com/">Asosiy sayt ↗</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> To‘liq Qur’on · 114 sura · 30 juz</p>
+        <h1>Qur’oni <em>Karim.</em></h1>
+        <p>O‘zingizga qulay uslubda o‘qing: sura yoki juzni tanlang, sahifa ko‘rinishiga o‘ting va ko‘zingizga mos rang hamda matn o‘lchamini sozlang.</p>
+        <a class="primary-link" href="#reader">O‘qishni boshlash <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="glow"></div><span class="star star-a">✦</span><span class="star star-b">✧</span>
+        <div class="arabic-ornament">الْقُرْآنُ</div><span class="art-caption">Tinchlik bilan, o‘zingizga qulay tarzda</span>
+      </div>
+    </section>
+
+    <section class="reader-section" id="reader" aria-labelledby="reader-main-title">
+      <div class="reader-intro">
+        <div><p class="eyebrow">QUR’ON O‘QUVCHISI</p><h2 id="reader-main-title">O‘qish joyingizni tanlang</h2></div>
+        <button class="button button-quiet" id="resume-button" type="button" hidden>Oxirgi joydan davom etish</button>
+      </div>
+
+      <div class="reader-toolbar" aria-label="Qur’on navigatsiyasi">
+        <label class="control-field"><span>Sura bo‘yicha</span><select id="surah-select" aria-label="Sura tanlang"></select></label>
+        <label class="control-field"><span>Juz bo‘yicha</span><select id="juz-select" aria-label="Juz tanlang"></select></label>
+        <div class="search-field search-control">
+          <label class="control-field" for="quran-search"><span>Qidirish</span><input id="quran-search" type="search" placeholder="Sura, oyat yoki arabcha matn" autocomplete="off"></label>
+          <button class="button button-secondary voice-button" id="voice-search" type="button" aria-label="Ovoz bilan qidirish" title="Ovoz bilan qidirish">🎙</button>
+        </div>
+        <label class="control-field"><span>O‘qish ko‘rinishi</span>
+          <select id="mode-select">
+            <option value="scroll">Uzluksiz o‘qish</option>
+            <option value="mushaf">Mushaf sahifasi · tekis satrlar</option>
+            <option value="focus">Oyatma-oyat</option>
+          </select>
+        </label>
+      </div>
+      <p class="search-privacy-note">Ovozli qidiruv brauzer nutq xizmatidan foydalanishi mumkin; audio ushbu Qur’on saytida saqlanmaydi.</p>
+      <div class="search-results" id="search-results" role="list" hidden></div>
+
+      <div class="reading-options" aria-label="O‘qish qulayligi">
+        <span class="reading-summary" id="reading-summary">Qaymoq rang · tajvidsiz · 34 px</span>
+        <button class="button button-quiet" id="settings-open" type="button">⚙ O‘qish sozlamalari</button>
+        <button class="button button-quiet" id="bookmarks-toggle" type="button" aria-expanded="false" aria-controls="bookmarks">Saqlanganlar <span id="bookmark-count">0</span></button>
+      </div>
+      <dialog class="settings-dialog" id="reader-settings" aria-labelledby="settings-title">
+        <form method="dialog" class="settings-shell">
+          <header class="settings-header">
+            <div><p class="eyebrow">O‘ZINGIZGA MOSLANG</p><h3 id="settings-title">Qur’on o‘qish sozlamalari</h3></div>
+            <button class="icon-button" value="cancel" aria-label="Sozlamalarni yopish">×</button>
+          </header>
+          <div class="settings-body">
+            <label class="option-field theme-field"><span>Ko‘zga qulay sahifa rangi</span>
+              <select id="theme-select">
+                <option value="paper">Oq sahifa</option>
+                <option value="cream" selected>Muloyim qaymoq</option>
+                <option value="sepia">Sepiya</option>
+                <option value="sage">Yumshoq yashil</option>
+                <option value="dark">Tungi qoramtir</option>
+                <option value="night">Iliq tungi</option>
+              </select>
+            </label>
+            <fieldset class="tajweed-fieldset">
+              <legend>Tajvid ko‘rinishi</legend>
+              <p class="settings-hint">Rangli oyat matni Quran.com Uthmani manbasidan, ranglar esa har bir tajvid qoidasining rang jadvalidan olinadi. Ranglar o‘zimizcha qayta guruhlanmagan. Bu ko‘rinish tajvid tekshiruvi yoki fatvo bermaydi.</p>
+              <div class="tajweed-presets" id="tajweed-presets">
+                <button class="tajweed-preset" type="button" data-preset="off" aria-pressed="true">
+                  <span class="preset-preview" id="preview-off" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+                  <strong>Tajvidsiz</strong><small>Oddiy Uthmani matn</small>
+                </button>
+                <button class="tajweed-preset" type="button" data-preset="mushaf" aria-pressed="false">
+                  <span class="preset-preview" id="preview-mushaf" lang="ar" dir="rtl">Rangli tajvid</span>
+                  <strong>Mushafdagi tajvid</strong><small>Manbadagi matn va ranglar aynan saqlanadi</small>
+                </button>
+              </div>
+            </fieldset>
+            <fieldset class="size-fieldset">
+              <legend>Matn o‘lchami — ikki usul</legend>
+              <label class="radio-choice"><input type="radio" name="size-mode" value="page" checked><span><strong>Sahifa miqyosi</strong><small>Matn kattalashadi, sahifa satrlarining shakli saqlanadi; telefonda yon tomonga suring.</small></span></label>
+              <label class="radio-choice"><input type="radio" name="size-mode" value="text"><span><strong>Matn o‘lchami</strong><small>Harflar kattalashadi va satrlar yangi o‘lchamga moslanadi.</small></span></label>
+              <div class="font-controls">
+                <button class="button button-secondary" id="font-down" type="button" aria-label="Kichraytirish">A−</button>
+                <output id="font-size-value" for="font-down font-up">100%</output>
+                <button class="button button-secondary" id="font-up" type="button" aria-label="Kattalashtirish">A+</button>
+              </div>
+            </fieldset>
+            <label class="option-field spacing-field"><span>Qator oralig‘i</span>
+              <select id="spacing-select"><option value="normal">Oddiy</option><option value="relaxed" selected>Keng</option><option value="wide">Juda keng</option></select>
+            </label>
+          </div>
+          <footer class="settings-footer"><span>Tanlovlaringiz ushbu qurilmada saqlanadi.</span><button class="button button-primary" value="cancel">Tayyor</button></footer>
+        </form>
+      </dialog>
+
+      <div class="reader-status" id="reader-status" role="status" aria-live="polite"></div>
+      <section class="reader-audio" aria-label="Qori qiroati">
+        <div>
+          <label for="reciter-select">Qori</label>
+          <select id="reciter-select" aria-label="Qori tanlang"><option value="7">Mishari Rashid al-Afasi</option></select>
+        </div>
+        <button class="button button-secondary" id="play-surah" type="button">▶ Surani tinglash</button>
+        <audio id="quran-audio" preload="none" aria-label="Qur’on qiroati"></audio>
+        <a class="audio-library-link" href="https://islamicofficial-audio.web.app/">Audio kutubxonasi ↗</a>
+      </section>
+      <fieldset class="translation-options">
+        <label class="translation-toggle"><input id="translation-toggle" type="checkbox"> Tarjimani ko‘rsatish</label>
+        <label for="translation-select">Tarjima tili
+          <select id="translation-select">
+            <option value="55">O‘zbekcha · Muhammad Sodiq Muhammad Yusuf</option>
+            <option value="79">Русский · Абу Адель</option>
+            <option value="20">English · Saheeh International</option>
+          </select>
+        </label>
+      </fieldset>
+      <p class="audio-source-note" id="audio-status" role="status" aria-live="polite">Qori tanlang va surani tinglang. Qiroat manbasi: Quran.com Audio API.</p>
+      <section class="bookmark-panel" id="bookmarks" aria-label="Saqlangan oyatlar" hidden>
+        <div class="bookmark-heading"><h3>Saqlangan oyatlar</h3><button class="text-button" id="bookmarks-close" type="button">Yopish</button></div>
+        <div id="bookmark-list"></div>
+      </section>
+      <p class="horizontal-hint" id="horizontal-hint" hidden>Sahifa ko‘rinishida chap-o‘ngga suring yoki o‘qish oynasidagi gorizontal rejim tugmasini bosing.</p>
+      <section class="reader-card" aria-labelledby="reader-title">
+        <div class="reader-card-header">
+          <div><p class="eyebrow" id="reader-subtitle">QUR’ON O‘QISH</p><h3 id="reader-title">Yuklanmoqda…</h3></div>
+          <div class="reading-meta"><span id="juz-label"></span><span id="page-label"></span></div>
+          <button class="button button-secondary orientation-toggle-button" id="orientation-toggle" type="button" aria-pressed="false">↻ Gorizontal o‘qish</button>
+        </div>
+        <div class="progress-row"><progress id="reading-progress" max="604" value="1"></progress><span id="progress-label">1 / 604 sahifa</span></div>
+        <div class="reader-content" id="reader-content" lang="ar" dir="rtl" aria-label="Qur’on oyatlari"></div>
+        <section class="tajweed-legend" id="tajweed-legend" aria-labelledby="tajweed-legend-title" hidden>
+          <div class="tajweed-legend-heading">
+            <div><p class="eyebrow">TAJVID RANGLARI</p><h4 id="tajweed-legend-title">Ranglar va qoidalar</h4></div>
+            <span>Ranglar manba jadvaliga mos</span>
+          </div>
+          <ul class="tajweed-rule-list">
+            <li><span class="rule-swatch" style="--rule-color:#AAAAAA"></span><span><strong>Hamzatul vasl</strong><small>Ulab o‘qilganda tushib qoladigan hamza</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#AAAAAA"></span><span><strong>Lam shamsiyya</strong><small>Keyingi harfga qo‘shib o‘qiladigan “lam”</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#AAAAAA"></span><span><strong>Sukut</strong><small>Bu joyda to‘xtash belgisi</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#537FFF"></span><span><strong>Madd tabi‘iy</strong><small>Tabiiy cho‘ziq madd</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#4050FF"></span><span><strong>Madd jaiz</strong><small>Ruxsat etilgan cho‘ziq madd</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#000EBC"></span><span><strong>Madd lozim</strong><small>Lozim bo‘lgan cho‘ziq madd</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#2144C1"></span><span><strong>Madd vojib</strong><small>Vojib cho‘ziq madd</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#DD0008"></span><span><strong>Qalqala</strong><small>Qalqala harflaridagi aks-sado</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#D500B7"></span><span><strong>Ixfo shafaviy</strong><small>“Ba” oldidan lab bilan ixfo</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#9400A8"></span><span><strong>Ixfo</strong><small>Yashirib, g‘unna bilan o‘qish</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#26BFFD"></span><span><strong>Iqlob</strong><small>“Nun” tovushini “mim”ga aylantirish</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#58B800"></span><span><strong>Idg‘om shafaviy</strong><small>Ikki “mim”ni qo‘shib, g‘unna bilan o‘qish</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#169200"></span><span><strong>Idg‘om bi-g‘unna</strong><small>G‘unna bilan qo‘shib o‘qish</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#169200"></span><span><strong>Idg‘om bila-g‘unna</strong><small>G‘unnasiz qo‘shib o‘qish</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#A1A1A1"></span><span><strong>Idg‘om mutajanisayn</strong><small>Mahraji bir, sifati boshqa harflarni qo‘shish</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#A1A1A1"></span><span><strong>Idg‘om mutaqaribayn</strong><small>Mahraji yaqin harflarni qo‘shish</small></span></li>
+            <li><span class="rule-swatch" style="--rule-color:#FF7E1E"></span><span><strong>G‘unna</strong><small>Burun tovushi bilan o‘qish</small></span></li>
+          </ul>
+          <p class="tajweed-legend-note">Izohlar qisqa tanishtiruv uchundir; to‘g‘ri talaffuzni ustozdan o‘rganing.</p>
+        </section>
+        <div class="page-controls">
+          <button class="button button-secondary" id="previous-button" type="button">← Oldingi</button>
+          <span id="navigation-label">Sura 1 / 114</span>
+          <button class="button button-secondary" id="next-button" type="button">Keyingi →</button>
+        </div>
+      </section>
+      <p class="source-note">Oddiy arabcha matn va sahifa/juz ma’lumotlari: <a href="https://alquran.cloud/" target="_blank" rel="noopener noreferrer">AlQuran.cloud</a>. Rangli tajvid matni: <a href="https://quran.com/" target="_blank" rel="noopener noreferrer">Quran.com Uthmani tajvid nashri</a>; qoida ranglari: <a href="https://github.com/TarteelAI/quranic-universal-library/blob/f099c1076eae2c9cc0bfac8c69f477a7bc7922b6/app/assets/stylesheets/shared/tajweed.scss" target="_blank" rel="noopener noreferrer">Tarteel QUL tajvid rang jadvali</a>. Kichik ekranda Mushaf sahifasini yon tomonga suring. Saqlangan oyatlar va oxirgi joy qurilmada turadi; Google hisobi bilan xohlasangiz shaxsiy hisobingizga sinxronlanadi. Oyat yonidagi ▶ uni alohida tinglaydi; Mushaf sahifasi rejimida pastdagi tugmalar bilan sahifalab o‘qing.</p>
+    </section>
+  </main>
+
+  <section class="audio-dock" id="audio-dock" aria-label="Qur’on audio boshqaruvi" hidden>
+    <div class="audio-dock-track">
+      <strong id="dock-surah">Sura tanlanmagan</strong>
+      <span id="dock-verse">Qori qiroati</span>
+      <span id="dock-clock">0:00 / 0:00</span>
+    </div>
+    <input id="audio-progress" class="audio-progress" type="range" min="0" max="1000" value="0" aria-label="Audio holati">
+    <div class="audio-dock-controls">
+      <button class="dock-button" id="audio-stop" type="button" aria-label="To‘xtatish">■</button>
+      <button class="dock-button" id="audio-previous-verse" type="button" aria-label="Oldingi oyat">|◀</button>
+      <button class="dock-button dock-play" id="audio-play-pause" type="button" aria-label="Tinglash">▶</button>
+      <button class="dock-button" id="audio-next-verse" type="button" aria-label="Keyingi oyat">▶|</button>
+      <button class="dock-button" id="audio-repeat-verse" type="button" aria-label="Oyatni takrorlashni yoqish" aria-pressed="false">↻</button>
+      <label class="dock-speed">Tezlik
+        <select id="audio-speed" aria-label="Ijro tezligi">
+          <option value="0.75">0.75×</option><option value="1" selected>1×</option>
+          <option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+        </select>
+      </label>
+      <button class="dock-button" id="audio-settings-toggle" type="button" aria-label="Oyat va takrorlash sozlamalari" aria-expanded="false">⚙</button>
+    </div>
+    <div class="audio-range-settings" id="audio-range-settings" hidden>
+      <label for="audio-start-verse">Boshlang‘ich oyat<select id="audio-start-verse"></select></label>
+      <label for="audio-end-verse">Yakuniy oyat<select id="audio-end-verse"></select></label>
+      <label for="audio-range-repeat">Tanlangan oraliq takrori
+        <select id="audio-range-repeat"><option value="1">1 marta</option><option value="2">2 marta</option><option value="3">3 marta</option><option value="0">Cheksiz</option></select>
+      </label>
+      <label for="audio-verse-repeat-count">Har bir oyat takrori
+        <select id="audio-verse-repeat-count"><option value="1">1 marta</option><option value="2">2 marta</option><option value="3">3 marta</option><option value="0">Cheksiz</option></select>
+      </label>
+      <p>Audio tanlangan suraning belgilangan oyatlari oralig‘ida ijro etiladi. Vaqt belgilari mavjud bo‘lmasa, oyatma-oyat boshqaruvi ishlamasligi mumkin.</p>
+    </div>
+  </section>
+
+  <footer><a href="https://islamicofficial.com/">Islamic Official</a><span>Qur’oni Karim — 114 sura va 30 juz.</span><a href="https://islamicofficial-finance.web.app/">Boshqa vositalar ↗</a></footer>
+</body>
+</html>
