@@ -41,6 +41,10 @@
   let selection = { type: 'surah', number: 1 };
   let currentPage = 1;
   let audioVerseTimings = [];
+  let audioQueue = [];
+  let audioQueueIndex = -1;
+  let audioQueueMode = 'surah';
+  let audioQueueTransitioning = false;
   let activeAudioVerseKey = null;
   let activeAudioSurah = null;
   let translationCache = new Map();
@@ -232,70 +236,156 @@
     return reciterRequest;
   }
 
+  async function loadAudioSegment(surahNumber, reciterId, startVerse, endVerse, page = null) {
+    const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${surahNumber}?segments=true`);
+    if (!response.ok) throw new Error(`Qiroatni olishda HTTP ${response.status} javobi olindi.`);
+    const data = await response.json();
+    if (typeof data.audio_file?.audio_url !== 'string') throw new Error('Tanlangan sura qiroati topilmadi.');
+    const timings = Array.isArray(data.audio_file.timestamps)
+      ? data.audio_file.timestamps.filter(timing =>
+        verseByKey.has(timing.verse_key)
+        && Number.isFinite(timing.timestamp_from)
+        && Number.isFinite(timing.timestamp_to)
+        && timing.timestamp_to > timing.timestamp_from
+      )
+      : [];
+    return {
+      surah: surahNumber,
+      url: data.audio_file.audio_url,
+      timings,
+      startVerse,
+      endVerse,
+      page
+    };
+  }
+
+  function getPlaybackSegments(mode, startVerse) {
+    if (mode === 'page') {
+      const pageVerses = verses.filter(verse => verse.ayah.page === currentPage);
+      const grouped = new Map();
+      pageVerses.forEach(verse => {
+        const surahNumber = verse.surah.number;
+        const range = grouped.get(surahNumber) || { surah: surahNumber, start: verse.ayah.numberInSurah, end: verse.ayah.numberInSurah };
+        range.end = verse.ayah.numberInSurah;
+        grouped.set(surahNumber, range);
+      });
+      return [...grouped.values()].map(range => ({
+        surah: range.surah,
+        start: range.start,
+        end: range.end,
+        page: currentPage
+      }));
+    }
+
+    if (mode === 'verse') {
+      const fallback = activeAudioVerseKey ? verseByKey.get(activeAudioVerseKey) : currentVerses()[0];
+      const verse = startVerse
+        ? verseByKey.get(`${Number(startVerse.surah)}:${Number(startVerse.ayah)}`)
+        : fallback;
+      if (!verse) return [];
+      return [{
+        surah: verse.surah.number,
+        start: verse.ayah.numberInSurah,
+        end: verse.ayah.numberInSurah
+      }];
+    }
+
+    const surahNumber = startVerse
+      ? Number(startVerse.surah)
+      : selection.type === 'surah'
+        ? selection.number
+        : currentVerses()[0]?.surah.number;
+    if (!surahNumber) return [];
+    const count = quran.surahs[surahNumber - 1].ayahs.length;
+    return [{ surah: surahNumber, start: 1, end: count }];
+  }
+
+  async function playAudioSegment(index) {
+    const segment = audioQueue[index];
+    if (!segment) throw new Error('Tanlangan audio bo‘lagi topilmadi.');
+    audioQueueIndex = index;
+    activeAudioSurah = segment.surah;
+    audioVerseTimings = segment.timings;
+    activeAudioVerseKey = null;
+    readerContent.querySelectorAll('.ayah.is-audio-active').forEach(ayah => {
+      ayah.classList.remove('is-audio-active');
+      ayah.removeAttribute('aria-current');
+    });
+    populateAudioVerseRanges(segment.surah, true);
+    audioStartVerse.value = String(segment.startVerse);
+    audioEndVerse.value = String(segment.endVerse);
+    activeRangeRepeat = Number(document.getElementById('audio-range-repeat').value);
+    verseRepeatCount = Number(document.getElementById('audio-verse-repeat-count').value);
+    activeVerseRepeat = verseRepeatCount;
+    quranAudio.pause();
+    quranAudio.src = segment.url;
+    quranAudio.load();
+    audioDock.hidden = false;
+    body.classList.add('audio-player-active');
+    const surahName = quran.surahs[segment.surah - 1].englishName;
+    document.getElementById('dock-surah').textContent = surahName;
+    await quranAudio.play();
+    const firstInRange = selectedAudioRange()[0];
+    if (firstInRange) seekToTiming(firstInRange);
+    else if (audioQueueMode !== 'surah') {
+      throw new Error('Tanlangan qiroatda oyat vaqt belgilari topilmadi. Boshqa qorini tanlang.');
+    }
+    const playbackLabel = segment.page ? `${segment.page}-sahifa` : audioQueueMode === 'verse' ? `${segment.startVerse}-oyat` : 'To‘liq sura';
+    audioStatus.textContent = `${surahName} · ${playbackLabel}${audioVerseTimings.length ? '' : ' · Bu qiroatda oyat vaqt belgilari mavjud emas.'}`;
+    if ('mediaSession' in navigator && typeof MediaMetadata === 'function') {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: `${surahName} · ${playbackLabel}`,
+        artist: reciterSelect.selectedOptions[0]?.textContent || '',
+        album: 'Qur’oni Karim'
+      });
+      try {
+        navigator.mediaSession.setActionHandler('play', () => quranAudio.play());
+        navigator.mediaSession.setActionHandler('pause', () => quranAudio.pause());
+      } catch (error) {
+        console.warn('Media session controls are unavailable in this browser:', error);
+      }
+    }
+  }
+
   async function playSelectedSurah(startVerse = null) {
-    const surahNumber = startVerse ? Number(startVerse.surah) : selection.type === 'surah' ? selection.number : currentVerses()[0]?.surah.number;
-    if (!surahNumber) {
-      audioStatus.textContent = 'Avval surani tanlang.';
+    const playbackMode = startVerse ? 'verse' : document.getElementById('audio-playback-mode').value;
+    if (startVerse) {
+      document.getElementById('audio-playback-mode').value = 'verse';
+      updatePlaybackButtonLabel();
+    }
+    const segments = getPlaybackSegments(playbackMode, startVerse);
+    if (!segments.length) {
+      audioStatus.textContent = playbackMode === 'page'
+        ? 'Tanlangan sahifada ijro qilinadigan oyat topilmadi.'
+        : 'Avval sura yoki oyatni tanlang.';
       return;
     }
     const playButton = document.getElementById('play-surah');
     playButton.disabled = true;
     audioStatus.textContent = 'Qori qiroati yuklanmoqda…';
     quranAudio.pause();
+    audioQueue = [];
+    audioQueueIndex = -1;
+    audioQueueTransitioning = false;
     audioVerseTimings = [];
     activeAudioVerseKey = null;
-    readerContent.querySelectorAll('.ayah.is-audio-active').forEach(ayah => {
-      ayah.classList.remove('is-audio-active');
-      ayah.removeAttribute('aria-current');
-    });
+    audioQueueMode = playbackMode;
     try {
       const reciters = await loadReciters();
       const reciter = reciters.find(item => item.id === Number(reciterSelect.value));
       if (!reciter) throw new Error('Tanlangan qori ro‘yxatda topilmadi.');
-      const response = await fetch(`https://api.quran.com/api/v4/chapter_recitations/${reciter.id}/${surahNumber}?segments=true`);
-      if (!response.ok) throw new Error(`Qiroatni olishda HTTP ${response.status} javobi olindi.`);
-      const data = await response.json();
-      if (typeof data.audio_file?.audio_url !== 'string') throw new Error('Tanlangan sura qiroati topilmadi.');
-      audioVerseTimings = Array.isArray(data.audio_file.timestamps)
-        ? data.audio_file.timestamps.filter(timing =>
-          verseByKey.has(timing.verse_key) &&
-          Number.isFinite(timing.timestamp_from) &&
-          Number.isFinite(timing.timestamp_to) &&
-          timing.timestamp_to > timing.timestamp_from
-        )
-        : [];
-      const isNewSurah = activeAudioSurah !== surahNumber;
-      activeAudioSurah = surahNumber;
-      populateAudioVerseRanges(surahNumber, isNewSurah);
-      if (startVerse) {
-        audioStartVerse.value = String(Number(startVerse.ayah));
-        audioEndVerse.value = String(Number(startVerse.ayah));
+      audioQueue = await Promise.all(segments.map(segment =>
+        loadAudioSegment(segment.surah, reciter.id, segment.start, segment.end, segment.page)
+      ));
+      const missingRange = audioQueue.some(segment => !segment.timings.some(timing => {
+        const ayahNumber = Number(timing.verse_key.split(':')[1]);
+        return ayahNumber >= segment.startVerse && ayahNumber <= segment.endVerse;
+      }));
+      if (missingRange && playbackMode !== 'surah') {
+        throw new Error('Tanlangan qiroatda shu oyatlar uchun vaqt belgilari yo‘q. Boshqa qorini tanlang.');
       }
-      activeRangeRepeat = Number(document.getElementById('audio-range-repeat').value);
-      verseRepeatCount = Number(document.getElementById('audio-verse-repeat-count').value);
-      activeVerseRepeat = verseRepeatCount;
-      quranAudio.src = data.audio_file.audio_url;
-      quranAudio.load();
-      audioDock.hidden = false;
-      body.classList.add('audio-player-active');
-      document.getElementById('dock-surah').textContent = quran.surahs[surahNumber - 1].englishName;
-      await quranAudio.play();
-      const firstInRange = selectedAudioRange()[0];
-      if (firstInRange) seekToTiming(firstInRange);
-      audioStatus.textContent = `${reciter.reciter_name} · ${quran.surahs[surahNumber - 1].englishName}${audioVerseTimings.length ? '' : ' · Bu qiroatda oyat vaqt belgilari mavjud emas.'}`;
-      if ('mediaSession' in navigator && typeof MediaMetadata === 'function') {
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: quran.surahs[surahNumber - 1].englishName,
-          artist: reciter.reciter_name,
-          album: 'Qur’oni Karim'
-        });
-        try {
-          navigator.mediaSession.setActionHandler('play', () => quranAudio.play());
-          navigator.mediaSession.setActionHandler('pause', () => quranAudio.pause());
-        } catch (error) {
-          console.warn('Media session controls are unavailable in this browser:', error);
-        }
-      }
+      audioQueueTransitioning = false;
+      await playAudioSegment(0);
     } catch (error) {
       console.error('Could not play Quran recitation:', error);
       audioStatus.textContent = `${error.message} Internet aloqasini tekshirib, qayta urinib ko‘ring.`;
@@ -381,6 +471,29 @@
     syncAudioVerse();
   }
 
+  async function advanceAudioQueue() {
+    if (audioQueueTransitioning || audioQueueIndex + 1 >= audioQueue.length) return;
+    audioQueueTransitioning = true;
+    try {
+      await playAudioSegment(audioQueueIndex + 1);
+    } catch (error) {
+      console.error('Could not continue Quran page playback:', error);
+      audioStatus.textContent = `${error.message} Keyingi qiroat bo‘lagini yuklab bo‘lmadi.`;
+    } finally {
+      audioQueueTransitioning = false;
+    }
+  }
+
+  function updatePlaybackButtonLabel() {
+    const labels = {
+      surah: '▶ Surani to‘liq tinglash',
+      page: '▶ Sahifani tinglash',
+      verse: '▶ Tanlangan oyatni tinglash'
+    };
+    const mode = document.getElementById('audio-playback-mode').value;
+    document.getElementById('play-surah').textContent = labels[mode] || labels.surah;
+  }
+
   function moveAudioVerse(direction) {
     const range = selectedAudioRange();
     if (!range.length) return;
@@ -423,10 +536,16 @@
       if (activeRangeRepeat === 0 || activeRangeRepeat > 1) {
         if (activeRangeRepeat > 1) activeRangeRepeat -= 1;
         seekToTiming(range[0]);
+      } else if (audioQueueIndex + 1 < audioQueue.length) {
+        advanceAudioQueue();
       } else {
         quranAudio.pause();
         quranAudio.currentTime = last.timestamp_to / 1000;
-        audioStatus.textContent = 'Tanlangan oyatlar oralig‘i tugadi.';
+        audioStatus.textContent = audioQueueMode === 'page'
+          ? `${audioQueue[0].page}-sahifa qiroati tugadi.`
+          : audioQueueMode === 'verse'
+            ? 'Oyat qiroati tugadi.'
+            : 'Sura qiroati tugadi.';
       }
       return;
     }
@@ -720,6 +839,7 @@
       const [surahNumber, ayahNumber] = visible.target.dataset.verse.split(':').map(Number);
       const verse = verseByKey.get(`${surahNumber}:${ayahNumber}`);
       if (!verse) return;
+      currentPage = verse.ayah.page;
       saveStored(STORAGE.lastRead, { surah: surahNumber, ayah: ayahNumber });
       document.getElementById('resume-button').hidden = false;
       document.getElementById('reading-progress').value = verse.ayah.page;
@@ -981,7 +1101,9 @@
       readerStatus.textContent = 'Akkauntdagi Qur’on saqlanganlarini yuklab bo‘lmadi.';
     }
   });
-  document.getElementById('play-surah').addEventListener('click', playSelectedSurah);
+  document.getElementById('play-surah').addEventListener('click', () => playSelectedSurah());
+  document.getElementById('audio-playback-mode').addEventListener('change', updatePlaybackButtonLabel);
+  updatePlaybackButtonLabel();
   reciterSelect.addEventListener('change', () => saveStored('quran-reader-reciter', Number(reciterSelect.value)));
   translationToggle.addEventListener('change', renderTranslations);
   translationSelect.addEventListener('change', () => {
@@ -1002,6 +1124,9 @@
   document.getElementById('audio-stop').addEventListener('click', () => {
     quranAudio.pause();
     quranAudio.currentTime = 0;
+    audioQueue = [];
+    audioQueueIndex = -1;
+    audioQueueTransitioning = false;
     updateAudioProgress();
     activeAudioVerseKey = null;
     readerContent.querySelectorAll('.ayah.is-audio-active').forEach(ayah => {
@@ -1062,6 +1187,17 @@
   quranAudio.addEventListener('pause', () => {
     document.getElementById('audio-play-pause').textContent = '▶';
     document.getElementById('audio-play-pause').setAttribute('aria-label', 'Tinglash');
+  });
+  quranAudio.addEventListener('ended', () => {
+    if (audioQueueIndex + 1 < audioQueue.length) {
+      advanceAudioQueue();
+    } else {
+      audioStatus.textContent = audioQueueMode === 'page'
+        ? `${audioQueue[0]?.page || currentPage}-sahifa qiroati tugadi.`
+        : audioQueueMode === 'verse'
+          ? 'Oyat qiroati tugadi.'
+          : 'Sura qiroati tugadi.';
+    }
   });
 
   document.getElementById('voice-search').addEventListener('click', () => {
@@ -1166,6 +1302,8 @@
     const ayah = text.closest('.ayah');
     const [surah, ayahNumber] = ayah.dataset.verse.split(':').map(Number);
     setSelection('surah', surah, ayahNumber);
+    document.getElementById('audio-playback-mode').value = 'verse';
+    updatePlaybackButtonLabel();
     playSelectedSurah({ surah, ayah: ayahNumber });
   });
   readerContent.addEventListener('click', event => {
@@ -1173,6 +1311,8 @@
     if (playButton) {
       const [surah, ayah] = playButton.dataset.playVerse.split(':').map(Number);
       setSelection('surah', surah, ayah);
+      document.getElementById('audio-playback-mode').value = 'verse';
+      updatePlaybackButtonLabel();
       playSelectedSurah({ surah, ayah });
       return;
     }
@@ -1180,6 +1320,8 @@
     if (ayahText) {
       const [surah, ayah] = ayahText.closest('.ayah').dataset.verse.split(':').map(Number);
       setSelection('surah', surah, ayah);
+      document.getElementById('audio-playback-mode').value = 'verse';
+      updatePlaybackButtonLabel();
       playSelectedSurah({ surah, ayah });
       return;
     }

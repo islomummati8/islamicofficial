@@ -120,7 +120,7 @@ main { overflow: hidden; }
 .tajweed-rule-list strong { color: var(--ink); font-size: .76rem; }
 .tajweed-rule-list small { color: var(--muted); font-size: .69rem; line-height: 1.4; }
 .tajweed-legend-note { margin: .8rem 0 0; }
-.reader-audio { display: grid; grid-template-columns: minmax(190px, .8fr) auto minmax(250px, 1.4fr) auto; align-items: end; gap: .7rem; margin: 1rem 0 .3rem; padding: .85rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.reader-audio { display: grid; grid-template-columns: minmax(150px, .8fr) minmax(180px, 1fr) auto minmax(220px, 1.4fr) auto; align-items: end; gap: .7rem; margin: 1rem 0 .3rem; padding: .85rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
 .reader-audio > div { display: grid; gap: .3rem; }
 .reader-audio label { color: var(--muted); font-size: .72rem; font-weight: 750; }
 .reader-audio select { min-width: 0; min-height: 42px; padding: .5rem .65rem; border: 1px solid var(--line); border-radius: 10px; background: var(--page); color: var(--ink); }

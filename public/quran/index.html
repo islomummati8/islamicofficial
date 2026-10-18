@@ -11,9 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="app.css?v=2026101820">
+  <link rel="stylesheet" href="app.css?v=2026101822">
   <script defer src="site-locale.js?v=4"></script>
-  <script defer src="app.js?v=2026101820"></script>
+  <script defer src="app.js?v=2026101822"></script>
   <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"Qur’oni Karim o‘quvchisi","url":"https://islamicofficial-quran.web.app/","applicationCategory":"BooksApplication","operatingSystem":"Any","isAccessibleForFree":true}
   </script>
@@ -126,7 +126,15 @@
           <label for="reciter-select">Qori</label>
           <select id="reciter-select" aria-label="Qori tanlang"><option value="7">Mishari Rashid al-Afasi</option></select>
         </div>
-        <button class="button button-secondary" id="play-surah" type="button">▶ Surani tinglash</button>
+        <div>
+          <label for="audio-playback-mode">Ijro rejimi</label>
+          <select id="audio-playback-mode" aria-label="Qur’on ijro rejimi">
+            <option value="surah">Surani to‘liq</option>
+            <option value="page">Joriy Mushaf sahifasi</option>
+            <option value="verse">Bitta tanlangan oyat</option>
+          </select>
+        </div>
+        <button class="button button-secondary" id="play-surah" type="button">▶ Surani to‘liq tinglash</button>
         <audio id="quran-audio" preload="none" aria-label="Qur’on qiroati"></audio>
         <a class="audio-library-link" href="https://islamicofficial-audio.web.app/">Audio kutubxonasi ↗</a>
       </section>
@@ -140,7 +148,7 @@
           </select>
         </label>
       </fieldset>
-      <p class="audio-source-note" id="audio-status" role="status" aria-live="polite">Qori tanlang va surani tinglang. Qiroat manbasi: Quran.com Audio API.</p>
+      <p class="audio-source-note" id="audio-status" role="status" aria-live="polite">Ijro rejimini tanlang: to‘liq sura, joriy sahifa yoki bitta oyat. Qiroat manbasi: Quran.com Audio API.</p>
       <section class="bookmark-panel" id="bookmarks" aria-label="Saqlangan oyatlar" hidden>
         <div class="bookmark-heading"><h3>Saqlangan oyatlar</h3><button class="text-button" id="bookmarks-close" type="button">Yopish</button></div>
         <div id="bookmark-list"></div>
@@ -220,7 +228,7 @@
       <label for="audio-verse-repeat-count">Har bir oyat takrori
         <select id="audio-verse-repeat-count"><option value="1">1 marta</option><option value="2">2 marta</option><option value="3">3 marta</option><option value="0">Cheksiz</option></select>
       </label>
-      <p>Audio tanlangan suraning belgilangan oyatlari oralig‘ida ijro etiladi. Vaqt belgilari mavjud bo‘lmasa, oyatma-oyat boshqaruvi ishlamasligi mumkin.</p>
+      <p>Yuqoridan to‘liq sura, joriy Mushaf sahifasi yoki bitta oyat rejimini tanlang. Sahifada bir nechta sura bo‘lsa, ular ketma-ket ijro etiladi.</p>
     </div>
   </section>
 
