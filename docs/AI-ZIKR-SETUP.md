@@ -1,33 +1,32 @@
 # Zikr AI API
 
-The `/api/chat` Vercel function only creates a personal schedule from the four
-built-in dhikr phrases. It does not accept provider names, model names, or API
-keys from the browser.
+The `/api/chat` Vercel function creates a private, context-aware dhikr planning
+conversation. It only adds built-in dhikr phrases to schedules and does not
+provide religious rulings or source verification.
 
-## One-time setup
+## Production setup
 
-1. Import this repository into a Vercel project and deploy it with the project
-   root as the repository root. `vercel.json` publishes the static site from
-   `public/`; Vercel detects `api/chat.js` as a Node.js function.
-2. In Vercel project settings, add `GEMINI_API_KEY` as an encrypted environment
-   variable. Never put the value in a tracked file, the browser, or a chat.
-3. Redeploy the Vercel project so the function receives the environment
-   variable.
-4. Copy the deployed function URL (for example,
-   `https://your-project.vercel.app/api/chat`) into
-   `window.ISLAMIC_AI_API_URL` in `public/zikr/ai-config.js`, replacing the
-   empty value:
+1. Deploy the repository to Vercel with the repository root as the project root.
+   `vercel.json` publishes `public/` and gives the chat function up to 60 seconds.
+2. In the Vercel project, add `GEMINI_API_KEY` as an encrypted **Secret** in the
+   Production environment. Enter the variable name in **Key** and the Gemini API
+   credential from Google AI Studio in **Value**. Never paste the credential in
+   chat, source code, the browser, or a committed `.env` file.
+3. Redeploy after saving or changing the secret.
+4. `public/zikr/ai-config.js` already points to the production `/api/chat`
+   endpoint. Deploy `public/zikr/` to Firebase Hosting after frontend changes.
 
-   ```js
-   window.ISLAMIC_AI_API_URL = 'https://your-project.vercel.app/api/chat';
-   ```
-5. Deploy the Zikr static site to Firebase Hosting. Visitors can then ask the
-   agent for a schedule without supplying their own key or signing in.
+The server tries the Gemini Flash latest alias, Gemini 3.6 Flash, Gemini 2.5
+Flash, and Gemini 2.5 Flash-Lite in order. It moves to the next model on quota,
+availability, or invalid structured output. The exact models available to an
+API key depend on Google's current model catalog, account region, and quota.
 
-Gemini API free-tier availability and quotas depend on Google's current terms
-and can change. The function has an in-memory per-IP throttle; serverless
-instances can restart, so this is best-effort protection, not a durable abuse
-limit. Set a conservative quota in the Google AI project and add a durable rate
-limiter before enabling broad public traffic.
+The client sends up to 12 prior conversation messages (at most 8,000 combined
+characters) to the function so the assistant can continue the personal plan.
+The history stays in the visitor's browser and syncs with their private account
+when signed in. The function validates messages and schedules before returning
+them. Requests are limited to five per IP per minute per warm server instance;
+this in-memory throttle is best-effort and is not durable across serverless
+restarts. Set appropriate quota limits in Google AI Studio for public use.
 
 Run the focused checks with `node --test tests/api-chat.test.js`.

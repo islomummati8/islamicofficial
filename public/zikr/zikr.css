@@ -30,6 +30,12 @@ body[data-theme="dark"]{color-scheme:dark;--ink:#e6eee7;--muted:#a9b8ad;--line:#
 .zikr-agent>p{margin:0;color:var(--muted);font-size:.67rem;line-height:1.6}
 .zikr-agent-controls{display:flex;align-items:center;gap:.65rem}
 .ai-provider-label{color:var(--muted);font-size:.7rem;font-weight:750}
+.zikr-agent-conversation{display:grid;max-height:360px;gap:.55rem;overflow:auto;padding:.7rem;border:1px solid var(--line);border-radius:12px;background:var(--wash);scroll-behavior:smooth}
+.zikr-agent-conversation:empty::before{content:"Suhbat shu yerda saqlanadi. Topshiriq yozib boshlang.";color:var(--muted);font-size:.68rem;line-height:1.5}
+.zikr-agent-message{max-width:min(88%,620px);padding:.65rem .75rem;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.zikr-agent-message.user{justify-self:end;border-color:#d1dfcf;background:#f2f7ef}
+.zikr-agent-message strong{color:var(--deep);font-size:.62rem}
+.zikr-agent-message p{margin:.3rem 0 0;color:var(--ink);font-size:.72rem;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
 .zikr-agent-results{display:grid;gap:.5rem}
 .zikr-agent-result{display:flex;align-items:center;justify-content:space-between;gap:.7rem;padding:.7rem;border:1px solid var(--line);border-radius:12px;background:var(--wash);font-size:.7rem}
 .dhikr-entry{display:flex;min-width:0;flex-direction:column}

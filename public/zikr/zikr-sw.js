@@ -1,5 +1,14 @@
-const CACHE_NAME = 'islamic-zikr-static-v1';
-const ASSETS = ['./', './index.html', './zikr.css?v=1', './zikr.js?v=1', './manifest.webmanifest', './icon.svg'];
+const CACHE_NAME = 'islamic-zikr-static-v2';
+const ASSETS = [
+  './',
+  './index.html',
+  './zikr.css?v=2',
+  './zikr.js?v=6',
+  './site-locale.js?v=5',
+  './ai-config.js?v=1',
+  './manifest.webmanifest',
+  './icon.svg'
+];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));

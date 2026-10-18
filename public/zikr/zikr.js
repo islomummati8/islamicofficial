@@ -9,7 +9,7 @@
   function localDayKey(date = new Date()) {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
-  const defaultState = { counts: {}, customDhikr: [], active: builtInDhikr[0].id, target: 0, vibration: true, sound: false, theme: 'light', reminder: '', remindedOn: '', day: localDayKey() };
+  const defaultState = { counts: {}, customDhikr: [], agentHistory: [], active: builtInDhikr[0].id, target: 0, vibration: true, sound: false, theme: 'light', reminder: '', remindedOn: '', day: localDayKey() };
   let state = readState();
   let reminderTimer;
   let accountSaveTimer;
@@ -23,6 +23,7 @@
         ...saved,
         counts: sameDay && saved.counts && typeof saved.counts === 'object' ? saved.counts : {},
         customDhikr: Array.isArray(saved.customDhikr) ? saved.customDhikr.filter(isValidCustomDhikr).slice(0, 100) : [],
+        agentHistory: normalizeAgentHistory(saved.agentHistory),
         day: localDayKey()
       };
     } catch (error) {
@@ -55,6 +56,21 @@
 
   function activeDhikr() {
     return allDhikr().find(item => item.id === state.active) || builtInDhikr[0];
+  }
+
+  function normalizeAgentHistory(history) {
+    if (!Array.isArray(history)) return [];
+    let characters = 0;
+    return history.filter(message => message && ['user', 'assistant'].includes(message.role)
+      && typeof message.content === 'string' && message.content.trim() && message.content.length <= 2000)
+      .slice(-12)
+      .reverse()
+      .filter(message => {
+        if (characters + message.content.length > 6000) return false;
+        characters += message.content.length;
+        return true;
+      })
+      .reverse();
   }
 
   function countFor(id = state.active) {
@@ -183,8 +199,8 @@
   function parseAgentPlan(response) {
     const cleaned = response.replace(/^```(?:json)?\s*|\s*```$/g, '').trim();
     const parsed = JSON.parse(cleaned);
-    if (!Array.isArray(parsed) || parsed.length < 1 || parsed.length > 8) {
-      throw new Error('Agent kutilganidek 1–8 ta zikr rejasini qaytarmadi.');
+    if (!Array.isArray(parsed) || parsed.length > 8) {
+      throw new Error('Agent zikr rejasini kutilgan formatda qaytarmadi.');
     }
     return parsed.map(item => {
       const source = builtInDhikr.find(dhikrItem => dhikrItem.id === item.id);
@@ -196,6 +212,22 @@
     });
   }
 
+  function renderAgentHistory() {
+    const conversation = document.getElementById('zikr-agent-conversation');
+    conversation.replaceChildren();
+    state.agentHistory.forEach(message => {
+      const article = document.createElement('article');
+      article.className = `zikr-agent-message ${message.role}`;
+      const speaker = document.createElement('strong');
+      speaker.textContent = message.role === 'user' ? 'Siz' : 'Zikr yordamchisi';
+      const text = document.createElement('p');
+      text.textContent = message.content;
+      article.append(speaker, text);
+      conversation.append(article);
+    });
+    conversation.scrollTop = conversation.scrollHeight;
+  }
+
   async function requestZikrAgentPlan() {
     const request = document.getElementById('zikr-agent-request').value.trim();
     const status = document.getElementById('zikr-agent-status');
@@ -204,17 +236,35 @@
       status.textContent = 'Agentga topshiriq yozing.';
       return;
     }
+    if (request.length > 2000) {
+      status.textContent = 'Topshiriqni 2000 belgidan qisqaroq yozing.';
+      return;
+    }
     const button = document.getElementById('zikr-agent-run');
     button.disabled = true;
-    status.textContent = 'Shaxsiy zikr rejangiz tayyorlanmoqda…';
+    status.textContent = 'Suhbat va oldingi so‘rovlar hisobga olinib, javob tayyorlanmoqda…';
     results.replaceChildren();
     try {
-      const { requestZikrPlan } = await import('./ai-client.js?v=2');
-      const response = await requestZikrPlan(request);
-      const plan = parseAgentPlan(JSON.stringify(response));
+      const { requestZikrPlan } = await import('./ai-client.js?v=3');
+      const history = normalizeAgentHistory(state.agentHistory);
+      const response = await requestZikrPlan(request, history);
+      const plan = parseAgentPlan(JSON.stringify(response.plan));
+      const answer = response.reply.trim();
+      if (!answer) throw new Error('AI javobi bo‘sh qaytdi. Qayta urinib ko‘ring.');
       if (state.customDhikr.length + plan.length > 100) {
         throw new Error('Shaxsiy zikrlar ro‘yxati 100 ta bilan cheklangan. Avval ayrimlarini o‘chiring.');
       }
+      const assistantMessage = plan.length
+        ? `${answer}\nReja: ${plan.map(({ source, time, target }) => `${time} ${source.latin} — ${target} marta`).join('; ')}`
+        : answer;
+      state.agentHistory = normalizeAgentHistory([
+        ...history,
+        { role: 'user', content: request },
+        { role: 'assistant', content: assistantMessage }
+      ]);
+      persist();
+      renderAgentHistory();
+      document.getElementById('zikr-agent-request').value = '';
       const additions = plan.map(({ source, time, target }) => ({
         id: makeCustomId(),
         arabic: source.arabic,
@@ -224,23 +274,28 @@
         planTime: time,
         target
       }));
-      state.customDhikr.push(...additions);
-      state.active = additions[0].id;
-      document.getElementById('zikr-select').replaceChildren(...allDhikr().map(item => new Option(item.latin, item.id)));
-      persist();
-      renderAdhkar();
-      renderSelection();
-      additions.forEach(({ latin, planTime, target }) => {
-        const card = document.createElement('article');
-        card.className = 'zikr-agent-result';
-        const text = document.createElement('span');
-        text.textContent = `${planTime} · ${latin.replace(` · ${planTime}`, '')} · ${target} marta`;
-        const saved = document.createElement('small');
-        saved.textContent = 'Shaxsiy zikrlar ro‘yxatiga qo‘shildi.';
-        card.append(text, saved);
-        results.append(card);
-      });
-      status.textContent = `${plan.length} ta zikr shaxsiy ro‘yxatingizga qo‘shildi va qurilmada saqlandi.`;
+      if (additions.length) {
+        state.customDhikr.push(...additions);
+        state.active = additions[0].id;
+        document.getElementById('zikr-select').replaceChildren(...allDhikr().map(item => new Option(item.latin, item.id)));
+        persist();
+        renderAdhkar();
+        renderSelection();
+        additions.forEach(({ latin, planTime, target }) => {
+          const card = document.createElement('article');
+          card.className = 'zikr-agent-result';
+          const text = document.createElement('span');
+          text.textContent = `${planTime} · ${latin.replace(` · ${planTime}`, '')} · ${target} marta`;
+          const saved = document.createElement('small');
+          saved.textContent = 'Shaxsiy zikrlar ro‘yxatiga qo‘shildi.';
+          card.append(text, saved);
+          results.append(card);
+        });
+        status.textContent = `${answer} ${plan.length} ta zikr shaxsiy ro‘yxatga qo‘shildi.`;
+      } else {
+        status.textContent = answer;
+      }
+      if (response.model) status.textContent += ` · ${response.model}`;
     } catch (error) {
       console.error('Could not create personal zikr plan:', error);
       status.textContent = error.message;
@@ -392,6 +447,7 @@
   document.getElementById('theme-toggle').setAttribute('aria-pressed', String(state.theme === 'dark'));
   renderAdhkar();
   renderSelection();
+  renderAgentHistory();
   renderCalendar();
   renderReminder();
 
@@ -412,6 +468,13 @@
     document.getElementById('custom-dhikr-status').textContent = 'Zikr shaxsiy ro‘yxatingizga qo‘shildi.';
   });
   document.getElementById('zikr-agent-run').addEventListener('click', requestZikrAgentPlan);
+  document.getElementById('zikr-agent-clear').addEventListener('click', () => {
+    state.agentHistory = [];
+    persist();
+    renderAgentHistory();
+    document.getElementById('zikr-agent-results').replaceChildren();
+    document.getElementById('zikr-agent-status').textContent = 'Suhbat tarixi tozalandi.';
+  });
   window.addEventListener('islamic-account-changed', async event => {
     const account = window.islamicSiteAccount;
     if (!event.detail?.user || !account) return;
@@ -435,12 +498,18 @@
           ...remote,
           counts,
           customDhikr: [...combinedCustom.values()].slice(0, 100),
+          agentHistory: normalizeAgentHistory(
+            Array.isArray(remote.agentHistory) && remote.agentHistory.length
+              ? remote.agentHistory
+              : state.agentHistory
+          ),
           day: localDayKey()
         };
         if (!allDhikr().some(item => item.id === state.active)) state.active = builtInDhikr[0].id;
         document.getElementById('zikr-select').replaceChildren(...allDhikr().map(item => new Option(item.latin, item.id)));
         renderAdhkar();
         renderSelection();
+        renderAgentHistory();
       }
       await account.save('zikr', state);
     } catch (error) {

@@ -1,4 +1,4 @@
-export async function requestZikrPlan(request) {
+export async function requestZikrPlan(request, history = []) {
   const endpoint = window.ISLAMIC_AI_API_URL;
   if (typeof endpoint !== 'string' || !endpoint.trim()) {
     throw new Error('AI server manzili hali ulanmagan. Sayt egasi uni bir marta sozlashi kerak.');
@@ -13,12 +13,12 @@ export async function requestZikrPlan(request) {
     throw new Error('AI server manzili HTTPS bo‘lishi kerak.');
   }
   const controller = new AbortController();
-  const timeoutId = window.setTimeout(() => controller.abort(), 30_000);
+  const timeoutId = window.setTimeout(() => controller.abort(), 55_000);
   try {
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ request }),
+      body: JSON.stringify({ request, history }),
       signal: controller.signal
     });
     let payload;
@@ -28,8 +28,10 @@ export async function requestZikrPlan(request) {
       throw new Error('AI server javobini o‘qib bo‘lmadi.');
     }
     if (!response.ok) throw new Error(payload?.error || `AI server HTTP ${response.status}`);
-    if (!Array.isArray(payload?.plan)) throw new Error('AI server reja formatini noto‘g‘ri qaytardi.');
-    return payload.plan;
+    if (typeof payload?.reply !== 'string' || !Array.isArray(payload?.plan)) {
+      throw new Error('AI server reja formatini noto‘g‘ri qaytardi.');
+    }
+    return { reply: payload.reply, plan: payload.plan, model: payload.model };
   } catch (error) {
     if (error.name === 'AbortError') throw new Error('AI so‘rovi vaqti tugadi. Qayta urinib ko‘ring.');
     throw error;
